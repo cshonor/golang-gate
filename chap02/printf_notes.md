@@ -140,3 +140,4 @@ fmt.Printf("%-10s %10d %10.2f\n", "李四", 30, 75.8)
 | `fmt.Println()` | 自动换行，参数之间自动加空格 | `fmt.Println("a", 10)` → `a 10` |
 | `fmt.Printf()` | 不自动换行，需要手动加 `\n`，可以格式化 | `fmt.Printf("a %d\n", 10)` → `a 10` |
 
+

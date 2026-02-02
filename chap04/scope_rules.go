@@ -150,3 +150,4 @@ func main() {
 	testBlockScope()
 }
 
+

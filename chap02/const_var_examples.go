@@ -159,3 +159,4 @@ func main() {
 	fmt.Println("体重:", weight, "kg, 身高:", height, "cm, 年龄:", age2, "岁")
 }
 
+
