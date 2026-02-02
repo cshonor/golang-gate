@@ -5,6 +5,43 @@ package main
 
 import "fmt"
 
+// ============================================
+// 温度类型定义
+// ============================================
+
+// Kelvin 开尔文温度类型
+type Kelvin float64
+
+// Celsius 摄氏度类型
+type Celsius float64
+
+// Fahrenheit 华氏度类型
+type Fahrenheit float64
+
+// ============================================
+// 温度类型的方法
+// ============================================
+
+// ToCelsius 开尔文转摄氏度（值接收者）
+func (k Kelvin) ToCelsius() Celsius {
+	return Celsius(k - 273.15)
+}
+
+// ToKelvin 摄氏度转开尔文（值接收者）
+func (c Celsius) ToKelvin() Kelvin {
+	return Kelvin(c + 273.15)
+}
+
+// ToFahrenheit 摄氏度转华氏度（值接收者）
+func (c Celsius) ToFahrenheit() Fahrenheit {
+	return Fahrenheit(c*1.8 + 32)
+}
+
+// ToCelsius 华氏度转摄氏度（值接收者）
+func (f Fahrenheit) ToCelsius() Celsius {
+	return Celsius((f - 32) / 1.8)
+}
+
 func main() {
 	// ============================================
 	// 1. 方法与函数的区别
@@ -12,11 +49,11 @@ func main() {
 	fmt.Println("=== 方法与函数的区别 ===")
 
 	fmt.Println("特性对比:")
-	fmt.Println("  特性\t\t函数（Function）\t\t方法（Method）")
-	fmt.Println("  定义方式\tfunc 名(参数)\t\tfunc (接收者) 名(参数)")
-	fmt.Println("  绑定关系\t独立，不绑定类型\t必须绑定到接收者类型")
-	fmt.Println("  调用方式\t函数名(参数)\t\t接收者.方法名(参数)")
-	fmt.Println("  核心作用\t通用代码复用\t\t为特定类型增加行为")
+	fmt.Println("  特性          函数（Function）          方法（Method）")
+	fmt.Println("  定义方式      func 名(参数)            func (接收者) 名(参数)")
+	fmt.Println("  绑定关系      独立，不绑定类型         必须绑定到接收者类型")
+	fmt.Println("  调用方式      函数名(参数)             接收者.方法名(参数)")
+	fmt.Println("  核心作用      通用代码复用             为特定类型增加行为")
 
 	fmt.Println()
 
@@ -190,39 +227,6 @@ func main() {
 	fmt.Println("6. 指针类型也可以调用值接收者和指针接收者的方法")
 	fmt.Println("7. Go 通过'自定义类型+方法'实现面向对象特性")
 	fmt.Println("8. 方法是学习接口的基础")
-}
-
-// ============================================
-// 温度类型定义和方法
-// ============================================
-
-// Kelvin 开尔文温度类型
-type Kelvin float64
-
-// Celsius 摄氏度类型
-type Celsius float64
-
-// Fahrenheit 华氏度类型
-type Fahrenheit float64
-
-// ToCelsius 开尔文转摄氏度（值接收者）
-func (k Kelvin) ToCelsius() Celsius {
-	return Celsius(k - 273.15)
-}
-
-// ToKelvin 摄氏度转开尔文（值接收者）
-func (c Celsius) ToKelvin() Kelvin {
-	return Kelvin(c + 273.15)
-}
-
-// ToFahrenheit 摄氏度转华氏度（值接收者）
-func (c Celsius) ToFahrenheit() Fahrenheit {
-	return Fahrenheit(c*1.8 + 32)
-}
-
-// ToCelsius 华氏度转摄氏度（值接收者）
-func (f Fahrenheit) ToCelsius() Celsius {
-	return Celsius((f - 32) / 1.8)
 }
 
 // ============================================
