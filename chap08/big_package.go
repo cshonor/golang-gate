@@ -95,13 +95,46 @@ func main() {
 	fmt.Println()
 
 	// ============================================
-	// 5. SetString 方法详解
+	// 5. SetString 和 SetInt64 方法详解
 	// ============================================
-	fmt.Println("=== SetString 方法详解 ===")
+	fmt.Println("=== SetString 和 SetInt64 方法详解 ===")
 
-	// SetString 用于将字符串形式的数字转换成 big.Int
-	// 第一个参数：数字字符串（必须是纯数字，不能有字母、符号）
-	// 第二个参数：进制（10=十进制，2=二进制，16=十六进制，0=自动识别）
+	// ============================================
+	// 5.1 SetInt64 方法
+	// ============================================
+	fmt.Println("\n5.1 SetInt64 方法:")
+	fmt.Println("作用：将 int64 类型的值设置到 big.Int 中")
+	fmt.Println("参数：int64 类型的数值")
+	fmt.Println("返回值：*big.Int（返回自身，支持链式调用）")
+	fmt.Println("使用场景：当数值在 int64 范围内时使用")
+	fmt.Println("限制：只能设置 int64 范围内的值（-9223372036854775808 到 9223372036854775807）")
+
+	bigNum1 := new(big.Int)
+	bigNum1.SetInt64(12345)
+	fmt.Printf("示例：SetInt64(12345) = %s\n", bigNum1.String())
+
+	bigNum2 := new(big.Int)
+	bigNum2.SetInt64(-100)
+	fmt.Printf("示例：SetInt64(-100) = %s（支持负数）\n", bigNum2.String())
+
+	// SetInt64 的限制：不能设置超过 int64 范围的值
+	fmt.Println("\nSetInt64 的限制：")
+	fmt.Println("  - 最大值：9223372036854775807")
+	fmt.Println("  - 最小值：-9223372036854775808")
+	fmt.Println("  - 超过这个范围的值必须使用 SetString")
+
+	// ============================================
+	// 5.2 SetString 方法
+	// ============================================
+	fmt.Println("\n5.2 SetString 方法:")
+	fmt.Println("作用：将字符串形式的数字转换成 big.Int")
+	fmt.Println("参数1：数字字符串（必须是纯数字，不能有字母、符号）")
+	fmt.Println("参数2：进制（10=十进制，2=二进制，16=十六进制，0=自动识别）")
+	fmt.Println("返回值：(*big.Int, bool) - 大数指针和是否成功")
+	fmt.Println("使用场景：")
+	fmt.Println("  - 处理超过 int64 范围的超大数")
+	fmt.Println("  - 从字符串（用户输入、文件读取）创建大数")
+	fmt.Println("  - 支持不同进制（二进制、十六进制等）")
 
 	bigNum := new(big.Int)
 
@@ -125,8 +158,8 @@ func main() {
 	fmt.Printf("SetString(\"123\", 0): %s\n", bigNum.String())
 
 	// SetString 返回两个值：转换后的大数指针 和 是否成功（bool）
-	bigNum2 := new(big.Int)
-	success, ok := bigNum2.SetString("86400a", 10) // 字符串里有字母，转换会失败
+	bigNum2Str := new(big.Int)
+	success, ok := bigNum2Str.SetString("86400a", 10) // 字符串里有字母，转换会失败
 	if !ok {
 		fmt.Printf("SetString(\"86400a\", 10) 失败: 字符串格式错误\n")
 	} else {
@@ -137,6 +170,50 @@ func main() {
 	veryBigNum := new(big.Int)
 	veryBigNum.SetString("1234567890123456789012345678901234567890", 10)
 	fmt.Printf("超大数: %s\n", veryBigNum.String())
+
+	// ============================================
+	// 5.3 SetString 和 SetInt64 的对比
+	// ============================================
+	fmt.Println("\n5.3 SetString 和 SetInt64 的对比:")
+	fmt.Println("┌─────────────┬──────────────┬──────────────┐")
+	fmt.Println("│   特性      │   SetInt64   │   SetString  │")
+	fmt.Println("├─────────────┼──────────────┼──────────────┤")
+	fmt.Println("│ 参数类型    │    int64     │    string    │")
+	fmt.Println("│ 数值范围    │ 受 int64 限制│    无限制    │")
+	fmt.Println("│ 进制支持    │    不支持    │     支持     │")
+	fmt.Println("│ 返回值      │   *big.Int   │ (*big.Int,bool)│")
+	fmt.Println("│ 使用场景    │ 小到中等数值 │ 任意大小数值 │")
+	fmt.Println("└─────────────┴──────────────┴──────────────┘")
+
+	// 实际应用示例对比
+	fmt.Println("\n实际应用示例对比:")
+	
+	// 场景1：小数值（两种方法都可以）
+	fmt.Println("\n场景1：小数值（两种方法都可以）")
+	small1 := new(big.Int)
+	small1.SetInt64(100)
+	fmt.Printf("  SetInt64(100): %s\n", small1.String())
+	
+	small2 := new(big.Int)
+	small2.SetString("100", 10)
+	fmt.Printf("  SetString(\"100\", 10): %s\n", small2.String())
+	
+	// 场景2：超大数（只能用 SetString）
+	fmt.Println("\n场景2：超大数（只能用 SetString）")
+	// bigNum3.SetInt64(123456789012345678901234567890)  // ❌ 编译错误：超出 int64 范围
+	bigNum3 := new(big.Int)
+	bigNum3.SetString("123456789012345678901234567890", 10)
+	fmt.Printf("  SetString(\"123456789012345678901234567890\", 10): %s\n", bigNum3.String())
+	
+	// 场景3：不同进制（只能用 SetString）
+	fmt.Println("\n场景3：不同进制（只能用 SetString）")
+	hexNum := new(big.Int)
+	hexNum.SetString("FF", 16)
+	fmt.Printf("  SetString(\"FF\", 16): %s（十六进制转十进制）\n", hexNum.String())
+	
+	binNum := new(big.Int)
+	binNum.SetString("1010", 2)
+	fmt.Printf("  SetString(\"1010\", 2): %s（二进制转十进制）\n", binNum.String())
 
 	fmt.Println()
 
