@@ -139,16 +139,37 @@ func main() {
 	bigNum := new(big.Int)
 
 	// 十进制
+	// 解释：字符串 "86400" 按十进制解析，每个位置的权重是 10 的幂次
+	// 8×10⁴ + 6×10³ + 4×10² + 0×10¹ + 0×10⁰ = 80000 + 6000 + 400 + 0 + 0 = 86400
 	bigNum.SetString("86400", 10)
 	fmt.Printf("SetString(\"86400\", 10): %s\n", bigNum.String())
+	fmt.Println("  说明：十进制是我们最常用的进制，每个位置的值就是它本身")
 
 	// 二进制 "1010" = 十进制的 10
+	// 解释：字符串 "1010" 按二进制解析，每个位置的权重是 2 的幂次
+	// 从右到左：第0位(2⁰)、第1位(2¹)、第2位(2²)、第3位(2³)
+	// 1×2³ + 0×2² + 1×2¹ + 0×2⁰ = 1×8 + 0×4 + 1×2 + 0×1 = 8 + 0 + 2 + 0 = 10
 	bigNum.SetString("1010", 2)
-	fmt.Printf("SetString(\"1010\", 2): %s\n", bigNum.String())
+	fmt.Printf("SetString(\"1010\", 2): %s（二进制转十进制）\n", bigNum.String())
+	fmt.Println("  说明：二进制只有 0 和 1，每个位置的值乘以 2 的对应幂次后相加")
 
 	// 十六进制 "FF" = 十进制的 255
+	// 解释：字符串 "FF" 按十六进制解析，每个位置的权重是 16 的幂次
+	// 十六进制中：A=10, B=11, C=12, D=13, E=14, F=15
+	// F×16¹ + F×16⁰ = 15×16 + 15×1 = 240 + 15 = 255
 	bigNum.SetString("FF", 16)
-	fmt.Printf("SetString(\"FF\", 16): %s\n", bigNum.String())
+	fmt.Printf("SetString(\"FF\", 16): %s（十六进制转十进制）\n", bigNum.String())
+	fmt.Println("  说明：十六进制用 0-9 和 A-F 表示，每个位置的值乘以 16 的对应幂次后相加")
+
+	// 对比示例：同样的字符串，不同进制得到不同结果
+	fmt.Println("\n对比：同样的字符串 \"1010\" 在不同进制下：")
+	bigNum.SetString("1010", 2)
+	fmt.Printf("  二进制(2): %s\n", bigNum.String())
+	bigNum.SetString("1010", 10)
+	fmt.Printf("  十进制(10): %s\n", bigNum.String())
+	bigNum.SetString("1010", 16)
+	fmt.Printf("  十六进制(16): %s\n", bigNum.String())
+	fmt.Println("  关键：进制决定了每个位置的权重，所以同样的字符串会得到不同的数值！")
 
 	// 自动识别进制（传 0）
 	bigNum.SetString("0xFF", 0) // 0x 开头，自动识别为十六进制
