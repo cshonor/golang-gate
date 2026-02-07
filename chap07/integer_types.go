@@ -51,20 +51,53 @@ func main() {
 	fmt.Println("=== 整数溢出和回绕 ===")
 
 	// 有符号整数溢出：会回绕到最小值
+	fmt.Println("\n有符号整数溢出示例:")
 	var a1 int8 = 127
-	fmt.Printf("int8(127) + 1 = %d (溢出回绕到最小值)\n", a1+1) // 输出 -128
+	fmt.Printf("int8(127) + 1 = %d (溢出回绕到最小值 -128)\n", a1+1) // 输出 -128
 
 	var a2 int8 = -128
-	fmt.Printf("int8(-128) - 1 = %d (溢出回绕到最大值)\n", a2-1) // 输出 127
+	fmt.Printf("int8(-128) - 1 = %d (溢出回绕到最大值 127)\n", a2-1) // 输出 127
+
+	// int16 溢出示例
+	var a3 int16 = 32767
+	fmt.Printf("int16(32767) + 1 = %d (溢出回绕到最小值 -32768)\n", a3+1)
+
+	var a4 int16 = -32768
+	fmt.Printf("int16(-32768) - 1 = %d (溢出回绕到最大值 32767)\n", a4-1)
+
+	// int32 溢出示例
+	var a5 int32 = 2147483647
+	fmt.Printf("int32(2147483647) + 1 = %d (溢出回绕到最小值)\n", a5+1)
+
+	// int64 溢出示例
+	var a6 int64 = 9223372036854775807
+	fmt.Printf("int64(最大值) + 1 = %d (溢出回绕到最小值)\n", a6+1)
 
 	// 无符号整数溢出：会回绕到最小值（0）
+	fmt.Println("\n无符号整数溢出示例:")
 	var b1 uint8 = 255
-	fmt.Printf("uint8(255) + 1 = %d (溢出回绕到最小值0)\n", b1+1) // 输出 0
+	fmt.Printf("uint8(255) + 1 = %d (溢出回绕到最小值 0)\n", b1+1) // 输出 0
 
 	var b2 uint8 = 0
-	fmt.Printf("uint8(0) - 1 = %d (溢出回绕到最大值255)\n", b2-1) // 输出 255
+	fmt.Printf("uint8(0) - 1 = %d (溢出回绕到最大值 255)\n", b2-1) // 输出 255
 
-	// int64 溢出示例（假设是64位系统，int就是int64）
+	// uint16 溢出示例
+	var b3 uint16 = 65535
+	fmt.Printf("uint16(65535) + 1 = %d (溢出回绕到最小值 0)\n", b3+1)
+
+	var b4 uint16 = 0
+	fmt.Printf("uint16(0) - 1 = %d (溢出回绕到最大值 65535)\n", b4-1)
+
+	// uint32 溢出示例
+	var b5 uint32 = 4294967295
+	fmt.Printf("uint32(最大值) + 1 = %d (溢出回绕到最小值 0)\n", b5+1)
+
+	// uint64 溢出示例
+	var b6 uint64 = 18446744073709551615
+	fmt.Printf("uint64(最大值) + 1 = %d (溢出回绕到最小值 0)\n", b6+1)
+
+	// int 溢出示例（假设是64位系统，int就是int64）
+	fmt.Println("\nint 类型溢出示例（64位系统）:")
 	var c1 int = 9223372036854775807 // int64最大值
 	fmt.Printf("int最大值: %d\n", c1)
 	fmt.Printf("int最大值 + 1 = %d (溢出回绕到最小值)\n", c1+1)
@@ -77,16 +110,52 @@ func main() {
 	fmt.Println("=== 类型转换 ===")
 
 	// Go 中不同类型不能直接运算，必须先转换
+	fmt.Println("\n3.1 不同大小类型之间的转换:")
 	var x int32 = 100
 	var y int64 = 200
 	// var z = x + y  // 错误：不能直接运算
 	var z = int64(x) + y // 正确：先转换再运算
 	fmt.Printf("int32(100) + int64(200) = %d\n", z)
 
+	// 大类型转小类型：会截断高位
+	var x1 int16 = 1000
+	var x2 int8 = int8(x1) // 1000 超出 int8 范围，会截断
+	fmt.Printf("int16(1000) 转 int8 = %d (注意：发生截断)\n", x2)
+
+	// 小类型转大类型：安全，不会丢失数据
+	var x3 int8 = 100
+	var x4 int16 = int16(x3)
+	fmt.Printf("int8(100) 转 int16 = %d (安全转换)\n", x4)
+
 	// 无符号和有符号之间的转换
+	fmt.Println("\n3.2 有符号和无符号之间的转换:")
 	var u uint8 = 255
 	var s int8 = int8(u) // 转换时要注意溢出
 	fmt.Printf("uint8(255) 转 int8 = %d (注意：可能溢出)\n", s)
+
+	var u2 uint8 = 127
+	var s2 int8 = int8(u2) // 127 在 int8 范围内，安全
+	fmt.Printf("uint8(127) 转 int8 = %d (安全转换)\n", s2)
+
+	var s3 int8 = -1
+	var u3 uint8 = uint8(s3) // -1 转无符号，会变成 255
+	fmt.Printf("int8(-1) 转 uint8 = %d (注意：负数会变成大正数)\n", u3)
+
+	// 同大小类型之间的转换
+	fmt.Println("\n3.3 同大小类型之间的转换:")
+	var i32 int32 = -100
+	var u32 uint32 = uint32(i32) // 负数转无符号
+	fmt.Printf("int32(-100) 转 uint32 = %d (注意：负数会变成大正数)\n", u32)
+
+	var u32_2 uint32 = 300
+	var i32_2 int32 = int32(u32_2) // 300 在 int32 范围内，安全
+	fmt.Printf("uint32(300) 转 int32 = %d (安全转换)\n", i32_2)
+
+	// 类型转换时的截断示例
+	fmt.Println("\n3.4 类型转换时的截断示例:")
+	var large int32 = 0x12345678 // 大数值
+	var small int8 = int8(large) // 只保留低8位
+	fmt.Printf("int32(0x12345678) 转 int8 = %d (0x%02x，只保留低8位)\n", small, small)
 
 	fmt.Println()
 
@@ -125,17 +194,83 @@ func main() {
 	// 2. 手动检查数值范围
 	// 3. 超大数用 big.Int
 
+	fmt.Println("\n5.1 溢出回绕示例:")
 	maxInt64 := int64(9223372036854775807)
 	fmt.Printf("int64 最大值: %d\n", maxInt64)
 	fmt.Printf("int64 最大值 + 1 = %d (溢出回绕)\n", maxInt64+1)
 
+	maxInt32 := int32(2147483647)
+	fmt.Printf("int32 最大值: %d\n", maxInt32)
+	fmt.Printf("int32 最大值 + 1 = %d (溢出回绕)\n", maxInt32+1)
+
 	// 使用 math/bits 包可以检测无符号整数的溢出
-	u1 := uint64(18446744073709551615) // uint64最大值
-	u2 := uint64(1)
-	sum, carryOut := bits.Add64(u1, u2, 0)
+	fmt.Println("\n5.2 使用 math/bits 检测无符号整数溢出:")
+	bitsU1 := uint64(18446744073709551615) // uint64最大值
+	bitsU2 := uint64(1)
+	sum, carryOut := bits.Add64(bitsU1, bitsU2, 0)
 	if carryOut > 0 {
-		fmt.Printf("检测到无符号整数溢出！%d + %d 会溢出\n", u1, u2)
+		fmt.Printf("检测到无符号整数溢出！%d + %d 会溢出\n", bitsU1, bitsU2)
 		fmt.Printf("结果（回绕后）: %d\n", sum)
+	}
+
+	// 检测 uint32 溢出
+	bitsU3 := uint32(4294967295) // uint32最大值
+	bitsU4 := uint32(1)
+	sum32, carryOut32 := bits.Add32(bitsU3, bitsU4, 0)
+	if carryOut32 > 0 {
+		fmt.Printf("检测到 uint32 溢出！%d + %d 会溢出\n", bitsU3, bitsU4)
+		fmt.Printf("结果（回绕后）: %d\n", sum32)
+	}
+
+	// 检测 uint16 溢出（使用 Add32，因为 Go 标准库没有 Add16）
+	bitsU5 := uint32(65535) // uint16最大值，用 uint32 表示
+	bitsU6 := uint32(1)
+	sum16, carryOut16 := bits.Add32(bitsU5, bitsU6, 0)
+	if carryOut16 > 0 {
+		fmt.Printf("检测到 uint16 溢出！%d + %d 会溢出\n", bitsU5, bitsU6)
+		fmt.Printf("结果（回绕后）: %d\n", sum16)
+	} else {
+		// 手动检查是否超出 uint16 范围
+		if sum16 > 65535 {
+			fmt.Printf("uint16(65535) + uint16(1) = %d (超出 uint16 范围，回绕后为 %d)\n", sum16, uint16(sum16))
+		}
+	}
+
+	// 手动检查有符号整数溢出
+	fmt.Println("\n5.3 手动检查有符号整数溢出:")
+	checkInt8Overflow := func(a, b int8) (int8, bool) {
+		if a > 0 && b > 0 {
+			if a > 127-b {
+				return 0, true // 会溢出
+			}
+		}
+		if a < 0 && b < 0 {
+			if a < -128-b {
+				return 0, true // 会溢出
+			}
+		}
+		return a + b, false
+	}
+
+	result, overflow := checkInt8Overflow(100, 50)
+	if overflow {
+		fmt.Printf("int8(100) + int8(50) 会溢出\n")
+	} else {
+		fmt.Printf("int8(100) + int8(50) = %d (安全)\n", result)
+	}
+
+	result2, overflow2 := checkInt8Overflow(100, 50)
+	if overflow2 {
+		fmt.Printf("int8(100) + int8(50) 会溢出\n")
+	} else {
+		fmt.Printf("int8(100) + int8(50) = %d (安全)\n", result2)
+	}
+
+	result3, overflow3 := checkInt8Overflow(127, 1)
+	if overflow3 {
+		fmt.Printf("int8(127) + int8(1) 会溢出！\n")
+	} else {
+		fmt.Printf("int8(127) + int8(1) = %d\n", result3)
 	}
 
 	fmt.Println()
@@ -146,10 +281,51 @@ func main() {
 	fmt.Println("=== 超大整数 big.Int ===")
 
 	// 超过 int64 范围的大整数
+	fmt.Println("\n6.1 基本运算:")
 	bigA := big.NewInt(9223372036854775807) // int64最大值
 	bigB := big.NewInt(1)
 	bigC := new(big.Int).Add(bigA, bigB) // 大整数相加
-	fmt.Printf("big.Int 相加: %s (不会溢出)\n", bigC.String())
+	fmt.Printf("big.Int 相加: %s + %s = %s (不会溢出)\n", bigA.String(), bigB.String(), bigC.String())
+
+	// 减法
+	bigD := big.NewInt(100)
+	bigE := big.NewInt(50)
+	bigF := new(big.Int).Sub(bigD, bigE)
+	fmt.Printf("big.Int 相减: %s - %s = %s\n", bigD.String(), bigE.String(), bigF.String())
+
+	// 乘法
+	bigG := big.NewInt(1000000)
+	bigH := big.NewInt(2000000)
+	bigI := new(big.Int).Mul(bigG, bigH)
+	fmt.Printf("big.Int 相乘: %s * %s = %s\n", bigG.String(), bigH.String(), bigI.String())
+
+	// 除法
+	bigJ := big.NewInt(100)
+	bigK := big.NewInt(3)
+	bigL := new(big.Int).Div(bigJ, bigK)
+	fmt.Printf("big.Int 相除: %s / %s = %s (整数除法)\n", bigJ.String(), bigK.String(), bigL.String())
+
+	// 从字符串创建大整数
+	fmt.Println("\n6.2 从字符串创建大整数:")
+	bigStr := "123456789012345678901234567890"
+	bigM, _ := new(big.Int).SetString(bigStr, 10)
+	fmt.Printf("从字符串创建: %s\n", bigM.String())
+
+	// 超大数运算
+	bigN := big.NewInt(1)
+	for i := 0; i < 100; i++ {
+		bigN.Mul(bigN, big.NewInt(2)) // 计算 2^100
+	}
+	fmt.Printf("2^100 = %s\n", bigN.String())
+
+	// 比较
+	fmt.Println("\n6.3 大整数比较:")
+	bigO := big.NewInt(100)
+	bigP := big.NewInt(200)
+	fmt.Printf("big.Int 比较: %s 和 %s\n", bigO.String(), bigP.String())
+	fmt.Printf("  %s < %s: %t\n", bigO.String(), bigP.String(), bigO.Cmp(bigP) < 0)
+	fmt.Printf("  %s > %s: %t\n", bigO.String(), bigP.String(), bigO.Cmp(bigP) > 0)
+	fmt.Printf("  %s == %s: %t\n", bigO.String(), bigP.String(), bigO.Cmp(bigP) == 0)
 
 	fmt.Println()
 
@@ -257,11 +433,14 @@ func main() {
 	// ============================================
 	fmt.Println("=== 无符号整数的陷阱 ===")
 
-	// 注意：如果用 uint 做倒序循环，会无限循环
-	// for i := uint(0); i >= 0; i-- { ... }  // 错误：uint 不会小于 0，会无限循环
+	// 陷阱1：倒序循环会无限循环
+	fmt.Println("\n陷阱1：倒序循环会无限循环")
+	fmt.Println("错误示例（已注释）:")
+	fmt.Println("  for i := uint(0); i >= 0; i-- { ... }")
+	fmt.Println("  // 错误：uint 不会小于 0，会无限循环")
 
 	// 正确的倒序循环方式
-	fmt.Println("正确的倒序循环（用 int）：")
+	fmt.Println("\n正确的倒序循环（用 int）：")
 	for i := 5; i >= 0; i-- {
 		fmt.Printf("%d ", i)
 	}
@@ -273,6 +452,29 @@ func main() {
 		fmt.Printf("%d ", i)
 	}
 	fmt.Printf("0\n") // 手动输出 0
+
+	// 陷阱2：无符号整数减法可能产生大数
+	fmt.Println("\n陷阱2：无符号整数减法可能产生大数")
+	var trapU1 uint8 = 5
+	var trapU2 uint8 = 10
+	trapResult := trapU1 - trapU2 // 5 - 10 = 251 (溢出回绕)
+	fmt.Printf("uint8(5) - uint8(10) = %d (注意：不是 -5！)\n", trapResult)
+	fmt.Println("  说明：无符号整数不能表示负数，减法溢出会回绕")
+
+	// 陷阱3：无符号整数比较
+	fmt.Println("\n陷阱3：无符号整数比较")
+	var trapU3 uint8 = 0
+	var trapU4 int8 = -1
+	fmt.Printf("uint8(0) > int8(-1)? 不能直接比较，类型不同\n")
+	fmt.Printf("但 uint8(0) 转 int8 = %d\n", int8(trapU3))
+	fmt.Printf("int8(-1) 转 uint8 = %d (负数变成大正数)\n", uint8(trapU4))
+
+	// 陷阱4：无符号整数在条件判断中
+	fmt.Println("\n陷阱4：无符号整数在条件判断中")
+	var trapU5 uint8 = 0
+	if trapU5-1 > 0 { // 0 - 1 = 255，255 > 0 为 true
+		fmt.Printf("uint8(0) - 1 = %d > 0 为 true (注意：这不是预期的行为)\n", trapU5-1)
+	}
 
 	fmt.Println()
 
