@@ -22,6 +22,16 @@ func main() {
 	fmt.Println("=== 声明数组 ===")
 
 	// 方式1：声明长度为8的字符串数组（零值初始化）
+
+//在 Go 语言里，当你用  var  声明一个数组但不显式初始化时，数组里的每个元素都会被自动设置为对应类型的零值。
+- 对于  int  类型，零值是  0 
+​
+- 对于  float64  类型，零值是  0.0 
+​
+- 对于  string  类型，零值是空字符串  "" 
+​
+- 对于布尔类型，零值是  false
+
 	var planets [8]string
 	fmt.Printf("planets 类型: %T, 长度: %d\n", planets, len(planets))
 	fmt.Printf("planets 零值: %v\n", planets)
