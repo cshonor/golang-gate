@@ -9,6 +9,160 @@ func main() {
 	// ============================================
 	// 1. 函数的基本结构
 	// ============================================
+// ============================================
+// 基础函数示例
+// ============================================
+
+// Add 简单的加法函数
+func Add(a, b int) int {
+	return a + b
+}
+
+// Multiply 乘法函数
+func Multiply(a, b int) int {
+	return a * b
+}
+
+// ============================================
+// 温度转换函数
+// ============================================
+
+// CToF 摄氏度转华氏度
+// 公式：F = C × 1.8 + 32
+func CToF(celsius float64) float64 {
+	return celsius*1.8 + 32
+}
+
+// FToC 华氏度转摄氏度
+// 公式：C = (F - 32) / 1.8
+func FToC(fahrenheit float64) float64 {
+	return (fahrenheit - 32) / 1.8
+}
+
+// ============================================
+// 多返回值函数
+// ============================================
+
+// Divide 除法函数，返回结果和错误
+func Divide(a, b float64) (float64, error) {
+	if b == 0 {
+		return 0, fmt.Errorf("除数不能为0")
+	}
+	return a / b, nil
+}
+
+// DivideWithRemainder 整数除法，返回商和余数
+func DivideWithRemainder(a, b int) (int, int) {
+	return a / b, a % b
+}
+
+// ============================================
+// 命名返回值
+// ============================================
+
+// Calculate 计算两个数的和与积（使用命名返回值）
+func Calculate(a, b int) (sum int, product int) {
+	sum = a + b
+	product = a * b
+	return // 可以省略返回值，直接 return
+}
+
+// NamedReturn 命名返回值示例
+func NamedReturn(n int) (result int) {
+	result = n * 2
+	return // 直接 return，会自动返回 result
+}
+
+// ============================================
+// 可变参数函数
+// ============================================
+
+// Sum 计算多个整数的和（可变参数）
+func Sum(numbers ...int) int {
+	total := 0
+	for _, num := range numbers {
+		total += num
+	}
+	return total
+}
+
+// ============================================
+// 高阶函数
+// ============================================
+
+// ApplyOperation 将操作函数应用到切片中的每个元素
+func ApplyOperation(numbers []int, op func(int) int) []int {
+	result := make([]int, len(numbers))
+	for i, num := range numbers {
+		result[i] = op(num)
+	}
+	return result
+}
+
+// Square 平方函数
+func Square(x int) int {
+	return x * x
+}
+
+// Double 翻倍函数
+func Double(x int) int {
+	return x * 2
+}
+
+// ============================================
+// 递归函数
+// ============================================
+
+// Factorial 计算阶乘（递归实现）
+func Factorial(n int) int {
+	if n <= 1 {
+		return 1
+	}
+	return n * Factorial(n-1)
+}
+
+// Fibonacci 计算斐波那契数列（递归实现）
+func Fibonacci(n int) int {
+	if n <= 1 {
+		return n
+	}
+	return Fibonacci(n-1) + Fibonacci(n-2)
+}
+
+// GCD 计算最大公约数（欧几里得算法，递归实现）
+func GCD(a, b int) int {
+	if b == 0 {
+		return a
+	}
+	return GCD(b, a%b)
+}
+
+// ============================================
+// 闭包
+// ============================================
+
+// CreateCounter 创建一个计数器闭包
+func CreateCounter() func() int {
+	count := 0
+	return func() int {
+		count++
+		return count
+	}
+}
+
+// ============================================
+// defer 示例
+// ============================================
+
+// DeferExample 演示 defer 的使用
+func DeferExample() {
+	fmt.Println("  1. 函数开始")
+	defer fmt.Println("  3. defer 语句（函数返回前执行）")
+	fmt.Println("  2. 函数执行中")
+	// 函数返回时，defer 语句会执行
+}
+
+
 	fmt.Println("=== 函数的基本结构 ===")
 
 	// Go 语言中函数的声明格式：
@@ -219,158 +373,5 @@ func main() {
 	fmt.Println("7. 函数可以作为类型使用")
 	fmt.Println("8. 支持闭包，函数可以访问外部变量")
 	fmt.Println("9. defer 语句用于延迟执行")
-}
-
-// ============================================
-// 基础函数示例
-// ============================================
-
-// Add 简单的加法函数
-func Add(a, b int) int {
-	return a + b
-}
-
-// Multiply 乘法函数
-func Multiply(a, b int) int {
-	return a * b
-}
-
-// ============================================
-// 温度转换函数
-// ============================================
-
-// CToF 摄氏度转华氏度
-// 公式：F = C × 1.8 + 32
-func CToF(celsius float64) float64 {
-	return celsius*1.8 + 32
-}
-
-// FToC 华氏度转摄氏度
-// 公式：C = (F - 32) / 1.8
-func FToC(fahrenheit float64) float64 {
-	return (fahrenheit - 32) / 1.8
-}
-
-// ============================================
-// 多返回值函数
-// ============================================
-
-// Divide 除法函数，返回结果和错误
-func Divide(a, b float64) (float64, error) {
-	if b == 0 {
-		return 0, fmt.Errorf("除数不能为0")
-	}
-	return a / b, nil
-}
-
-// DivideWithRemainder 整数除法，返回商和余数
-func DivideWithRemainder(a, b int) (int, int) {
-	return a / b, a % b
-}
-
-// ============================================
-// 命名返回值
-// ============================================
-
-// Calculate 计算两个数的和与积（使用命名返回值）
-func Calculate(a, b int) (sum int, product int) {
-	sum = a + b
-	product = a * b
-	return // 可以省略返回值，直接 return
-}
-
-// NamedReturn 命名返回值示例
-func NamedReturn(n int) (result int) {
-	result = n * 2
-	return // 直接 return，会自动返回 result
-}
-
-// ============================================
-// 可变参数函数
-// ============================================
-
-// Sum 计算多个整数的和（可变参数）
-func Sum(numbers ...int) int {
-	total := 0
-	for _, num := range numbers {
-		total += num
-	}
-	return total
-}
-
-// ============================================
-// 高阶函数
-// ============================================
-
-// ApplyOperation 将操作函数应用到切片中的每个元素
-func ApplyOperation(numbers []int, op func(int) int) []int {
-	result := make([]int, len(numbers))
-	for i, num := range numbers {
-		result[i] = op(num)
-	}
-	return result
-}
-
-// Square 平方函数
-func Square(x int) int {
-	return x * x
-}
-
-// Double 翻倍函数
-func Double(x int) int {
-	return x * 2
-}
-
-// ============================================
-// 递归函数
-// ============================================
-
-// Factorial 计算阶乘（递归实现）
-func Factorial(n int) int {
-	if n <= 1 {
-		return 1
-	}
-	return n * Factorial(n-1)
-}
-
-// Fibonacci 计算斐波那契数列（递归实现）
-func Fibonacci(n int) int {
-	if n <= 1 {
-		return n
-	}
-	return Fibonacci(n-1) + Fibonacci(n-2)
-}
-
-// GCD 计算最大公约数（欧几里得算法，递归实现）
-func GCD(a, b int) int {
-	if b == 0 {
-		return a
-	}
-	return GCD(b, a%b)
-}
-
-// ============================================
-// 闭包
-// ============================================
-
-// CreateCounter 创建一个计数器闭包
-func CreateCounter() func() int {
-	count := 0
-	return func() int {
-		count++
-		return count
-	}
-}
-
-// ============================================
-// defer 示例
-// ============================================
-
-// DeferExample 演示 defer 的使用
-func DeferExample() {
-	fmt.Println("  1. 函数开始")
-	defer fmt.Println("  3. defer 语句（函数返回前执行）")
-	fmt.Println("  2. 函数执行中")
-	// 函数返回时，defer 语句会执行
 }
 
