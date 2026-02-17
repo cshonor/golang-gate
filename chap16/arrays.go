@@ -103,7 +103,17 @@ func main() {
 	// ============================================
 	fmt.Println("=== 迭代数组 ===")
 
-	// 方式1：for range 遍历（推荐）
+	// 方式1：for range 遍历（推荐）在 Go 语言中，当你对数组、切片、字符串等可迭代对象使用  range  时，它默认会返回两个值：
+ 
+1. 索引（index）：当前元素在序列中的位置，从 0 开始计数。
+​
+2. 值（value）：当前元素的副本。
+ 
+所以你写的：
+ 
+ 
+ 
+这里的  index  就是数组下标， name  就是对应位置的行星名称。
 	fmt.Println("太阳系行星列表（for range）:")
 	for index, name := range planets {
 		fmt.Printf("  %d: %s\n", index+1, name)
