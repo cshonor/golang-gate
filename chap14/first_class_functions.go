@@ -1,6 +1,6 @@
 // 示例：Go 语言的一等函数（First-Class Functions）
 // 演示函数作为一等公民：赋值给变量、作为参数传递、作为返回值
-
+//方法里用函数类型别名 ✅ 完全可以
 package main
 
 import (
