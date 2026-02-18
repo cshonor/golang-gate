@@ -37,6 +37,9 @@ func main() {
 	fmt.Println("  调用者必须显式检查错误")
 	fmt.Println("  这避免了'隐藏'的异常")
 	fmt.Println()
+如果你的函数 没写返回 error
+ 
+那就 不能返回错误，也 不能判断 err。
 
 	fmt.Println("特点2：无异常捕获机制")
 	fmt.Println("  Go没有 try/catch")
