@@ -34,7 +34,7 @@ func main() {
 	planets := [...]string{
 		"Mercury", "Venus", "Earth", "Mars",
 		"Jupiter", "Saturn", "Uranus", "Neptune",
-	}
+	}//不定长要加，
 	fmt.Printf("底层数组: %v\n", planets)
 	fmt.Printf("数组长度: %d\n", len(planets))
 	fmt.Println()
