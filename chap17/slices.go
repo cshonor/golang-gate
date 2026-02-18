@@ -3,8 +3,9 @@
 string 切片是按「字节」切，不是按「字符」切。
 英文没事，中文、 emoji 一切就乱码。
 [数字]类型  → 数组（固定大小）
-​
--  []类型    → 切片（可变大小）
+[]类型    → 切片（可变大小）
+
+
 package main
 
 import "fmt"
@@ -55,7 +56,11 @@ func main() {
 	fmt.Println()
 
 	// 切片的长度和容量
-	fmt.Println("切片的长度和容量:")
+- 长度（len）：切片里当前有多少个元素，即  end - start 。
+​
+- 容量（cap）：从切片的起始索引到底层数组末尾还有多少个位置，即  数组长度 - start 。
+	fmt.Println("切片的长度和容量:")- 容量（cap） 不是“切片的最大长度”，而是当前这个切片背后，还能再装多少元素而不用重新分配内存的上限。
+​
 	fmt.Printf("  terrestrial: len=%d, cap=%d\n", len(terrestrial), cap(terrestrial))
 	fmt.Printf("  gasGiants: len=%d, cap=%d\n", len(gasGiants), cap(gasGiants))
 	fmt.Printf("  iceGiants: len=%d, cap=%d\n", len(iceGiants), cap(iceGiants))
