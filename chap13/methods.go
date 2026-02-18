@@ -30,7 +30,7 @@ type Fahrenheit float64
 // 温度类型的方法
 // ============================================
 
-// ToCelsius 开尔文转摄氏度（值接收者）
+// ToCelsius 开尔文转摄氏度（值接收者）接收者 = 这个方法的「调用者」本身
 func (k Kelvin) ToCelsius() Celsius {
 	return Celsius(k - 273.15)
 //Celsius(xxx)  不是真的“构造函数”，Go 没有构造函数这个语法  显式类型转换（type conversion）
