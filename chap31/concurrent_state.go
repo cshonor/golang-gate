@@ -496,4 +496,3 @@ func (ss *StateService) Stop() {
 	close(ss.requests)
 	<-ss.done
 }
-

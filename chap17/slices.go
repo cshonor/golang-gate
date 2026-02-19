@@ -1,8 +1,9 @@
-我用最直白、最不绕弯的方式给你讲透，你一下就懂：
+/*我用最直白、最不绕弯的方式给你讲透，你一下就懂：
  
 1. 切片的长度：你写了几个元素，长度就是几
  
-go  
+go
+  
 s := []int{1, 2, 3}
  
  
@@ -15,7 +16,8 @@ s := []int{1, 2, 3}
  
 不管是切片还是数组，统一用  len()  看长度：
  
-go  
+go
+  
 package main
 
 import "fmt"
@@ -29,11 +31,13 @@ func main() {
 3. 切片 vs 数组，一眼区分
  
 - 数组：中括号有数字
-go  
+go
+  
 a := [3]int{1,2,3}
  
 - 切片：中括号空的 / 没数字
-go  
+go
+  
 s := []int{1,2,3}
  
  
@@ -55,7 +59,8 @@ s := []int{1,2,3}
  
 切片
  
-go  
+go
+  
 s := []int{1, 2, 3}
  
  
@@ -63,7 +68,8 @@ s := []int{1, 2, 3}
  
 map
  
-go  
+go
+  
 m := map[string]int{
     "a": 1,
     "b": 2,
@@ -82,24 +88,28 @@ m := map[string]int{
  
 错误写法（会 panic）
  
-go  
+go
+  
 var m map[string]int
 m["key"] = 100 // 崩溃！因为 m 是 nil map
  
  
-go  
+go
+  
 var s []int
 s[0] = 1 // 崩溃！因为 s 是 nil 切片
  
  
 正确写法
  
-go  
+go
+  
 m := make(map[string]int)
 m["key"] = 100 // 正常
  
  
-go  
+go
+  
 s := make([]int, 3)
 s[0] = 1 // 正常
  
@@ -125,7 +135,7 @@ string 切片是按「字节」切，不是按「字符」切。
 [数字]类型  → 数组（固定大小）
 []类型    → 切片（可变大小）
 
-
+*/
 package main
 
 import "fmt"
