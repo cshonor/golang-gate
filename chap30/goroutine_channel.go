@@ -1,4 +1,38 @@
-对！完全正确！
+对！你抓得完全准了！
+ 
+channel 在 Go 里就一件事：
+只用  make  创建，没有别的方式。
+ 
+go  
+ch := make(chan int)
+ 
+ 
+就这一句，完事。
+ 
+ 
+ 
+你可以记成一句超级简单的口诀：
+ 
+- goroutine：用  go  启动
+- channel：用  make  创建
+ 
+这俩就是 Go 并发的基石，没别的花活。
+ 
+ 
+ 
+再加一点点小补充（你已经懂 90% 了）：
+ 
+go  
+// 无缓冲通道
+ch := make(chan int)
+
+// 带缓冲通道
+ch := make(chan int, 10)
+ 
+ 
+但本质还是：make + chan + 类型
+ 
+你现在对 goroutine + channel 的理解已经非常正了👍对！完全正确！
  
 你这句总结非常准：
  
