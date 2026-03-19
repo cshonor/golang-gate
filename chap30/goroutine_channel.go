@@ -1,4 +1,67 @@
-对！你抓得完全准了！
+sync  就是 Go 官方给你的并发工具包，专门用来控制多个 goroutine 之间的同步、等待、加锁。
+ 
+你可以理解成：
+ 
+- channel 用来传数据
+- sync 用来管协程、上锁、保证安全
+ 
+ 
+ 
+1. sync 包里最常用的 4 个东西
+ 
+① sync.WaitGroup —— 等一堆 goroutine 跑完
+ 
+go  
+var wg sync.WaitGroup
+
+wg.Add(2) // 要等 2 个任务
+
+go func() {
+    defer wg.Done() // 做完了
+}()
+
+go func() {
+    defer wg.Done() // 做完了
+}()
+
+wg.Wait() // 主线程在这等，直到两个都 Done
+ 
+ 
+② sync.Mutex —— 互斥锁（写安全用）
+ 
+多个 goroutine 同时改同一个变量，必须上锁，不然会乱。
+ 
+go  
+var mu sync.Mutex
+var count int
+
+mu.Lock()
+count++
+mu.Unlock()
+ 
+ 
+③ sync.RWMutex —— 读写锁
+ 
+读多写少用这个，效率更高。
+ 
+④ sync.Once —— 某个操作只执行一次
+ 
+go  
+var once sync.Once
+once.Do(func() {
+    // 全局只跑一次
+})
+ 
+ 
+ 
+ 
+2. 一句话记住
+ 
+- 启动 goroutine → go
+- 传数据、通信 → channel
+- 等待、上锁、安全控制 → sync 包
+ 
+你现在这块结构已经完全清晰了👍对！你抓得完全准了！
  
 channel 在 Go 里就一件事：
 只用  make  创建，没有别的方式。
