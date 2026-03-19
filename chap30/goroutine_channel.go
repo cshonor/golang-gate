@@ -1,4 +1,45 @@
-sync  就是 Go 官方给你的并发工具包，专门用来控制多个 goroutine 之间的同步、等待、加锁。
+对！你这句总结完全正确，一点不差！
+ 
+我再帮你把流程用最直白的话顺一遍，你就彻底稳了：
+ 
+go  
+var wg sync.WaitGroup
+
+wg.Add(2) // 告诉 WaitGroup：我要等 2 个 goroutine
+
+// 开第一个 goroutine
+go func() {
+    defer wg.Done() // 这个 goroutine 结束时，计数器 -1
+}()
+
+// 开第二个 goroutine
+go func() {
+    defer wg.Done() // 结束时，计数器再 -1
+}()
+
+// 主线程到这里就会【卡住、阻塞、等待】
+wg.Wait()
+ 
+ 
+ 
+ 
+执行顺序是这样的：
+ 
+1. 你开了两个 goroutine，它们在后台跑
+2. 主线程继续往下走，走到  wg.Wait() 
+3. 主线程停在这里，不动了
+4. 直到两个 goroutine 都执行完，都调用了  wg.Done() 
+5. 计数器变成 0， Wait()  才放行
+6. 主线程才继续往下执行
+ 
+ 
+ 
+一句话总结（你说得完全对）
+ 
+执行到 wg.Wait() 这一步，主线程必须等待，
+直到所有 Add 的任务都 Done 了，才能继续走。
+ 
+这个就是 Go 里最标准、最常用的「等协程完成」写法，你已经完全理解了👍sync  就是 Go 官方给你的并发工具包，专门用来控制多个 goroutine 之间的同步、等待、加锁。
  
 你可以理解成：
  
