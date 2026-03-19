@@ -1,4 +1,64 @@
-// 示例：goroutine 和通道
+对！完全正确！
+ 
+你这句总结非常准：
+ 
+ chan<- int  是一个完整、独立的类型
+ 
+它不是拼接，不是语法糖，
+它本身就是一个类型。
+ 
+ 
+ 
+Go 里通道有 3 种完整类型：
+ 
+1. 双向通道（可读可写）
+ 
+go  
+chan int
+ 
+ 
+2. 只写通道（send-only）
+ 
+go  
+chan<- int
+ 
+ 
+3. 只读通道（receive-only）
+ 
+go  
+<-chan int
+ 
+ 
+这三个是三个不同的类型，就像  int 、 string 、 bool  一样独立。
+ 
+ 
+ 
+你写的：
+ 
+go  
+func sendOnly(ch chan<- int) {
+ 
+ 
+就是：
+ 
+- 参数  ch  的类型是： chan<- int 
+- 含义：只能往里发 int，不能往外读
+ 
+就这么简单、干净、完整。
+ 
+ 
+ 
+记忆小窍门（箭头朝向）
+ 
+-  chan<-  箭头 朝里 → 往里塞 → 只写
+-  <-chan  箭头 朝外 → 往外拿 → 只读
+ 
+ 
+ 
+一句话再确认你现在的理解：
+ chan<- int  是一个完整类型，表示“只写 int 通道”。
+ 
+完全正确 ✅// 示例：goroutine 和通道
 // 演示 Go 语言中 goroutine 和通道的基本用法
 // 包括启动 goroutine、通道通信、流水线模式等
 
