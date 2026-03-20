@@ -186,11 +186,10 @@ func main() {
 	fmt.Println()
 
 	// 切片的长度和容量
-- 长度（len）：切片里当前有多少个元素，即  end - start 。
-​
-- 容量（cap）：从切片的起始索引到底层数组末尾还有多少个位置，即  数组长度 - start 。
-	fmt.Println("切片的长度和容量:")- 容量（cap） 不是“切片的最大长度”，而是当前这个切片背后，还能再装多少元素而不用重新分配内存的上限。
-​
+	// - 长度（len）：切片里当前有多少个元素，即 end - start。
+	// - 容量（cap）：从切片的起始索引到底层数组末尾还有多少个位置，即 数组长度 - start。
+	// - 容量（cap）不是“切片的最大长度”，而是当前这个切片背后，还能再装多少元素而不用重新分配内存的上限。
+	fmt.Println("切片的长度和容量:")
 	fmt.Printf("  terrestrial: len=%d, cap=%d\n", len(terrestrial), cap(terrestrial))
 	fmt.Printf("  gasGiants: len=%d, cap=%d\n", len(gasGiants), cap(gasGiants))
 	fmt.Printf("  iceGiants: len=%d, cap=%d\n", len(iceGiants), cap(iceGiants))
