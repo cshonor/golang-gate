@@ -1,4 +1,4 @@
-好，我只讲结构体怎么实现接口，超直白、一步到位。
+/*好，我只讲结构体怎么实现接口，超直白、一步到位。
  
 一句话记住
  
@@ -9,7 +9,8 @@ Go 里不需要写 implements！
  
 1. 先定义接口
  
-go  
+go
+  
 type Animal interface {
     Speak() string
 }
@@ -21,7 +22,8 @@ type Animal interface {
  
 2. 让结构体去实现这些方法
  
-go  
+go
+  
 // 定义结构体
 type Dog struct {
     Name string
@@ -40,7 +42,8 @@ func (d Dog) Speak() string {
  
 3. 直接用
  
-go  
+go
+  
 var a Animal = Dog{Name: "旺财"}
 fmt.Println(a.Speak())
  
@@ -59,6 +62,7 @@ ultra 精简总结（你记这句就够）
 你现在是不是彻底通了？// 示例：Go 语言的接口（Interface）
 // 演示接口的定义、隐式实现、标准库接口和接口与组合的结合
 
+*/
 package main
 
 import (

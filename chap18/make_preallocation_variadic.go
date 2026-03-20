@@ -1,4 +1,4 @@
-你这句总结已经非常准了，我再帮你把边界说死，以后永远不混淆：
+/*你这句总结已经非常准了，我再帮你把边界说死，以后永远不混淆：
  
 一句话终极版
  
@@ -23,7 +23,8 @@
  
 例子：
  
-go  
+go
+  
 p := new(int)        // *int
 f := new(float64)   // *float64
 c := new(Coordinate)// *Coordinate
@@ -46,7 +47,8 @@ c := new(Coordinate)// *Coordinate
  
 例子：
  
-go  
+go
+  
 s := make([]int, 0, 10)    // []int
 m := make(map[string]int)  // map[string]int
 ch := make(chan int)       // chan int
@@ -89,7 +91,8 @@ new 用于基本数据类型或值类型，make 用于引用类型
  
 必须用 make，因为它们需要初始化内部结构，new 做不到。
  
-go  
+go
+  
 s := make([]int, 3)
 m := make(map[string]int)
 ch := make(chan int)
@@ -108,14 +111,16 @@ ch := make(chan int)
  
 才用 new。
  
-go  
+go
+  
 p := new(int)     // *int
 c := new(Coordinate) // *Coordinate
  
  
 但实际开发中，大家更爱写：
  
-go  
+go
+  
 c := &Coordinate{} // 效果和 new(Coordinate) 一样，更常用
  
  
@@ -140,7 +145,7 @@ new 用于基本/值类型，make 用于引用类型。
  new([]int)  是对还是错？
 // 示例：Go 语言 make 函数预分配切片和可变参数函数
 // 演示 make 预分配、可变参数函数的使用和性能优化
-
+*/
 package main
 
 import "fmt"

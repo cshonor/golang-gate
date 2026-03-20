@@ -1,4 +1,4 @@
-我懂你卡在哪了——
+/*我懂你卡在哪了——
 你在问：Go 里从 map 取值，为什么能出来两个值？这跟 range 是不是一回事？
  
 我用最直白、最稳、最不绕的方式给你讲透。
@@ -9,7 +9,8 @@
  
 你写：
  
-go  
+go
+  
 value, ok := m["key"]
  
  
@@ -25,7 +26,8 @@ comma ok 写法
  
 2） ok  只是名字，你可以随便换
  
-go  
+go
+  
 value, ok := m["key"]
 value, found := m["key"]
 value, exists := m["key"]
@@ -47,7 +49,8 @@ Go 不关心你叫啥，只关心：
  
 range 遍历 map：
  
-go  
+go
+  
 for key, value := range m {
 }
  
@@ -56,7 +59,8 @@ range 给你 两个返回值：key、value
  
 map 单独取值：
  
-go  
+go
+  
 value, ok := m["key"]
  
  
@@ -129,7 +133,8 @@ make  是 Go 语言中专门用来创建引用类型（slice、map、channel）
  
 ① 切片（slice）
  
-go  
+go
+  
 // 语法：make([]T, len, cap)
 s1 := make([]int, 5)          // 长度5，容量5
 s2 := make([]int, 3, 10)      // 长度3，容量10
@@ -140,7 +145,8 @@ s2 := make([]int, 3, 10)      // 长度3，容量10
  
 ② 映射（map）
  
-go  
+go
+  
 // 语法：make(map[K]V, initialCapacity)
 m1 := make(map[string]int)               // 空 map
 m2 := make(map[string]int, 100)          // 预分配约100个元素的空间，提升性能
@@ -150,7 +156,8 @@ m2 := make(map[string]int, 100)          // 预分配约100个元素的空间，
  
 ③ 通道（channel）
  
-go  
+go
+  
 // 语法：make(chan T, bufferSize)
 ch1 := make(chan int)        // 无缓冲通道
 ch2 := make(chan int, 10)    // 带10个缓冲的通道
@@ -165,7 +172,8 @@ ch2 := make(chan int, 10)    // 带10个缓冲的通道
  
 例如：
  
-go  
+go
+  
 p := new(map[string]int)  // 返回 *map[string]int，指向 nil
 m := make(map[string]int) // 返回 map[string]int，已经可以使用
  
@@ -174,7 +182,8 @@ m := make(map[string]int) // 返回 map[string]int，已经可以使用
  
 4. 你截图里的例子
  
-go  
+go
+  
 if s.productMap == nil {
     s.productMap = make(map[string]*pb.Product)
 }
@@ -185,6 +194,7 @@ if s.productMap == nil {
  
  
 如果你愿意，我可以帮你整理一份  make  在 slice、map、channel 中的完整用法对照表，方便你随时查阅。需要吗？
+*/
 package main
 
 import "fmt"

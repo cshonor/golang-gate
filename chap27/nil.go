@@ -1,4 +1,4 @@
-你说的是接口的**“表面用法”，而我们刚才聊的是接口的“底层实现细节”**，这两者是完全不同的层面。
+/*你说的是接口的**“表面用法”，而我们刚才聊的是接口的“底层实现细节”**，这两者是完全不同的层面。
  
  
  
@@ -10,7 +10,8 @@
 - 只要一个结构体实现了接口里的所有方法，它就自动实现了这个接口，不需要显式声明  implements 。
 - 这就是 Go 的“非侵入式接口”设计。
  
-go  
+go
+  
 // 定义接口
 type Animal interface {
     Speak() string
@@ -79,7 +80,8 @@ fmt.Println(a.Speak()) // 输出：汪汪汪
  
 例如：
  
-go  
+go
+  
 var i int      // 0
 var f float64  // 0.0
 var b bool     // false
@@ -95,7 +97,8 @@ var s string   // ""
  
 虽然基础类型本身没有  nil ，但它们的指针类型是有  nil  的：
  
-go  
+go
+  
 var i *int      // nil，指针类型
 var s *string   // nil，指针类型
  
@@ -128,7 +131,8 @@ var s *string   // nil，指针类型
  
 在判断时：
  
-go  
+go
+  
 var s1 []int          // nil 切片
 s2 := []int{}         // 空切片
 
@@ -143,7 +147,8 @@ fmt.Println(s2 == nil) // false
 - 只有当接口变量的类型和值都为空时，它才等于  nil 。
 - 如果类型不为空，即使值是  nil ，接口变量也不等于  nil 。
  
-go  
+go
+  
 var p *int = nil
 var i interface{} = p
 
@@ -155,6 +160,7 @@ fmt.Println(i == nil) // false，因为类型是 *int，不是空
 如果你愿意，我可以帮你整理一份 nil 判断速查表，把指针、切片、映射、接口等各种情况的判断规则都列出来，方便你以后快速查阅。需要吗？// 示例：Go 语言的 nil
 // 演示 nil 的本质、问题、Go的改进和常见陷阱
 
+*/
 package main
 
 import "fmt"
