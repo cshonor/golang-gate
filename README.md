@@ -13,6 +13,12 @@ Go 语言入门学习项目。
 
 本项目用于练习和实践课程中的 Go 语言知识点。
 
+### 进阶笔记（后端进阶课表对照）
+
+- [锁实现原理](./锁实现原理/README.md)（含 `WaitGroup`）
+- [并发：GMP / Channel](./并发GMP与channel及数据结构/README.md)
+- [数据结构：map / slice](./数据结构/README.md)
+
 ## 系统要求
 
 - Go 1.21 或更高版本

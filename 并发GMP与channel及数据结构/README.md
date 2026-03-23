@@ -1,31 +1,26 @@
-# 并发：GMP、Channel 与数据结构
+# 并发：GMP、Channel（与课表对应笔记）
 
-本目录用于整理 **Go 运行时并发模型（GMP）**、**channel 语义与实现要点**，以及 **并发场景下常用数据结构**。
+本目录笔记对应 **「后端进阶」** 中与 **协程 / GMP / channel** 相关的条目。  
+**map / slice** 见同级目录 **`数据结构/`**；**WaitGroup** 见 **`锁实现原理/WaitGroup特性及原理.md`**。
 
-## 建议收录主题
+## 课表 ↔ 文件索引
 
-### GMP
+| 课表标题 | 笔记文件 |
+|----------|----------|
+| channel 阻塞协程现象 | [channel阻塞协程现象.md](./channel阻塞协程现象.md) |
+| 协程和线程的关系 | [协程和线程的关系.md](./协程和线程的关系.md) |
+| GMP 关系 | [GMP关系.md](./GMP关系.md) |
+| channel 阻塞原理 | [channel阻塞原理.md](./channel阻塞原理.md) |
+| channel 读取优化 | [channel读取优化.md](./channel读取优化.md) |
+| closed channel 相关特性 | [closed_channel相关特性.md](./closed_channel相关特性.md) |
+| 并发 WaitGroup 特性及原理 | → `../锁实现原理/WaitGroup特性及原理.md` |
 
-- **G（Goroutine）**、**M（OS 线程）**、**P（逻辑处理器）** 的职责与协作
-- **调度**：work stealing、抢占（协作式与异步抢占）、`sysmon` 的作用（概念层）
-- **与系统线程的关系**：`GOMAXPROCS`、阻塞 syscall 时的行为（概念层）
+## 学习顺序建议（可按课表顺序）
 
-### Channel
+1. 协程和线程的关系（心智模型）  
+2. GMP 关系（谁在调度）  
+3. channel 阻塞协程现象 → channel 阻塞原理 → closed channel  
+4. channel 读取优化（实现/性能视角）  
+5. WaitGroup（同步收尾）
 
-- **语义**：发送/接收阻塞条件、`close` 后的行为、`select` 多路复用
-- **实现要点**：环形缓冲、锁与等待队列（waitq）、有缓冲 vs 无缓冲（概念对照源码时更易读）
-
-### 并发数据结构
-
-- **无锁/少锁**：`sync/atomic`、无锁队列思路（概念）
-- **带锁容器**：`sync.Map` 适用场景、分片锁（sharded lock）思路
-- **经典模式**：worker pool、fan-out / fan-in、pipeline
-
-## 学习顺序建议
-
-1. goroutine + channel 用法（与 `chap30` 等章节对照）
-2. `select`、超时、取消（context）
-3. GMP 鸟瞰（建立“谁在调度、为何卡住”的直觉）
-4. channel 与锁在状态共享上的取舍（与 `chap31` 对照）
-
-可将笔记、流程图和示例代码放在本目录下的子文件中（如 `gmp_notes.md`、`channel_notes.md`、`patterns.go`）。
+视频里手写 **「目标：数据结构 / FIFO」**：FIFO 是有缓冲 channel 环形队列的常见实现特征，可与 `channel阻塞原理.md` 对照。
