@@ -6,6 +6,25 @@
 - **sendq / recvq**：等待发送、等待接收的 **G 队列**（sudog 链表等，概念上叫 waitq）。  
 - **锁**：保护 channel 内部状态（channel 是带锁的结构，不是无锁队列）。
 
+type hchan struct {
+    qcount   uint           // 缓冲区中元素数量
+    dataqsiz uint           // 缓冲区大小（环形队列长度）
+    buf      unsafe.Pointer // 指向环形队列的指针
+    elemsize uint16         // 单个元素大小
+    closed   uint32         // 通道是否关闭
+    elemtype *_type         // 元素类型
+    sendx    uint           // 发送索引（环形队列写入位置）
+    recvx    uint           // 接收索引（环形队列读取位置）
+    recvq    waitq          // 等待接收的 Goroutine 队列（recvg）
+    sendq    waitq          // 等待发送的 Goroutine 队列（sendg）
+    lock     mutex          // 互斥锁，保护所有内部状态
+}
+
+type waitq struct {
+    first *sudog
+    last  *sudog
+}
+
 ## 2. 无缓冲：同步交换
 
 - 发送方找到正在等待的接收方（或反之）→ **直接拷贝数据** 到对方栈或寄存器路径，双方就绪。  
