@@ -24,7 +24,27 @@ type waitq struct {
     first *sudog
     last  *sudog
 }
-
+1. 缓冲区（环形队列 FIFO）
+​
+- 由  buf  指向的连续内存实现， sendx / recvx  维护读写位置，严格遵循 FIFO 顺序
+​
+- 无缓冲 Channel（ dataqsiz=0 ）无此区域，直接走同步交换
+​
+- 有缓冲 Channel 用环形队列实现异步缓存，避免发送方立即阻塞
+​
+2. sendq / recvq（等待队列 waitq）
+​
+-  sendq ：存储等待发送的 Goroutine（当缓冲区满时，发送方入队阻塞）
+​
+-  recvq ：存储等待接收的 Goroutine（当缓冲区空时，接收方入队阻塞）
+​
+- 底层是  sudog  链表， sudog  封装了 Goroutine 的等待状态、数据指针等信息
+​
+3. 互斥锁  lock 
+​
+- Channel 是带锁结构，所有发送/接收操作都必须先获取锁，保证并发安全
+​
+- 这是 Channel 不是无锁队列的核心原因，锁的粒度覆盖整个 Channel 状态
 ## 2. 无缓冲：同步交换
 
 - 发送方找到正在等待的接收方（或反之）→ **直接拷贝数据** 到对方栈或寄存器路径，双方就绪。  
