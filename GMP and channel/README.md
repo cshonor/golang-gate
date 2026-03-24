@@ -1,7 +1,7 @@
 # 并发：GMP、Channel（与课表对应笔记）
 
 本目录笔记对应 **「后端进阶」** 中与 **协程 / GMP / channel** 相关的条目。  
-**map / slice** 见同级目录 **`数据结构/`**；**WaitGroup** 见 **`锁实现原理/WaitGroup特性及原理.md`**。
+**map / slice** 见同级目录 **`datastruct/`**；**WaitGroup** 见 **`../atomic and lock/WaitGroup特性及原理.md`**。
 
 ## 课表 ↔ 文件索引
 
@@ -13,7 +13,7 @@
 | channel 阻塞原理 | [channel阻塞原理.md](./channel阻塞原理.md) |
 | channel 读取优化 | [channel读取优化.md](./channel读取优化.md) |
 | closed channel 相关特性 | [closed_channel相关特性.md](./closed_channel相关特性.md) |
-| 并发 WaitGroup 特性及原理 | → `../锁实现原理/WaitGroup特性及原理.md` |
+| 并发 WaitGroup 特性及原理 | → `../atomic and lock/WaitGroup特性及原理.md` |
 
 ## 学习顺序建议（可按课表顺序）
 

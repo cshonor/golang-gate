@@ -1,7 +1,7 @@
 # 数据结构（Go：`map` / `slice` 与课表对应笔记）
 
 本目录对应 **「后端进阶」** 中与 **map、slice** 相关的条目。  
-**Channel / GMP** 见 **`../并发GMP与channel及数据结构/`**；**WaitGroup** 见 **`../锁实现原理/WaitGroup特性及原理.md`**。
+**Channel / GMP** 见 **`../GMP and channel/`**；**WaitGroup** 见 **`../atomic and lock/WaitGroup特性及原理.md`**。
 
 ## 课表 ↔ 文件索引
 

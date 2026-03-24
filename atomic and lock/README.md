@@ -1,7 +1,7 @@
 # 锁实现原理
 
 本目录整理 **互斥 / 自旋 / 阻塞唤醒 / futex 直觉 / 饥饿** 等实现脉络，以及 Go 侧 **`sync.WaitGroup`** 笔记。  
-**Channel、GMP** 见 **`../并发GMP与channel及数据结构/`**；**map、slice** 见 **`../数据结构/`**。
+**Channel、GMP** 见 **`../GMP and channel/`**；**map、slice** 见 **`../datastruct/`**。
 
 ---
 
