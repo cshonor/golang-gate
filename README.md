@@ -18,6 +18,7 @@ Go 语言入门学习项目。
 - [锁实现原理](./atomic%20and%20lock/README.md)（含 `WaitGroup`）
 - [并发：GMP / Channel](./GMP%20and%20channel/README.md)
 - [数据结构：map / slice](./datastruct/README.md)
+- [GC 与内存管理](./GC%20and%20memory/README.md)
 
 ## 系统要求
 
