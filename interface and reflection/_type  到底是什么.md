@@ -18,18 +18,31 @@
 在 Go 源码  runtime/type.go  中， _type  的核心结构如下：
  
 go  
+
 type _type struct {
+
     size       uintptr  // 类型占用的内存大小（比如 int 是 8B，string 是 16B）
+
     ptrdata    uintptr  // 类型中包含指针的部分的大小（GC 扫描用）
+
     hash       uint32   // 类型的哈希值（用于类型比较、map 键等）
+
     tflag      tflag    // 类型标记（比如是否为指针、是否为结构体等）
+
     align      uint8    // 内存对齐要求
+
     fieldAlign uint8   // 结构体字段对齐要求
+
     kind       uint8   // 类型种类（比如 int、struct、ptr 等，对应 reflect.Kind）
+
     equal      func(unsafe.Pointer, unsafe.Pointer) bool // 类型值的相等比较函数
+
     hashfn     func(unsafe.Pointer, uintptr) uintptr       // 类型值的哈希计算函数
+
     str        nameOff  // 类型名称的字符串偏移（用于打印类型名）
+
     ptrToThis  typeOff  // 指向该类型指针类型的偏移（比如 *int 对应 int 的 _type）
+
 }
  
  
