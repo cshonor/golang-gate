@@ -2,7 +2,7 @@
 
 本目录整理 **堆栈与分配器、逃逸分析、三色并发标记、写屏障、STW、调参与排查** 等主线，与 runtime 实现对照阅读效果更佳。
 
-**GMP / Channel** 见 **`../GMP and channel/`**；**map / slice** 见 **`../datastruct/`**；**锁 / WaitGroup** 见 **`../atomic and lock/`**。
+**GMP / Channel** 见 **`../GMP and channel/`**；**map / slice** 见 **`../datastruct/`**；**锁 / WaitGroup** 见 **`../atomic and lock/`**；**接口与反射** 见 **`../interface and reflection/`**。
 
 ## 主题 ↔ 文件索引
 
