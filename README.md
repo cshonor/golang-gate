@@ -18,6 +18,7 @@ Go 语言入门学习项目。
 - [锁实现原理](./atomic%20and%20lock/README.md)（含 `WaitGroup`）
 - [并发：GMP / Channel](./GMP%20and%20channel/README.md)
 - [并发模式与同步原语](./concurrency_patterns/README.md)
+- [Context（中间件的灵魂）](./context_pkg/README.md)
 - [数据结构：map / slice](./datastruct/README.md)
 - [Go 1.21+ 新特性](./go_new_features/README.md)
 - [GC 与内存管理](./GC%20and%20memory/README.md)

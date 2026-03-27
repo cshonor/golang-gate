@@ -8,6 +8,8 @@
 2. **超时/截止时间**（timeout/deadline）
 3. **跨层传递请求级元数据**（request scoped values）
 
+> 你已经有一整套更完整的 context 专题笔记：见 `../context_pkg/`。
+
 ## 2. 最重要的工程规范（背）
 
 - **入口创建**：HTTP/RPC 入口创建/拿到 ctx
