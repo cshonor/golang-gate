@@ -20,6 +20,9 @@ Go 语言入门学习项目。
 - [数据结构：map / slice](./datastruct/README.md)
 - [GC 与内存管理](./GC%20and%20memory/README.md)
 - [接口与反射](./interface%20and%20reflection/README.md)
+- [错误处理（Error Handling）](./error_handling/README.md)
+- [defer 易错点（Defer Traps）](./defer_traps/README.md)
+- [unsafe（unsafe 包）](./unsafe_pkg/README.md)
 
 ## 系统要求
 
