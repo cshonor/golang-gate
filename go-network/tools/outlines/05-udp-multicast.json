@@ -1,0 +1,74 @@
+[
+  {
+    "rel": "05-udp-multicast/01-UDP特点.md",
+    "title": "UDP 特点",
+    "folder": "05-udp-multicast · UDP 与组播",
+    "bullets": [
+      "无连接、不可靠、无序可能、面向报文（保留消息边界）",
+      "首部开销小；无流控与拥塞控制（应用自负）",
+      "适用：DNS、视频、游戏、内网发现；不适合默认用于必须可靠的业务",
+      "分片：超过 MTU 的 IP 分片风险与 DF",
+      "与 QUIC：UDP 之上重建可靠性与加密（扩展）"
+    ]
+  },
+  {
+    "rel": "05-udp-multicast/02-UDP报文结构.md",
+    "title": "UDP 报文结构",
+    "folder": "05-udp-multicast · UDP 与组播",
+    "bullets": [
+      "首部：源端口、目的端口、长度、校验和（IPv4 可选场景）",
+      "长度字段含义：首部加载荷；非法长度与内核丢弃",
+      "校验和：覆盖伪首部；与 TCP 差异",
+      "与以太网 MTU、UDP payload 最大安全值",
+      "抓包对照：tcpdump -nn udp"
+    ]
+  },
+  {
+    "rel": "05-udp-multicast/03-Go-UDP服务端.md",
+    "title": "Go UDP 服务端",
+    "folder": "05-udp-multicast · UDP 与组播",
+    "bullets": [
+      "ListenPacket 与 UDPConn；ReadFrom 拿远端地址",
+      "每包一个 goroutine 与单循环：背压与公平性",
+      "缓冲区大小：ReadFrom 切片容量与丢包",
+      "错误处理：截断、ICMP 不可达（平台差异）",
+      "与 SetReadBuffer / SetWriteBuffer 调优"
+    ]
+  },
+  {
+    "rel": "05-udp-multicast/04-Go-UDP客户端.md",
+    "title": "Go UDP 客户端",
+    "folder": "05-udp-multicast · UDP 与组播",
+    "bullets": [
+      "DialUDP 与 WriteTo 无连接模式对比",
+      "本地端口选择：0 让内核分配与固定源端口",
+      "超时：SetDeadline 与重试",
+      "NAT 穿透预告：STUN、TURN（扩展）",
+      "测试：本机 loopback 与跨机防火墙"
+    ]
+  },
+  {
+    "rel": "05-udp-multicast/05-组播与广播.md",
+    "title": "组播与广播",
+    "folder": "05-udp-multicast · UDP 与组播",
+    "bullets": [
+      "广播：子网洪泛；受限与安全隐患",
+      "组播：IGMP、组播地址段、TTL",
+      "Go：JoinGroup、LeaveGroup（IPv4 与 IPv6 差异）",
+      "交换机与路由器：二层与三层组播转发条件",
+      "典型场景：服务发现、实时行情分发"
+    ]
+  },
+  {
+    "rel": "05-udp-multicast/06-UDP可靠传输设计.md",
+    "title": "UDP 可靠传输设计",
+    "folder": "05-udp-multicast · UDP 与组播",
+    "bullets": [
+      "在 UDP 上重建 TCP 能力：序号、ACK、重传、去重、乱序重组",
+      "RTT 估计与 RTO：和 TCP 类似的工程细节",
+      "前向纠错 FEC 与 ARQ",
+      "QUIC、KCP、enet 等设计取舍（了解）",
+      "何时值得自建：定制延迟与弱网；否则优先 TCP、TLS、QUIC"
+    ]
+  }
+]

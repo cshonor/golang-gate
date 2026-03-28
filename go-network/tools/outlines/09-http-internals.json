@@ -1,0 +1,86 @@
+[
+  {
+    "rel": "09-http-internals/01-HTTP1.1.md",
+    "title": "HTTP/1.1",
+    "folder": "09-http-internals · HTTP 标准库底层",
+    "bullets": [
+      "报文：请求行、首部、空行、body；chunked 传输",
+      "持久连接与 Keep-Alive：管线化局限",
+      "Host 头、SNI 与虚拟主机",
+      "与 TCP：头阻塞（队头阻塞）",
+      "Go：net/http 解析路径与限制（MaxHeaderBytes 等）"
+    ]
+  },
+  {
+    "rel": "09-http-internals/02-HTTP2.md",
+    "title": "HTTP/2",
+    "folder": "09-http-internals · HTTP 标准库底层",
+    "bullets": [
+      "二进制帧：HEADERS、DATA、SETTINGS、WINDOW_UPDATE",
+      "多路复用：单连接多 stream；缓解 HOL（应用层）",
+      "HPACK 压缩：动态表与安全",
+      "流控与优先级（概念）",
+      "Go：x/net/http2 与 net/http 集成方式"
+    ]
+  },
+  {
+    "rel": "09-http-internals/03-HTTP3.md",
+    "title": "HTTP/3",
+    "folder": "09-http-internals · HTTP 标准库底层",
+    "bullets": [
+      "基于 QUIC（UDP）：握手+TLS+多路复用一体化",
+      "解决 TCP 层队头阻塞的动机",
+      "连接迁移、弱网表现（了解）",
+      "Go 生态：quic-go 等；标准库演进关注 release note",
+      "部署：UDP 被中间设备丢弃的坑"
+    ]
+  },
+  {
+    "rel": "09-http-internals/04-Go-net-http底层.md",
+    "title": "Go net/http 底层",
+    "folder": "09-http-internals · HTTP 标准库底层",
+    "bullets": [
+      "Client：Transport 连接池、TLS、HTTP/2 升级",
+      "Server：Listener、conn 读写循环、bufio",
+      "Request/Response 生命周期：Body 必须关闭",
+      "context 与取消：RoundTrip、Shutdown",
+      "调试：httptrace、日志中间件"
+    ]
+  },
+  {
+    "rel": "09-http-internals/05-路由、ServeMux.md",
+    "title": "路由与 ServeMux",
+    "folder": "09-http-internals · HTTP 标准库底层",
+    "bullets": [
+      "DefaultServeMux 与 http.Handle 模式",
+      "Go 1.22+ ServeMux 方法+路径匹配变化（按你使用的版本核对）",
+      "与第三方路由：chi、gorilla/mux、echo 差异点",
+      "中间件链：闭包与 ResponseWriter 包装",
+      "陷阱：全局 Mux 测试互相污染"
+    ]
+  },
+  {
+    "rel": "09-http-internals/06-http.Server结构体.md",
+    "title": "http.Server 结构体",
+    "folder": "09-http-internals · HTTP 标准库底层",
+    "bullets": [
+      "Addr、Handler、ReadTimeout、WriteTimeout、IdleTimeout",
+      "TLSConfig、MaxHeaderBytes、ErrorLog",
+      "ListenAndServe vs Serve：自定义 Listener",
+      "优雅关闭：Shutdown、BaseContext、注册信号",
+      "生产 checklist：超时、限流、panic recover"
+    ]
+  },
+  {
+    "rel": "09-http-internals/07-长连接、流水线.md",
+    "title": "长连接与流水线",
+    "folder": "09-http-internals · HTTP 标准库底层",
+    "bullets": [
+      "Keep-Alive：减少握手；与反向代理超时对齐",
+      "HTTP/1.1 流水线：浏览器与服务端支持现状",
+      "HTTP/2 上逻辑多请求与单连接",
+      "探测：curl -v、wireshark 对照 Connection 头",
+      "与 gRPC：长连接上的流"
+    ]
+  }
+]

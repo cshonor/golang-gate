@@ -1,0 +1,74 @@
+[
+  {
+    "rel": "06-go-net-internals/01-net.Conn接口.md",
+    "title": "net.Conn 接口",
+    "folder": "06-go-net-internals · Go net 包源码级理解",
+    "bullets": [
+      "接口方法：Read/Write/Close、LocalAddr/RemoteAddr、SetDeadline 族",
+      "实现者：TCPConn、UDPConn、TLSConn、UnixConn 等",
+      "接口语义：多返回值 err、短读/短写与 `io.Copy` 行为",
+      "与 `io.Reader`/`Writer`：如何在中间件链中组合",
+      "调试：包装 Conn 记录字节流与耗时"
+    ]
+  },
+  {
+    "rel": "06-go-net-internals/02-Listener接口.md",
+    "title": "Listener 接口",
+    "folder": "06-go-net-internals · Go net 包源码级理解",
+    "bullets": [
+      "Accept 返回 Conn；Addr 报告监听地址",
+      "TCPListener：File、`SetDeadline`、`Close` 行为",
+      "UnixListener、PacketConn 变体（扩展）",
+      "优雅关闭：`Close` 后 Accept 返回错误类型",
+      "与 `http.Server`：`Shutdown` 如何关 Listener"
+    ]
+  },
+  {
+    "rel": "06-go-net-internals/03-TCPConn结构.md",
+    "title": "TCPConn 结构",
+    "folder": "06-go-net-internals · Go net 包源码级理解",
+    "bullets": [
+      "内嵌 `conn`：fd、netFD、pollDesc（概念）",
+      "syscall 封装：`read`/`write` 与 `errno` 映射",
+      "SetLinger、SetNoDelay、SetKeepAlive 等到 syscall 的映射",
+      "与 `netFD` 生命周期：dup、SetBlocking",
+      "阅读指引：`src/net/tcpsock.go`、`src/net/fd_unix.go`（按本机 Go 版本）"
+    ]
+  },
+  {
+    "rel": "06-go-net-internals/04-UDPConn结构.md",
+    "title": "UDPConn 结构",
+    "folder": "06-go-net-internals · Go net 包源码级理解",
+    "bullets": [
+      "ReadFrom/WriteTo 与 `conn` 共性",
+      "已连接 UDP vs 无连接：`DialUDP` 后 `Write` 行为",
+      "缓冲区与丢包：应用层队列",
+      "与 `syscall`：recvfrom/sendto 路径",
+      "Multicast 相关方法在结构上的挂点"
+    ]
+  },
+  {
+    "rel": "06-go-net-internals/05-net.Dial底层流程.md",
+    "title": "net.Dial 底层流程",
+    "folder": "06-go-net-internals · Go net 包源码级理解",
+    "bullets": [
+      "解析地址：DNS、IPv4/IPv6 选择、Happy Eyeballs（若启用）",
+      "socket 创建：`socket` syscall、非阻塞设置",
+      "connect 与 poll：可中断等待",
+      "Dialer 字段：Timeout、KeepAlive、Control（raw hook）",
+      "错误链：`OpError`、`Addr`、`Err`  unwrap"
+    ]
+  },
+  {
+    "rel": "06-go-net-internals/06-net.Listen底层流程.md",
+    "title": "net.Listen 底层流程",
+    "folder": "06-go-net-internals · Go net 包源码级理解",
+    "bullets": [
+      "解析 `host:port`、wildcard、`SO_REUSEADDR`/`SO_REUSEPORT`（平台）",
+      "bind/listen syscall 序列",
+      "accept 与 netpoll：如何把新 fd 纳入 runtime",
+      "多监听：`ListenConfig`、`*TCPAddr`",
+      "常见坑：EADDRINUSE、IPv6 only、容器端口映射"
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "rel": "10-server-architecture/01-acceptor-worker模型.md",
+    "title": "acceptor-worker 模型",
+    "folder": "10-server-architecture · 高并发服务器架构",
+    "bullets": [
+      "单线程或少量线程 accept，分发到 worker 池",
+      "与半同步半异步：边界在哪条队列",
+      "背压：全连接队列、任务队列长度、拒绝策略",
+      "与 Go：Accept goroutine 加 chan 任务（经典写法）",
+      "对比：线程池与 goroutine 池"
+    ]
+  },
+  {
+    "rel": "10-server-architecture/02-reactor模型.md",
+    "title": "Reactor 模型",
+    "folder": "10-server-architecture · 高并发服务器架构",
+    "bullets": [
+      "单 Reactor 单线程与单 Reactor 多线程变种",
+      "事件：accept、read、write、timer",
+      "与 epoll LT 与 ET 实现细节",
+      "映射到 Go：netpoll 加 handler",
+      "与 Proactor 对照"
+    ]
+  },
+  {
+    "rel": "10-server-architecture/03-多reactor.md",
+    "title": "多 Reactor",
+    "folder": "10-server-architecture · 高并发服务器架构",
+    "bullets": [
+      "主从：主 accept，子 reactor 处理已连接 fd",
+      "水平扩展：CPU 核数、SO_REUSEPORT（视平台）",
+      "负载均衡：连接分配、惊群历史与现状",
+      "与 Nginx、Netty 线程模型对照",
+      "在 Go 中模拟的思路（多 Listen、多进程等）"
+    ]
+  },
+  {
+    "rel": "10-server-architecture/04-goroutine-per-conn.md",
+    "title": "goroutine-per-conn",
+    "folder": "10-server-architecture · 高并发服务器架构",
+    "bullets": [
+      "优点：代码线性、易读",
+      "风险：百万连接内存、调度开销、栈",
+      "何时可接受：内网、低并发、快速上线",
+      "与其他模型混合：大连接用池化或状态机",
+      "监控：goroutine 数量、pprof"
+    ]
+  },
+  {
+    "rel": "10-server-architecture/05-协程池.md",
+    "title": "协程池",
+    "folder": "10-server-architecture · 高并发服务器架构",
+    "bullets": [
+      "目的：限制并发、队列化、避免无界增长",
+      "实现：worker chan、errgroup、semaphore",
+      "与 CPU：池太大抖动，太小排队延迟",
+      "反模式：池内再阻塞 IO 导致死锁",
+      "测试：饱和、优雅退出"
+    ]
+  },
+  {
+    "rel": "10-server-architecture/06-连接池.md",
+    "title": "连接池",
+    "folder": "10-server-architecture · 高并发服务器架构",
+    "bullets": [
+      "客户端侧：到 DB、Redis、下游 HTTP",
+      "参数：max idle、max open、idle timeout、健康检查",
+      "与 HTTP：Transport 连接复用",
+      "故障：池耗尽、泄漏、半开连接",
+      "Go：database/sql、Redis 客户端配置对照"
+    ]
+  },
+  {
+    "rel": "10-server-architecture/07-高并发最佳实践.md",
+    "title": "高并发最佳实践",
+    "folder": "10-server-architecture · 高并发服务器架构",
+    "bullets": [
+      "超时、取消、限流、熔断、重试（幂等前提）",
+      "可观测：metrics、tracing、日志采样",
+      "容量规划：QPS、P99、带宽、fd、内存",
+      "发布：灰度、热更新、连接排空",
+      "清单：从开发到上线的网络相关项"
+    ]
+  }
+]

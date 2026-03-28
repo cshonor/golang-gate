@@ -1,0 +1,86 @@
+[
+  {
+    "rel": "12-tuning-and-issues/01-TCP参数调优.md",
+    "title": "TCP 参数调优",
+    "folder": "12-tuning-and-issues · 性能调优与线上问题",
+    "bullets": [
+      "sysctl：tcp_tw_reuse、tcp_fin_timeout（谨慎，随内核版本变化）",
+      "拥塞算法、窗口、timestamps、sack",
+      "容器与宿主机参数继承",
+      "云厂商 MTU、增强网络",
+      "方法：改一项、压测、对照 pprof 与 ss"
+    ]
+  },
+  {
+    "rel": "12-tuning-and-issues/02-端口范围、backlog.md",
+    "title": "端口范围与 backlog",
+    "folder": "12-tuning-and-issues · 性能调优与线上问题",
+    "bullets": [
+      "本地 ephemeral 端口耗尽：ip_local_port_range",
+      "大量出站连接与 TIME_WAIT 抢端口",
+      "listen backlog 与 somaxconn 再总结",
+      "诊断：Cannot assign requested address",
+      "缓解：连接池、长连接、调范围（权衡）"
+    ]
+  },
+  {
+    "rel": "12-tuning-and-issues/03-大量TIME_WAIT问题.md",
+    "title": "大量 TIME_WAIT 问题",
+    "folder": "12-tuning-and-issues · 性能调优与线上问题",
+    "bullets": [
+      "成因：主动关闭方、短连接、HTTP 客户端",
+      "危害：端口、socket 结构占用、路由表压力（视规模）",
+      "手段：Keep-Alive、连接池、调内核（理解副作用）",
+      "Linger 选项风险",
+      "与负载均衡：NAT 表项"
+    ]
+  },
+  {
+    "rel": "12-tuning-and-issues/04-CLOSE_WAIT问题.md",
+    "title": "CLOSE_WAIT 问题",
+    "folder": "12-tuning-and-issues · 性能调优与线上问题",
+    "bullets": [
+      "语义：对端已 FIN，本端应用未 close",
+      "典型 bug：漏关 Conn、goroutine 阻塞在读、池化泄漏",
+      "排查：ss、lsof、应用堆栈",
+      "与反向代理超时",
+      "修复：defer Close、context、finally 模式"
+    ]
+  },
+  {
+    "rel": "12-tuning-and-issues/05-大量连接占内存问题.md",
+    "title": "大量连接占内存问题",
+    "folder": "12-tuning-and-issues · 性能调优与线上问题",
+    "bullets": [
+      "每连接：socket 缓冲、TLS 状态、应用读缓冲",
+      "goroutine 栈与 heap",
+      "估算公式与压测验证",
+      "优化：减小 buffer、零拷贝、协议瘦身",
+      "内核参数：tcp_mem 等（了解）"
+    ]
+  },
+  {
+    "rel": "12-tuning-and-issues/06-pprof网络调优.md",
+    "title": "pprof 网络调优",
+    "folder": "12-tuning-and-issues · 性能调优与线上问题",
+    "bullets": [
+      "CPU profile：热点在序列化还是 syscall",
+      "heap：buffer 分配",
+      "goroutine：阻塞在 network I/O",
+      "trace：调度延迟与 netpoll",
+      "与 http pprof 端点安全：勿暴露公网"
+    ]
+  },
+  {
+    "rel": "12-tuning-and-issues/07-高并发压测指标.md",
+    "title": "高并发压测指标",
+    "folder": "12-tuning-and-issues · 性能调优与线上问题",
+    "bullets": [
+      "QPS、P50/P99 延迟、错误率、饱和度",
+      "wrk、hey、vegeta 使用要点",
+      "对照组：连接数、payload、keep-alive",
+      "陷阱：压测机先瓶颈、TIME_WAIT、文件描述符",
+      "报告模板：环境、命令、结果、结论"
+    ]
+  }
+]

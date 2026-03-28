@@ -1,0 +1,98 @@
+[
+  {
+    "rel": "03-linux-networking/01-socket是什么.md",
+    "title": "socket 是什么",
+    "folder": "03-linux-networking · Linux 网络底层",
+    "bullets": [
+      "BSD socket 抽象：端点 = IP + 端口 + 协议",
+      "fd 统一抽象：socket 也是文件描述符（一切皆文件）",
+      "TCP/UDP/UNIX domain 套接字差异与典型 syscall 序列",
+      "内核对象：`struct sock` / `struct socket`（概念级，不必背字段）",
+      "与 Go：`net.Dial`/`Listen` 在 Linux 上对应的 syscall 链条"
+    ]
+  },
+  {
+    "rel": "03-linux-networking/02-file-descriptor-fd.md",
+    "title": "file descriptor（fd）",
+    "folder": "03-linux-networking · Linux 网络底层",
+    "bullets": [
+      "进程 fd 表：0/1/2 标准 IO；`dup`/`dup2`/`close`",
+      "`FD_CLOEXEC` 与 `fork`+`exec` 防泄漏",
+      "软限制 `ulimit -n`：高并发下 first-class 调优项",
+      "`/proc/pid/fd` 排查泄漏与误关 fd",
+      "与 epoll：注册的是 fd；半关闭后 fd 仍可读直至 EOF"
+    ]
+  },
+  {
+    "rel": "03-linux-networking/03-socket创建流程.md",
+    "title": "socket 创建流程",
+    "folder": "03-linux-networking · Linux 网络底层",
+    "bullets": [
+      "`socket(AF_INET, SOCK_STREAM, 0)` → `bind` → `listen` → `accept` 服务端路径",
+      "客户端：`socket` → `connect`（可选 `bind` 本地源端口）",
+      "UDP：`sendto`/`recvfrom` 无连接语义",
+      "错误路径：`EADDRINUSE`、`ECONNREFUSED` 常见根因",
+      "Go 映射：`net.ListenTCP`、`resolver`、`Dialer` 控制项"
+    ]
+  },
+  {
+    "rel": "03-linux-networking/04-三次握手内核做了什么.md",
+    "title": "三次握手：内核做了什么",
+    "folder": "03-linux-networking · Linux 网络底层",
+    "bullets": [
+      "SYN → SYN-ACK → ACK：状态迁移（CLOSED/LISTEN/SYN_RCVD/ESTABLISHED）",
+      "半连接队列（syn queue）与全连接队列（accept queue）角色",
+      "SYN cookie：syn flood 时如何缓解（概念）",
+      "与 `netstat -ant`/`ss` 对照看状态",
+      "与 04-tcp 用户态笔记衔接：握手与 `accept` 返回时机"
+    ]
+  },
+  {
+    "rel": "03-linux-networking/05-四次挥手内核做了什么.md",
+    "title": "四次挥手：内核做了什么",
+    "folder": "03-linux-networking · Linux 网络底层",
+    "bullets": [
+      "FIN 双向：`FIN_WAIT_1/2`、`CLOSE_WAIT`、`TIME_WAIT`、`LAST_ACK`",
+      "半关闭：`shutdown(SHUT_WR)` vs `close` 区别",
+      "2MSL 存在原因与 `TIME_WAIT` 堆积调优（预告 12 章）",
+      "RST 场景：对端崩溃、端口未监听、向已关闭连接写",
+      "与 Go：`SetLinger`、优雅关闭实践"
+    ]
+  },
+  {
+    "rel": "03-linux-networking/06-TCP连接状态.md",
+    "title": "TCP 连接状态",
+    "folder": "03-linux-networking · Linux 网络底层",
+    "bullets": [
+      "状态机全图：客户端/服务端视角各画一遍",
+      "异常路径：`SYN_SENT` 超时、`CLOSING` 同时关闭",
+      "`ss -o state` 过滤实战",
+      "与防火墙/NAT：状态跟踪表如何依赖 TCP 状态",
+      "调试：`tcpdump` 抓包对照状态迁移"
+    ]
+  },
+  {
+    "rel": "03-linux-networking/07-半连接队列与全连接队列.md",
+    "title": "半连接队列与全连接队列",
+    "folder": "03-linux-networking · Linux 网络底层",
+    "bullets": [
+      "`tcp_max_syn_backlog`、`somaxconn`、`listen(backlog)` 三者关系",
+      "队列满时行为：丢 SYN 还是 RST？对客户端表现",
+      "`accept` 慢导致全连接满：雪崩与延迟尖刺",
+      "监控指标：丢弃计数、重传率",
+      "与 Go：`Listen` 的 backlog 参数如何传下去"
+    ]
+  },
+  {
+    "rel": "03-linux-networking/08-socket缓冲区SO_RCVBUF与SO_SNDBUF.md",
+    "title": "socket 缓冲区：SO_RCVBUF / SO_SNDBUF",
+    "folder": "03-linux-networking · Linux 网络底层",
+    "bullets": [
+      "内核自动调优 vs `setsockopt` 固定：各自适用",
+      "与 BDP（带宽时延积）：高带宽长肥管下的窗口关系",
+      "应用 `read` 慢导致接收缓冲区满：对端 `write` 阻塞与零窗口",
+      "内存估算：并发连接 × 每连接缓冲",
+      "与 `TCP_NOTSENT_LOWAT`、写节流（扩展）"
+    ]
+  }
+]

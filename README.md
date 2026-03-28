@@ -27,6 +27,7 @@ Go 语言入门学习项目。
 - [错误处理（Error Handling）](./error_handling/README.md)
 - [defer 易错点（Defer Traps）](./defer_traps/README.md)
 - [unsafe（unsafe 包）](./unsafe_pkg/README.md)
+- [Go 网络编程 + IO 模型](./go-network/README.md)
 
 ## 系统要求
 

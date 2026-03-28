@@ -1,0 +1,50 @@
+[
+  {
+    "rel": "11-nio-reactor/01-非阻塞socket.md",
+    "title": "非阻塞 socket",
+    "folder": "11-nio-reactor · 非阻塞 IO 与 Reactor 模型",
+    "bullets": [
+      "设置非阻塞：fcntl、socket 创建时选项",
+      "connect 非阻塞：EINPROGRESS 与可写事件确认",
+      "accept 惊群历史与 EPOLLEXCLUSIVE（了解）",
+      "读写：EAGAIN 与重试策略",
+      "与 Go：多数场景由 runtime 隐藏细节"
+    ]
+  },
+  {
+    "rel": "11-nio-reactor/02-Reactor模式.md",
+    "title": "Reactor 模式",
+    "folder": "11-nio-reactor · 非阻塞 IO 与 Reactor 模型",
+    "bullets": [
+      "角色：Reactor、Handler、Acceptor",
+      "同步事件分发：分发线程模型变种",
+      "与 Proactor 对照",
+      "伪代码：事件循环主结构",
+      "常见坑：在回调里做重 CPU 计算"
+    ]
+  },
+  {
+    "rel": "11-nio-reactor/03-主从Reactor.md",
+    "title": "主从 Reactor",
+    "folder": "11-nio-reactor · 非阻塞 IO 与 Reactor 模型",
+    "bullets": [
+      "主 Reactor 只 accept，子 Reactor 处理已连接 fd",
+      "水平扩展与锁竞争",
+      "与 Netty boss/worker 线程组映射",
+      "选型：何时需要主从（高 accept 压力）",
+      "在 C++ 与 Go 中的实现差异"
+    ]
+  },
+  {
+    "rel": "11-nio-reactor/04-Go如何实现Reactor.md",
+    "title": "Go 如何实现 Reactor",
+    "folder": "11-nio-reactor · 非阻塞 IO 与 Reactor 模型",
+    "bullets": [
+      "netpoll 即内核事件源；M 执行 goroutine 即 worker",
+      "手写最小 echo：是否必要用 epoll（通常不必要）",
+      "与 cgo 或 syscall.EpollWait 自建 loop 的边界",
+      "性能：不要与 runtime 打架",
+      "结论：理解 Reactor 有助于读 Go 源码，不必业务里再造轮子"
+    ]
+  }
+]

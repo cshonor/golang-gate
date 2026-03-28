@@ -1,0 +1,86 @@
+[
+  {
+    "rel": "07-go-netpoll/01-Go为什么高并发.md",
+    "title": "Go 为什么高并发",
+    "folder": "07-go-netpoll · Go netpoll 高并发核心",
+    "bullets": [
+      "G-M-P：goroutine 轻量、阻塞 syscall 时线程剥离（大方向）",
+      "netpoll：把网络 fd 就绪与调度 goroutine 衔接",
+      "对比线程 per connection：内存与上下文切换",
+      "与 GC、栈扩容的边界（点到为止）",
+      "误区：goroutine 不是免费；仍需背压与池化"
+    ]
+  },
+  {
+    "rel": "07-go-netpoll/02-netpoll是什么.md",
+    "title": "netpoll 是什么",
+    "folder": "07-go-netpoll · Go netpoll 高并发核心",
+    "bullets": [
+      "runtime 内部对可读可写事件的统一抽象",
+      "每个网络 fd 关联 pollDesc；g 在 fd 上 park",
+      "就绪时 netpoll 把 g 标记 runnable 推回队列",
+      "与 epoll_wait、kevent、IOCP 的桥接",
+      "查找入口：runtime 目录下 netpoll 相关源码"
+    ]
+  },
+  {
+    "rel": "07-go-netpoll/03-epoll-kqueue-IOCP支持.md",
+    "title": "epoll / kqueue / IOCP 支持",
+    "folder": "07-go-netpoll · Go netpoll 高并发核心",
+    "bullets": [
+      "Linux：epoll；BSD 与 macOS：kqueue；Windows：IOCP（概念对齐）",
+      "构建标签与文件拆分：如何在本机源码树定位",
+      "差异点：LT 与 ET、Windows AFD 细节可略读",
+      "为何用户态很少直接调 epoll：Go 已内嵌",
+      "扩展阅读：runtime 网络轮询与定时器、work stealing 的协作"
+    ]
+  },
+  {
+    "rel": "07-go-netpoll/04-Go的IO模型到底是什么.md",
+    "title": "Go 的 IO 模型到底是什么",
+    "folder": "07-go-netpoll · Go netpoll 高并发核心",
+    "bullets": [
+      "对外：同步阻塞式 API；对内：非阻塞 fd 加多路复用",
+      "归类：Reactor 加线程池（M）的口述清晰版",
+      "与 Node.js、Netty、Java NIO 的异同表",
+      "文件 IO：为何不少路径仍阻塞 OS 线程（版本演进简述）",
+      "面试：一句话加一张图"
+    ]
+  },
+  {
+    "rel": "07-go-netpoll/05-Go的Read与Write为什么看起来阻塞.md",
+    "title": "Go 的 Read/Write 为什么看起来阻塞",
+    "folder": "07-go-netpoll · Go netpoll 高并发核心",
+    "bullets": [
+      "netFD.Read：EAGAIN 时调用 pollWait",
+      "gopark 与 netpoll goroutine 唤醒路径",
+      "与 SetDeadline：timer 与 poll 取消",
+      "阻塞的用户感知与线程状态",
+      "实验：strace 或 dlv 小 demo 观察（可选）"
+    ]
+  },
+  {
+    "rel": "07-go-netpoll/06-Goroutine与netpoll调度.md",
+    "title": "Goroutine 与 netpoll 调度",
+    "folder": "07-go-netpoll · Go netpoll 高并发核心",
+    "bullets": [
+      "netpoll 在调度循环中的调用点：findrunnable 等（概念）",
+      "批量就绪：一次 epoll_wait 唤醒多个 g 的公平性",
+      "与 sysmon、抢占的关系（浅尝）",
+      "高负载下：poll 延迟、尾延迟分析思路",
+      "反模式：在热点路径滥用 runtime.LockOSThread"
+    ]
+  },
+  {
+    "rel": "07-go-netpoll/07-netpoll源码核心流程.md",
+    "title": "netpoll 源码核心流程",
+    "folder": "07-go-netpoll · Go netpoll 高并发核心",
+    "bullets": [
+      "pollDesc：open、close、read、write、park",
+      "netpollinit、netpollopen、netpollblock、netpollunblock",
+      "epollctl 增删改事件集合",
+      "从 internal/poll 到 runtime 的边界",
+      "带问题阅读：一次 Accept 从 syscall 返回到用户 handler 的完整栈"
+    ]
+  }
+]

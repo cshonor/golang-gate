@@ -1,0 +1,122 @@
+[
+  {
+    "rel": "02-io-models/01-五大IO模型总览.md",
+    "title": "五大 IO 模型总览",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "Stevens 经典五模型：阻塞、非阻塞、I/O 多路复用、信号驱动、异步",
+      "两维表：阻塞性 × 同步/异步（能口述不被绕晕）",
+      "各模型在 Linux/Windows 上的代表 API（select/poll/epoll、IOCP、SIGIO）",
+      "与「线程模型」关系：一连接一线程 vs 事件循环",
+      "为后文 epoll / Go netpoll 埋钩：多数高性能服务落在「多路复用 + 非阻塞 fd」"
+    ]
+  },
+  {
+    "rel": "02-io-models/02-阻塞IO BIO.md",
+    "title": "阻塞 IO（BIO）",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "语义：调用方在数据未就绪时睡眠，内核唤醒后继续",
+      "线程成本：栈内存、调度开销；高并发下线程爆炸",
+      "适用：连接数低、实现简单、延迟不敏感的管理面",
+      "与进程/线程池：accept 线程 + worker 线程的经典拆分",
+      "对比 Go：`Accept` 阻塞时占 OS 线程吗？（衔接 runtime 网络）"
+    ]
+  },
+  {
+    "rel": "02-io-models/03-非阻塞IO NIO.md",
+    "title": "非阻塞 IO（NIO）",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "配置：`O_NONBLOCK`；`accept`/`read`/`write`/`connect` 的 `EAGAIN` 语义",
+      "忙轮询的代价：CPU 100% 空转；必须与复用或让出结合",
+      "自旋 + `sched_yield` vs 直接阻塞：何时得不偿失",
+      "与边缘触发（ET）配合时的读尽/写尽策略",
+      "Go 中「非阻塞 fd + netpoll」如何把 NIO 包装成「协程级阻塞」"
+    ]
+  },
+  {
+    "rel": "02-io-models/04-IO多路复用-select.md",
+    "title": "IO 多路复用：select",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "API：`fd_set`、FD_SETSIZE 上限、用户态/内核态来回拷贝 bitmap",
+      "时间复杂度：O(n) 扫描就绪集合；n 大时线性退化",
+      "精度：`timeval` 与超时行为；被信号中断（EINTR）处理",
+      "可移植性：几乎所有 POSIX 实现；教学与兼容层仍有价值",
+      "对比 poll/epoll：为何 select 仍是「理解复用」的第一课"
+    ]
+  },
+  {
+    "rel": "02-io-models/05-IO多路复用-poll.md",
+    "title": "IO 多路复用：poll",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "`pollfd` 结构：fd、events、revents；无固定 1024 上限但仍 O(n) 扫描",
+      "水平触发语义：与 select 类似，易写不易踩 ET 坑",
+      "性能瓶颈：大量连接时每次传入全量数组、内核扫描全表",
+      "与 select 选型：简单服务、连接中等时够用",
+      "过渡到 epoll：何时 poll 成为明显短板（量化直觉）"
+    ]
+  },
+  {
+    "rel": "02-io-models/06-IO多路复用-epoll原理.md",
+    "title": "IO 多路复用：epoll 原理",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "`epoll_create` / `epoll_ctl` / `epoll_wait`：红黑树 + 就绪链表（概念级）",
+      "边缘触发 vs 水平触发预告；`EPOLLONESHOT` 等标志位",
+      "为什么 epoll 是 O(1) 就绪通知（相对 poll 的全量扫描）",
+      "与 `timerfd`/`eventfd`：统一事件源",
+      "常见面试：epoll 为什么高效？与 nginx/redis 事件循环关系"
+    ]
+  },
+  {
+    "rel": "02-io-models/07-epoll-LT与ET模式.md",
+    "title": "epoll：LT 与 ET 模式",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "LT（水平触发）：只要条件满足就持续通知；写起来像阻塞 IO 心智",
+      "ET（边缘触发）：仅在状态变化边沿通知；必须读写到 `EAGAIN`",
+      "ET 下 `read`/`write` 典型 bug：漏读导致「饿死」、写事件未再触发",
+      "`EPOLLOUT` 注册策略：是否需要一直监听？",
+      "与 nginx：`edge`/`kqueue` 配置对照（若扩展阅读）"
+    ]
+  },
+  {
+    "rel": "02-io-models/08-信号驱动IO.md",
+    "title": "信号驱动 IO",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "SIGIO 模型：注册信号处理函数，数据就绪时异步通知",
+      "限制：UDP 较自然；TCP 流式读写与信号粒度不匹配",
+      "与主循环集成困难：信号安全函数、重入问题",
+      "现代服务端罕用原因：可维护性、跨平台、与线程池协作差",
+      "知识价值：理解「通知机制」多样性，对比 epoll/IOCP"
+    ]
+  },
+  {
+    "rel": "02-io-models/09-异步IO AIO.md",
+    "title": "异步 IO（AIO）",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "POSIX AIO 在 Linux 上的真实程度：部分场景仍线程池模拟",
+      "io_uring：真异步与批量提交（可作为扩展）",
+      "网络 AIO：Windows IOCP 模型对照",
+      "与 Proactor：`WSARecv` + completion port",
+      "Go 选型：为何多数网络代码仍走 netpoll 而非原生 AIO"
+    ]
+  },
+  {
+    "rel": "02-io-models/10-五大IO模型对比总结.md",
+    "title": "五大 IO 模型对比总结",
+    "folder": "02-io-models · IO 模型全解",
+    "bullets": [
+      "一表汇总：延迟、吞吐、CPU、编程复杂度、平台支持",
+      "线程模型映射：per-thread blocking vs reactor vs proactor",
+      "典型中间件选型：nginx、redis、netty、Go net",
+      "陷阱清单：ET 漏读、`EPOLLOUT` 惊群（历史）、自旋锁化 event loop",
+      "自测：白板画出客户端发起到服务端 `read` 返回的完整路径"
+    ]
+  }
+]

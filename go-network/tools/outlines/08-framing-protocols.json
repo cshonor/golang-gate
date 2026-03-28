@@ -1,0 +1,86 @@
+[
+  {
+    "rel": "08-framing-protocols/01-什么是粘包拆包.md",
+    "title": "什么是粘包拆包",
+    "folder": "08-framing-protocols · 粘包拆包与协议设计",
+    "bullets": [
+      "TCP 字节流：无消息边界",
+      "粘包：多次发送被一次 read 读到；拆包：半包多次 read 拼消息",
+      "与应用层「帧」概念：必须自己定义边界",
+      "和 UDP「报文」对比：为何 UDP 不谈粘包",
+      "调试：hex dump + 日志对齐"
+    ]
+  },
+  {
+    "rel": "08-framing-protocols/02-为什么TCP会粘包.md",
+    "title": "为什么 TCP 会粘包",
+    "folder": "08-framing-protocols · 粘包拆包与协议设计",
+    "bullets": [
+      "Nagle、延迟 ACK、内核合并写（概念）",
+      "应用层 `write` 次数与 TCP 段边界无对应关系",
+      "read 缓冲区任意切片：一次读到多个应用消息或半个",
+      "性能取向：减少 syscall 反而加剧「粘在一起」",
+      "结论：不是 bug，是语义；协议必须自描述长度或边界"
+    ]
+  },
+  {
+    "rel": "08-framing-protocols/03-固定长度协议.md",
+    "title": "固定长度协议",
+    "folder": "08-framing-protocols · 粘包拆包与协议设计",
+    "bullets": [
+      "每帧 N 字节：实现简单",
+      "浪费带宽：变长数据需填充",
+      "读循环：`io.ReadFull` 保证读满",
+      "适用：硬件协议、简单指令",
+      "变种：定长头 + 变长体（过渡到下一种）"
+    ]
+  },
+  {
+    "rel": "08-framing-protocols/04-分隔符协议.md",
+    "title": "分隔符协议",
+    "folder": "08-framing-protocols · 粘包拆包与协议设计",
+    "bullets": [
+      "如 `\\n`、自定义 magic；`bufio.Scanner` 风险（token 大小）",
+      "转义问题：载荷中出现分隔符需编码",
+      "与流式文本协议：Redis RESP 简例",
+      "性能：扫描字节 vs 状态机",
+      "边界：二进制协议慎用裸分隔符"
+    ]
+  },
+  {
+    "rel": "08-framing-protocols/05-长度+报文协议（最常用）.md",
+    "title": "长度前缀 + 报文体（最常用）",
+    "folder": "08-framing-protocols · 粘包拆包与协议设计",
+    "bullets": [
+      "头：2/4 字节大端/小端长度；体：payload",
+      "读：`ReadFull` 先头后体；最大长度防 OOM",
+      "与 protobuf/JSON：长度 + 编码字节",
+      "版本字段、魔数、CRC（可选）",
+      "Go 实现：`encoding/binary`、封帧中间件"
+    ]
+  },
+  {
+    "rel": "08-framing-protocols/06-Protobuf协议.md",
+    "title": "Protobuf 协议",
+    "folder": "08-framing-protocols · 粘包拆包与协议设计",
+    "bullets": [
+      "TLV 风格：字段号+wire type；与 JSON 体积对比",
+      "`proto3` 默认、optional、oneof 简述",
+      "gRPC：HTTP/2 帧 + protobuf 消息",
+      "兼容性：向前向后演进规则",
+      "陷阱：required 移除、默认值与「缺省」检测"
+    ]
+  },
+  {
+    "rel": "08-framing-protocols/07-自定义私有协议.md",
+    "title": "自定义私有协议",
+    "folder": "08-framing-protocols · 粘包拆包与协议设计",
+    "bullets": [
+      "需求分析：延迟、版本、鉴权、心跳、错误码",
+      "状态机：握手、鉴权、业务、关闭",
+      "安全：TLS 外包 vs 自研加密（别自研）",
+      "观测：协议日志、兼容开关、feature bit",
+      "测试：fuzz、对等实现、乱序/断连注入"
+    ]
+  }
+]
