@@ -8,12 +8,12 @@
 
 | 主题 | 笔记文件 |
 |------|----------|
-| 01 - 错误介绍 | [01 - 错误介绍.md](./01 - 错误介绍.md) |
-| 02 - 错误基本语法 | [02 - 错误基本语法.md](./02 - 错误基本语法.md) |
-| 03 - 自定义错误类型 | [03 - 自定义错误类型.md](./03 - 自定义错误类型.md) |
-| 04 - 错误包装与错误链 | [04 - 错误包装与错误链.md](./04 - 错误包装与错误链.md) |
-| 05 - errors.Is 与 errors.As 使用 | [05-errors.Is 与 errors.As 使用.md](./05-errors.Is 与 errors.As 使用.md) |
-| 06 - panic 与 recover 捕获异常 | [06-panic 与 recover 捕获异常.md](./06-panic 与 recover 捕获异常.md) |
+| 01 - 错误介绍 | [01 - 错误介绍.md](./01%20-%20错误介绍.md) |
+| 02 - 错误基本语法 | [02 - 错误基本语法.md](./02%20-%20错误基本语法.md) |
+| 03 - 自定义错误类型 | [03 - 自定义错误类型.md](./03%20-%20自定义错误类型.md) |
+| 04 - 错误包装与错误链 | [04 - 错误包装与错误链.md](./04%20-%20错误包装与错误链.md) |
+| 05 - errors.Is 与 errors.As 使用 | [05-errors.Is 与 errors.As 使用.md](./05-errors.Is%20与%20errors.As%20使用.md) |
+| 06 - panic 与 recover 捕获异常 | [06-panic 与 recover 捕获异常.md](./06-panic%20与%20recover%20捕获异常.md) |
 | 进阶总览（可背版） | [error_handling.md](./error_handling.md) |
 | 兜底专题（可背版） | [panic_recover.md](./panic_recover.md) |
 

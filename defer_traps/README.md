@@ -6,12 +6,12 @@
 
 | 主题 | 笔记文件 |
 |------|----------|
-| 01 - defer 基本用法 | [01-defer 基本用法.md](./01-defer 基本用法.md) |
-| 02 - defer 执行顺序规则 | [02-defer 执行顺序规则.md](./02-defer 执行顺序规则.md) |
-| 03 - defer 参数预计算陷阱 | [03-defer 参数预计算陷阱.md](./03-defer 参数预计算陷阱.md) |
-| 04 - defer 与 return 执行流程 | [04-defer 与 return 执行流程.md](./04-defer 与 return 执行流程.md) |
-| 05 - defer 在循环中的风险 | [05-defer 在循环中的风险.md](./05-defer 在循环中的风险.md) |
-| 06 - defer 底层实现原理 | [06-defer 底层实现原理.md](./06-defer 底层实现原理.md) |
+| 01 - defer 基本用法 | [01-defer 基本用法.md](./01-defer%20基本用法.md) |
+| 02 - defer 执行顺序规则 | [02-defer 执行顺序规则.md](./02-defer%20执行顺序规则.md) |
+| 03 - defer 参数预计算陷阱 | [03-defer 参数预计算陷阱.md](./03-defer%20参数预计算陷阱.md) |
+| 04 - defer 与 return 执行流程 | [04-defer 与 return 执行流程.md](./04-defer%20与%20return%20执行流程.md) |
+| 05 - defer 在循环中的风险 | [05-defer 在循环中的风险.md](./05-defer%20在循环中的风险.md) |
+| 06 - defer 底层实现原理 | [06-defer 底层实现原理.md](./06-defer%20底层实现原理.md) |
 
 ## 学习顺序建议
 
