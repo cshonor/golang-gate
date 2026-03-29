@@ -35,5 +35,5 @@ atomic.StoreUint32(&flag, 0)
 
 ## 5. 阅读衔接
 
-上一步：[CAS 与 Mutex 本质区别.md](./CAS%20与%20Mutex%20本质区别.md)  
-下一步：[atomic 包正确用法：Add 与 CAS 区分.md](./atomic%20包正确用法%EF%BC%9AAdd%20与%20CAS%20区分.md)
+上一步：[02-CAS 与 Mutex 本质区别.md](./02-CAS%20与%20Mutex%20本质区别.md)  
+下一步：[04-atomic 包正确用法：Add 与 CAS 区分.md](./04-atomic%20包正确用法%EF%BC%9AAdd%20与%20CAS%20区分.md)

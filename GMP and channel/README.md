@@ -1,7 +1,7 @@
 # 并发：GMP、Channel（与课表对应笔记）
 
 本目录笔记对应 **「后端进阶」** 中与 **协程 / GMP / channel** 相关的条目。  
-**map / slice** 见 **`../datastruct/`**；**WaitGroup** 见 **`../atomic and lock/WaitGroup特性及原理.md`**；**GC** 见 **`../GC and memory/`**。
+**map / slice** 见 **`../datastruct/`**；**WaitGroup** 见 **`../atomic and lock/14-WaitGroup特性及原理.md`**；**GC** 见 **`../GC and memory/`**。
 
 ## 课表 ↔ 文件索引
 
@@ -21,7 +21,7 @@
 | channel 读取优化 | [channel读取优化.md](./channel读取优化.md) |
 | 环形队列 | [环形队列.md](./环形队列.md) |
 | closed channel 相关特性 | [closed_channel相关特性.md](./closed_channel相关特性.md) |
-| 并发 WaitGroup 特性及原理 | [WaitGroup特性及原理.md](../atomic%20and%20lock/WaitGroup特性及原理.md) |
+| 并发 WaitGroup 特性及原理 | [14-WaitGroup特性及原理.md](../atomic%20and%20lock/14-WaitGroup特性及原理.md) |
 
 ## 合并版总结（可选）
 
@@ -42,6 +42,6 @@
 6. [学 GMP 必学 chan.md](./学%20GMP%20必学%20chan.md)（把调度模型映射到 channel 路径）  
 7. [channel读取优化.md](./channel读取优化.md)（实现/性能视角）  
 8. [环形队列.md](./环形队列.md)（与有缓冲 channel / FIFO 对照）  
-9. [WaitGroup特性及原理.md](../atomic%20and%20lock/WaitGroup特性及原理.md)（同步收尾）
+9. [14-WaitGroup特性及原理.md](../atomic%20and%20lock/14-WaitGroup特性及原理.md)（同步收尾）
 
 视频里手写 **「目标：数据结构 / FIFO」**：FIFO 是有缓冲 channel 环形队列的常见实现特征，可与 `channel阻塞原理.md` 对照。
