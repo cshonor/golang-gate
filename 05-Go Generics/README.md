@@ -2,7 +2,7 @@
 
 本目录整理 **Go 1.18+ 泛型**：类型参数、约束、泛型函数/类型/方法，以及与 `interface{}`、反射的取舍。示例中 **比较大小的约束**优先使用 **Go 1.21+** 标准库 **`cmp.Ordered`**；更早版本可用 `golang.org/x/exp/constraints` 或手写联合类型。
 
-**进阶笔记总入口**见仓库根目录 [README.md](../README.md)；**数据结构**见 [`../datastruct/README.md`](../datastruct/README.md)。
+**进阶笔记总入口**见仓库根目录 [README.md](../README.md)；**数据结构**见 [`../01-datastruct/README.md`](../01-datastruct/README.md)。
 
 ## 文件索引
 

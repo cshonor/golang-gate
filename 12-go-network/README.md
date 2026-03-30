@@ -2,17 +2,17 @@
 
 从 **IO 理论 → Linux 网络 → TCP/UDP → Go net / netpoll → 协议与 HTTP → 架构与调优 → 实战**，按章节填充正文即可。
 
-**目录文件夹名为英文**（便于跨平台与工具链）；**笔记 `.md` 文件名仍为你原来的中文主题**（便于检索）。
+**顶层目录名为 `12-go-network`**（与仓库根目录 `README` 中进阶顺序 **12** 一致）；**笔记 `.md` 文件名仍为你原来的中文主题**（便于检索）。
 
 ## 维护工具
 
 每篇正文前已有 **「内容大纲」** 占位。若批量重生成正文骨架，可在仓库根目录执行：
 
 ```bash
-python go-network/tools/apply_outlines.py
+python 12-go-network/tools/apply_outlines.py
 ```
 
-大纲数据在 `go-network/tools/outlines/*.json`，可按篇编辑后重新运行脚本。
+大纲数据在 `12-go-network/tools/outlines/*.json`，可按篇编辑后重新运行脚本。
 
 ---
 

@@ -1,7 +1,7 @@
 # 锁实现原理
 
 本目录整理 **互斥 / 自旋 / 阻塞唤醒 / futex 直觉 / 饥饿** 等实现脉络，以及 Go 侧 **`sync.WaitGroup`**、`runtime.Gosched` 等笔记。  
-**Channel、GMP** 见 **`../GMP and channel/`**；**map、slice** 见 **`../datastruct/`**。
+**Channel、GMP** 见 **`../07-GMP and channel/`**；**map、slice** 见 **`../01-datastruct/`**。
 
 文件名统一带 **`01-`～`15-` 序号**：前 5 为 **CAS/Mutex 闭环**，6–13 为 **课表「锁实现」主线**，14–15 为 **同步原语补充**。
 

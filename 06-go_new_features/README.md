@@ -1,6 +1,6 @@
-# Go 1.21+ 新特性（go_new_features）
+# Go 1.21+ 新特性（`06-go_new_features`）
 
-本目录聚焦 **Go 1.21+** 开发中能立刻用上的新能力：`slices`/`maps` 标准库、`errors.Join` 等（与你现有 datastruct / error_handling 完美衔接）。
+本目录聚焦 **Go 1.21+** 开发中能立刻用上的新能力：`slices`/`maps` 标准库、`errors.Join` 等（与你现有 `01-datastruct` / `03-error_handling` 完美衔接）。
 
 ## 文件索引
 
@@ -16,6 +16,6 @@
 ## 学习顺序建议
 
 1. 先学 02/03：`slices`/`maps` 能直接替代大量手写循环  
-2. 再学 04：与 `error_handling` 配套  
+2. 再学 04：与 `03-error_handling` 配套  
 3. 最后学 05：新概念，按需要了解
 

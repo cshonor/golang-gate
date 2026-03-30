@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Fill go-network/*.md with 内容大纲. Run from repo root: python go-network/tools/apply_outlines.py"""
+"""Fill 12-go-network/*.md with 内容大纲. Run from repo root: python 12-go-network/tools/apply_outlines.py"""
 from __future__ import annotations
 
 import json

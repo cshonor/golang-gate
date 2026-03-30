@@ -2,7 +2,7 @@
 
 本目录整理 **接口语义、空接口 `eface`、类型断言、`reflect.TypeOf`/`ValueOf`、反射改值与性能、面试口述** 等高频考点；根目录笔记文件名带 **`01-`～`11-`** 前缀。各篇采用统一 **`#` / `##`** 层级、规范代码围栏，文末常附 **复习速记** 与 **延伸阅读**。
 
-**GMP / Channel** 见 **`../GMP and channel/`**；**map / slice** 见 **`../datastruct/`**；**GC** 见 **`../GC and memory/`**。
+**GMP / Channel** 见 **`../07-GMP and channel/`**；**map / slice** 见 **`../01-datastruct/`**；**GC** 见 **`../11-GC and memory/`**。
 
 > **说明**：`05-reflect.TypeOf …` 与 `03-_type …` 文件名中含 **不间断空格（U+00A0）**（历史遗留）；下方链接已用 `%C2%A0` 编码，便于在 GitHub 上跳转。
 
