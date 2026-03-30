@@ -1,6 +1,6 @@
 # channel 阻塞：现象到原理（实现向提纲）
 
-> 由 `channel阻塞协程现象.md` 与 `channel阻塞原理.md` 合并整理。
+> 由 `09-channel阻塞协程现象.md` 与 `10-channel阻塞原理.md`（上级目录）合并整理。
 
 ## 1. 先看现象（面试开场用）
 
@@ -99,7 +99,7 @@ send(unbuffered):
 2. **close 之后再发送**：panic（语义层面）
 3. **close 时在等待队列里的 G**：会被唤醒（senders/receivers 的处理细节见 `closechan`）
 
-> 更完整的语义清单见同目录 `closed_channel相关特性.md`。
+> 更完整的语义清单见上级目录 [11-closed_channel相关特性.md](../11-closed_channel相关特性.md)。
 
 ## 7. 为什么 channel 内部通常是一把“粗锁”？（回答模板）
 

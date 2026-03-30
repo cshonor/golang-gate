@@ -13,7 +13,7 @@
 ## 3. 与 GMP 的粗关系
 
 - **G**：被阻塞的 goroutine。  
-- **M / P**：线程与逻辑处理器继续运行其他 G；被阻塞的 G 与 channel 的 **waitq** 关联（细节见 `channel阻塞原理.md`）。
+- **M / P**：线程与逻辑处理器继续运行其他 G；被阻塞的 G 与 channel 的 **waitq** 关联（细节见 [10-channel阻塞原理.md](./10-channel阻塞原理.md)）。
 
 ## 4. 小实验思路
 
