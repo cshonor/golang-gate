@@ -15,7 +15,8 @@
  
 我们定义一个「会叫的动物」接口：
  
-go  
+go
+  
 // 接口：只定义「要做什么」—— 会叫
 type Speaker interface {
     Speak() string // 方法签名：只说有这个方法，不写实现
@@ -25,7 +26,8 @@ type Speaker interface {
 - 这个接口就是一个「契约」：只要一个类型能实现  Speak()  方法，它就是一个  Speaker 。
 - 我们给  Dog  和  Cat  分别实现  Speak() ：
  
-go  
+go
+  
 // Dog 类型，实现了 Speak() 方法 → 自动满足 Speaker 接口
 type Dog struct{}
 func (d Dog) Speak() string {
@@ -51,7 +53,8 @@ func (c Cat) Speak() string {
  
 如果我们要写一个「让动物叫」的函数，没有接口的话，只能给每个类型写一个函数：
  
-go  
+go
+  
 func LetDogSpeak(d Dog) {
     fmt.Println(d.Speak())
 }
@@ -67,7 +70,8 @@ func LetCatSpeak(c Cat) {
  
 用  Speaker  接口作为参数，写一个通用函数：
  
-go  
+go
+  
 // 不管是什么动物，只要是 Speaker（会叫），就能用这个函数
 func LetSpeak(s Speaker) {
     fmt.Println(s.Speak())
@@ -76,7 +80,8 @@ func LetSpeak(s Speaker) {
  
 - 现在， Dog 、 Cat 、 Bird  只要实现了  Speak() ，都能直接传给  LetSpeak ，不用改函数代码！
  
-go  
+go
+  
 LetSpeak(Dog{}) // 输出：汪汪
 LetSpeak(Cat{}) // 输出：喵喵
 LetSpeak(Bird{}) // 输出：叽叽（只要Bird实现了Speak()）
@@ -98,14 +103,16 @@ LetSpeak(Bird{}) // 输出：叽叽（只要Bird实现了Speak()）
  
 你之前学的  interface{} （空接口），是一个没有定义任何方法的特殊接口：
  
-go  
+go
+  
 type interface{} interface{} // 空接口，没有任何方法
  
  
 - 因为它没有方法，所以所有 Go 类型都自动实现了空接口（相当于所有类型都满足这个契约）。
 - 所以空接口可以「装下任意类型的值」： int 、 string 、 struct 、指针，都能赋值给空接口变量。
  
-go  
+go
+  
 var a interface{}
 a = 100       // 装int
 a = "hello"   // 装string
@@ -129,7 +136,8 @@ Go 接口在内存里，本质是一个双指针结构体：
  
 我用一张逻辑链帮你串起来，彻底打通：
  
-plaintext  
+plaintext
+  
 1. 接口的本质：方法的集合（契约）
    ↓
 2. 空接口 interface{}：没有方法的接口，所有类型都能装
@@ -141,7 +149,8 @@ plaintext
  
 用代码完整走一遍：
  
-go  
+go
+  
 // 1. 定义接口
 type Speaker interface {
     Speak() string
