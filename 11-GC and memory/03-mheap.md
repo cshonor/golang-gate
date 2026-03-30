@@ -32,10 +32,11 @@ type mheap struct {
 		pad      [cpu.CacheLinePadSize - unsafe.Sizeof(mcentral{})%cpu.CacheLinePadSize]byte
 	}
 
-	arenaStart uintptr
-	arenaEnd   uintptr
-	arenaUsed  uintptr
-	arenaAlloc uintptr
+	// 堆内存的总范围（虚拟地址空间）
+	arenaStart uintptr // 堆起始地址
+	arenaEnd   uintptr // 堆结束地址
+	arenaUsed  uintptr // 已使用的堆内存大小
+	arenaAlloc uintptr // 已分配给 mspan 的内存大小
 
 	pages pageAlloc // 页分配器：管理页的分配与回收
 
