@@ -4,7 +4,7 @@
 
 文件名统一为 **`01-`～`09-` 序号**；**01～03** 偏 **分配器与堆布局**，**04** 起进入 **逃逸与 GC 算法**。
 
-**GMP / Channel** 见 **`../07-GMP and channel/`**；**map / slice** 见 **`../01-datastruct/`**；**锁 / WaitGroup** 见 **`../08-atomic and lock/`**；**接口与反射** 见 **`../02-interface and reflection/`**。
+**GMP / Channel** 见 **`../07-GMP and channel/`**；**map / slice** 见 **`../01-datastruct/`**；**锁 / WaitGroup** 见 **`../08-atomic and lock/`**；**接口与反射** 见 **`../02-interface-and-reflection/`**。
 
 ## 主题 ↔ 文件索引
 

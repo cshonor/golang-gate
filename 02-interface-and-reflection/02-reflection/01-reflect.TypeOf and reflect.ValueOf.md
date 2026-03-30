@@ -75,6 +75,6 @@ ValueOf(x) → _type + data 都要，再塞进 Value
 
 ## 延伸阅读
 
-- `_type`：[04-_type 到底是什么.md](../01-接口（Interface）专题/04-_type%20到底是什么.md)
+- `_type`：[04-_type 到底是什么.md](../01-interface/04-_type%20到底是什么.md)
 - `Value` 细节：[03-value.md](./03-value.md)
 - 反射提纲：[02-Go 语言反射（Reflection）.md](./02-Go%20语言反射（Reflection）.md)

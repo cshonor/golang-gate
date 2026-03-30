@@ -18,7 +18,7 @@ Go 语言入门学习项目。
 目录名带 **`01-`～`13-`** 序号，与下方学习顺序一致。
 
 - [数据结构：map / slice](./01-datastruct/README.md)
-- [接口与反射](./02-interface%20and%20reflection/README.md)
+- [接口与反射](./02-interface-and-reflection/README.md)
 - [错误处理（Error Handling）](./03-error_handling/README.md)
 - [defer 易错点（Defer Traps）](./04-defer_traps/README.md)
 - [泛型（Go Generics）](./05-Go%20Generics/README.md)
@@ -36,7 +36,7 @@ Go 语言入门学习项目。
 按 **依赖关系** 排了一条主线（括号内是可并行或穿插的模块）：
 
 1. [数据结构：map / slice](./01-datastruct/README.md) — 容器与复杂度，后面读 runtime、网络缓冲都更顺。  
-2. [接口与反射](./02-interface%20and%20reflection/README.md) — `io.Reader`/`error` 等惯用法与类型系统。  
+2. [接口与反射](./02-interface-and-reflection/README.md) — `io.Reader`/`error` 等惯用法与类型系统。  
 3. [错误处理（Error Handling）](./03-error_handling/README.md) — 日常编码与 API 设计基础。  
 4. [defer 易错点（Defer Traps）](./04-defer_traps/README.md) — 与错误处理、资源关闭强相关，宜紧接其后。  
 5. [泛型（Go Generics）](./05-Go%20Generics/README.md) — 现代标准库与第三方 API 常见写法（目录内从 `1.introduce.md` 起读）。  
