@@ -67,5 +67,5 @@ type eface struct {
 
 ## 延伸阅读
 
-- `CanSet`：[08-反射CanSet与修改值.md](./08-反射CanSet与修改值.md)
-- 入口对比：[05-reflect.TypeOf  and reflect.ValueOf.md](./05-reflect.TypeOf%C2%A0%20and%20reflect.ValueOf.md)
+- `CanSet`：[04-反射CanSet与修改值.md](./04-反射CanSet与修改值.md)
+- 入口对比：[01-reflect.TypeOf and reflect.ValueOf.md](./01-reflect.TypeOf%20and%20reflect.ValueOf.md)

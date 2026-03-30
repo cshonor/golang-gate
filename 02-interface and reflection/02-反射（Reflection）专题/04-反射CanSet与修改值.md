@@ -51,5 +51,5 @@ v.SetInt(20) // panic: reflect: call of reflect.Value.SetInt on int Value
 
 ## 延伸阅读
 
-- `Value` 细节：[07-value.md](./07-value.md)
-- 性能：[09-反射性能.md](./09-反射性能.md)
+- `Value` 细节：[03-value.md](./03-value.md)
+- 性能：[05-反射性能.md](./05-反射性能.md)

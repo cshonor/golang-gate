@@ -83,4 +83,4 @@ fmt.Println(b == nil) // false：类型信息已经说明是 *int 了，只是 d
 ## 延伸阅读
 
 - 空接口：[02-空接口eface与nil.md](./02-空接口eface与nil.md)
-- 反射入口：[05-reflect.TypeOf  and reflect.ValueOf.md](./05-reflect.TypeOf%C2%A0%20and%20reflect.ValueOf.md)
+- 反射入口：[01-reflect.TypeOf and reflect.ValueOf.md](../02-反射（Reflection）专题/01-reflect.TypeOf%20and%20reflect.ValueOf.md)

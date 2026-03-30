@@ -38,7 +38,7 @@ type Value struct {
 ```
 
 注意：**`ValueOf` 返回的是 `Value` 结构体本身，不是指针**。  
-想 **改原变量**，通常要 **`ValueOf(&x).Elem()`** 这一套（详见 [08-反射CanSet与修改值.md](./08-反射CanSet与修改值.md)）。
+想 **改原变量**，通常要 **`ValueOf(&x).Elem()`** 这一套（详见 [04-反射CanSet与修改值.md](./04-反射CanSet与修改值.md)）。
 
 ```go
 x := 100
@@ -75,6 +75,6 @@ ValueOf(x) → _type + data 都要，再塞进 Value
 
 ## 延伸阅读
 
-- `_type`：[03-_type  到底是什么.md](./03-_type%C2%A0%20到底是什么.md)
-- `Value` 细节：[07-value.md](./07-value.md)
-- 反射提纲：[06-Go 语言反射（Reflection）.md](./06-Go%20语言反射（Reflection）.md)
+- `_type`：[04-_type 到底是什么.md](../01-接口（Interface）专题/04-_type%20到底是什么.md)
+- `Value` 细节：[03-value.md](./03-value.md)
+- 反射提纲：[02-Go 语言反射（Reflection）.md](./02-Go%20语言反射（Reflection）.md)
