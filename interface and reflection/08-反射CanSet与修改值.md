@@ -1,4 +1,4 @@
-# 4. 反射修改值的限制（CanSet 高频）
+# 反射修改值的限制（`CanSet`）
 
 ## 1）核心结论
 
@@ -39,3 +39,17 @@ v.SetInt(20) // panic: reflect: call of reflect.Value.SetInt on int Value
 ## 5）面试一句话
 
 > 反射改值必须拿到**可寻址、可设置**的 `Value`：通常 `ValueOf(指针)` 再 `Elem()`；否则 `CanSet` 为 false 会 panic；包外不能改未导出字段。
+
+---
+
+## 复习速记
+
+| 步骤 | 写法 |
+|------|------|
+| 改 `x` | `reflect.ValueOf(&x).Elem()` 再 `Set*` |
+| 判断 | `CanSet()` 为 true 才能改 |
+
+## 延伸阅读
+
+- `Value` 细节：[07-value.md](./07-value.md)
+- 性能：[09-反射性能.md](./09-反射性能.md)
