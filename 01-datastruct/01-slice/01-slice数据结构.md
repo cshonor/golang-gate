@@ -121,4 +121,4 @@ s1 := s[1:3]          // low=1 high=3
 ## 7. 延伸阅读（本目录）
 
 - [02-slice扩容.md](./02-slice扩容.md)：`append`、扩容与兄弟 slice 关系  
-- [README.md](./README.md)：map / slice 学习顺序
+- [README.md](../README.md)：map / slice 学习顺序
