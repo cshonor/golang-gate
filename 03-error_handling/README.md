@@ -14,6 +14,8 @@
 | 04 - 错误包装与错误链 | [04 - 错误包装与错误链.md](./04%20-%20错误包装与错误链.md) |
 | 05 - errors.Is 与 errors.As 使用 | [05-errors.Is 与 errors.As 使用.md](./05-errors.Is%20与%20errors.As%20使用.md) |
 | 06 - panic 与 recover 捕获异常 | [06-panic 与 recover 捕获异常.md](./06-panic%20与%20recover%20捕获异常.md) |
+| 07 - 错误处理最佳实践与反模式 | [07 - 错误处理最佳实践与反模式.md](./07%20-%20错误处理最佳实践与反模式.md) |
+| 08 - 错误与日志集成 | [08 - 错误与日志集成.md](./08%20-%20错误与日志集成.md) |
 | 进阶总览（可背版） | [error_handling.md](./error_handling.md) |
 | 兜底专题（可背版） | [panic_recover.md](./panic_recover.md) |
 
@@ -21,6 +23,7 @@
 
 1. 先学 01-03（概念、语法、类型）  
 2. 再学 04-05（错误链、Is/As 判定）  
-3. 最后学 06（panic/recover 兜底）  
-4. 复习时看 `error_handling.md` 和 `panic_recover.md`
+3. 再学 06（panic/recover 兜底）  
+4. 07（常见坑与习惯）与 08（日志与可观测）可在掌握 04–05 后阅读，贴近工程与线上  
+5. 复习时看 `error_handling.md` 和 `panic_recover.md`
 
