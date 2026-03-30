@@ -1,86 +1,81 @@
 # channel 阻塞原理（实现向提纲）
 
-## 1. channel 内部大致有什么
+## 1. `hchan` 里大致有什么
 
-- **缓冲区**：有缓冲时为环形队列（**FIFO** 出队顺序，与课里「FIFO」目标一致）。  
-- **sendq / recvq**：等待发送、等待接收的 **G 队列**（sudog 链表等，概念上叫 waitq）。  
-- **锁**：保护 channel 内部状态（channel 是带锁的结构，不是无锁队列）。
+channel 运行时对应 **`hchan`**（见 `src/runtime/chan.go`），典型包含：环形缓冲（若有）、等待队列、互斥锁等。
 
+```go
 type hchan struct {
-
-    qcount   uint           // 缓冲区中元素数量
-
-    dataqsiz uint           // 缓冲区大小（环形队列长度）
-
-    buf      unsafe.Pointer // 指向环形队列的指针
-
-    elemsize uint16         // 单个元素大小
-
-    closed   uint32         // 通道是否关闭
-
-    elemtype *_type         // 元素类型
-
-    sendx    uint           // 发送索引（环形队列写入位置）
-
-    recvx    uint           // 接收索引（环形队列读取位置）
-
-    recvq    waitq          // 等待接收的 Goroutine 队列（recvg）
-
-    sendq    waitq          // 等待发送的 Goroutine 队列（sendg）
-
-    lock     mutex          // 互斥锁，保护所有内部状态
-
+	qcount   uint           // 缓冲区内元素个数
+	dataqsiz uint           // 缓冲容量（0 表示无缓冲）
+	buf      unsafe.Pointer // 指向环形缓冲区
+	elemsize uint16
+	closed   uint32
+	elemtype *_type
+	sendx    uint // 发送下标（环形）
+	recvx    uint // 接收下标（环形）
+	recvq    waitq // 等待接收（sudog 队列）
+	sendq    waitq // 等待发送（sudog 队列）
+	lock     mutex
 }
-
 
 type waitq struct {
-
-    first *sudog
-
-    last  *sudog
-
+	first *sudog
+	last  *sudog
 }
-1. 缓冲区（环形队列 FIFO）
-​
-- 由  buf  指向的连续内存实现， sendx / recvx  维护读写位置，严格遵循 FIFO 顺序
-​
-- 无缓冲 Channel（ dataqsiz=0 ）无此区域，直接走同步交换
-​
-- 有缓冲 Channel 用环形队列实现异步缓存，避免发送方立即阻塞
-​
-2. sendq / recvq（等待队列 waitq）
-​
--  sendq ：存储等待发送的 Goroutine（当缓冲区满时，发送方入队阻塞）
-​
--  recvq ：存储等待接收的 Goroutine（当缓冲区空时，接收方入队阻塞）
-​
-- 底层是  sudog  链表， sudog  封装了 Goroutine 的等待状态、数据指针等信息
-​
-3. 互斥锁  lock 
-​
-- Channel 是带锁结构，所有发送/接收操作都必须先获取锁，保证并发安全
-​
-- 这是 Channel 不是无锁队列的核心原因，锁的粒度覆盖整个 Channel 状态
+```
+
+### 1. 缓冲区（有缓冲时为环形，FIFO）
+
+- 由 `buf` 指向连续内存，`sendx` / `recvx` 维护读写下标，元素出队顺序为 **FIFO**。
+- **`dataqsiz == 0`**：无独立环形区，走「直接对接」的同步交换路径（仍可能有 `sendq`/`recvq`）。
+- **`dataqsiz > 0`**：异步缓冲，发送方不必立刻碰到接收方。
+
+### 2. `sendq` / `recvq`（`waitq`，挂 **sudog**）
+
+- **`sendq`**：发送方在**缓冲满**等空间时阻塞排队。
+- **`recvq`**：接收方在**缓冲空**等数据时阻塞排队。
+- 底层是 **`sudog` 链表**，每个 sudog 携带对应的 **G** 与数据指针等（不是「裸 G 队列」三个字能概括的，但语义上等价于「等着的 G 通过 sudog 排队」）。
+
+### 3. `lock`
+
+- channel **带一把锁**保护 `hchan` 内部状态，发送/接收路径要先拿锁。
+- 因此 channel **不是**通用意义上的无锁队列；粗粒度锁是常见实现特征（具体优化以版本为准）。
+
 ## 2. 无缓冲：同步交换
 
-- 发送方找到正在等待的接收方（或反之）→ **直接拷贝数据** 到对方栈或寄存器路径，双方就绪。  
-- 对不上则当前 G **入队并阻塞**，调度器切换去跑别的 G。
+- 发送方与接收方**对上眼**时：可在持锁路径下**直接拷贝**数据到接收方或约定位置，双方继续或一方先跑（实现细节见 `chansend`/`chanrecv`）。
+- **对不上**：当前 G 以 **sudog** 入 `sendq` 或 `recvq`，进入等待，**让出 M**。
 
-## 3. 有缓冲：队列满/空
+## 3. 有缓冲：满 / 空
 
-- **缓冲区未满**：send 写入环形槽，`recv` 从槽取；可能唤醒 recvq 里等待的 G。  
-- **缓冲区满**：send 进 sendq，G 阻塞。  
-- **缓冲区空**：recv 进 recvq，G 阻塞。
+| 情况 | 行为（直觉） |
+|------|----------------|
+| 缓冲未满 | `send` 写入环形槽；可能唤醒 `recvq` 里等待的接收方。 |
+| 缓冲满 | `send` 进 `sendq`，G 阻塞。 |
+| 缓冲非空 | `recv` 从槽取；可能唤醒 `sendq` 里等待的发送方。 |
+| 缓冲空 | `recv` 进 `recvq`，G 阻塞。 |
 
 ## 4. 与「阻塞协程现象」的对应
 
-- 用户看到的「卡在 `<-` / `ch<-`」= runtime 把 G 挂在 channel 的队列上 + **park**；另一方操作到来时再 **ready**。
+用户态看到「卡在 `<-ch` / `ch <- v`」对应 runtime：**G 挂在 channel 的 `sendq`/`recvq` 上并 park**；对端或缓冲条件满足时再 **ready**，重新进入可运行队列。
 
 ## 5. 延伸阅读
 
-- `src/runtime/chan.go`：`chansend`、`chanrecv` 等。
+- `src/runtime/chan.go`：`chansend`、`chanrecv`、`closechan` 等。
+- sudog 细节：[08-sudog详细介绍.md](./08-sudog详细介绍.md)
 
 ## 6. 自检
 
-- 无缓冲 channel 是否还需要环形 buffer？  
-- 为什么 channel 内部通常要有一把大锁（粗粒度）？
+- 无缓冲 channel 是否还需要环形 `buf`？（结合 `dataqsiz == 0` 语义思考。）
+- 为什么 channel 内部往往用一把**覆盖整个 `hchan`** 的锁？
+
+---
+
+## 复习速记
+
+| 记什么 | 记一句 |
+|--------|--------|
+| 等谁排队 | `sendq` / `recvq`，节点是 **sudog** |
+| 缓冲 | 有缓冲时 `buf` 为环形 FIFO |
+| 阻塞 | 条件不满足 → sudog 入队 → G 等待 |
