@@ -1,6 +1,6 @@
 # Go Generics（泛型）
 
-本目录整理 **Go 1.18+ 泛型**：类型参数、约束、泛型函数/类型/方法，以及与 `interface{}`、反射的取舍。
+本目录整理 **Go 1.18+ 泛型**：类型参数、约束、泛型函数/类型/方法，以及与 `interface{}`、反射的取舍。示例中 **比较大小的约束**优先使用 **Go 1.21+** 标准库 **`cmp.Ordered`**；更早版本可用 `golang.org/x/exp/constraints` 或手写联合类型。
 
 **进阶笔记总入口**见仓库根目录 [README.md](../README.md)；**数据结构**见 [`../datastruct/README.md`](../datastruct/README.md)。
 
@@ -27,8 +27,8 @@
 ## 速记
 
 - **类型参数**：`func F[T any](x T)`、`type List[T any] struct { ... }`  
-- **约束**：`any`、`comparable`、自定义 `interface` 约束集  
-- **何时不用泛型**：仅一处用到、或反射/插件化更合适时不必硬上
+- **约束**：`any`、`comparable`、`cmp.Ordered`（1.21+）、自定义 `interface{ A | B }`  
+- **何时不用泛型**：只在一处用到、或反射/插件化更合适时不必硬上
 
 ## 延伸阅读
 
