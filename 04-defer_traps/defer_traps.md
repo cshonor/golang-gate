@@ -110,3 +110,11 @@ func safeGo(fn func()) {
 - 循环 defer：会堆积资源（抽函数/显式 close）
 - recover：必须在 defer 里才有效
 
+---
+
+## 4. 延伸阅读（分章）
+
+- [07 - defer 与错误处理协同](./07-defer%20与错误处理协同.md)：`Close` / 事务 / 与 `error` 打通  
+- [08 - defer 最佳实践与反模式](./08-defer%20最佳实践与反模式.md)：工程清单与反模式表  
+- [03-error_handling](../03-error_handling/README.md)：错误链、`Is`/`As`、日志边界
+
