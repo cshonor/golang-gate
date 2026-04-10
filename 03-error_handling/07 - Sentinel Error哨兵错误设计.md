@@ -32,7 +32,8 @@ if errors.Is(err, ErrNotFound) {
 1. **命名**：`Err` 前缀，如 `ErrNotFound`、`ErrPermission`。
 2. **导出**：需要给**其他包**判断时再导出；仅包内使用可小写 `errXxx`（较少见）。
 3. **文案**：简短、稳定；用户可见文案放在更上层映射，不必与哨兵字符串混为一谈。
-4. **包装上传**：中间层用 `fmt.Errorf("...: %w", err)`，保留链，`Is` 仍成立。
+4. **全局只 `New` 一次**：哨兵的关键是“**唯一实例**”——只在包级 `var` 创建一次，后续只复用该变量。
+5. **包装上传**：中间层用 `fmt.Errorf("...: %w", err)`，保留链，`errors.Is` 仍成立。
 
 ---
 
@@ -43,6 +44,31 @@ if errors.Is(err, ErrNotFound) {
 | 用 `err == ErrXxx` | 包装后相等性失效，应用 `errors.Is` |
 | 同一语义多个 `errors.New` | 两次 `New` 不相等，`Is` 失败；**同一包共用一个 var** |
 | 滥用哨兵 | 每种细枝末节都建 `Err` 会导致 API 膨胀；**可恢复分支**可用自定义类型 + `As`（见 [04](./04%20-%20自定义错误类型.md)） |
+
+### 3.1 反例：每次 `errors.New` 都是新对象，`Is` 匹配不到（可运行）
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+)
+
+var ErrNotFound = errors.New("not found") // ✅ 哨兵：只 New 一次
+
+func good() error { return ErrNotFound }
+
+func bad() error { return errors.New("not found") } // ❌ 每次都是新对象
+
+func main() {
+	e1 := fmt.Errorf("wrap: %w", good())
+	fmt.Println("good:", errors.Is(e1, ErrNotFound)) // true
+
+	e2 := fmt.Errorf("wrap: %w", bad())
+	fmt.Println("bad :", errors.Is(e2, ErrNotFound)) // false
+}
+```
 
 ---
 
