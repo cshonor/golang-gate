@@ -87,6 +87,63 @@ if errors.Is(err, ErrNotFound) {
 
 ---
 
+## 1.2 哨兵放哪、在哪用（分层边界）
+
+你不需要“每个方法都用哨兵”。哨兵只用于：**上层确实要做分支决策**的那类失败（not found / permission / conflict / timeout …）。
+
+### 1.2.1 放哪（定义位置）
+
+- **定义在“拥有该语义的包”里**：谁最先知道“这是 not found/权限不足”，哨兵就放谁那一层（常见是 `repo`/`storage`/`client`/`domain` 包）。
+- **跨包要判断才导出**：需要外部判断 → `var ErrNotFound = ...`；只包内用 → 私有 `errNotFound` + `IsNotFound(err) bool`。
+
+### 1.2.2 在哪用（返回/判断位置）
+
+一个典型三层（handler/service/repo）最小约定：
+
+- **底层（repo/adapter）**：把底层错误**映射成哨兵**并返回（必要时 `%w` 包装上下文）。
+- **中间层（service/usecase）**：尽量**不新建哨兵**；主要做 `%w` 补上下文，或直接向上返回。
+- **边界层（handler/middleware/main）**：统一用 `errors.Is` 判哨兵，做 **HTTP 状态码 / gRPC code / 返回文案 / 是否告警** 等决策。
+
+### 1.2.3 最小模板（可直接照搬）
+
+```go
+// repo 包（最先知道语义）
+var ErrNotFound = errors.New("not found")
+
+func (r *Repo) GetUser(id string) (*User, error) {
+	// ... 查询 ...
+	// if rows == 0:
+	return nil, ErrNotFound
+}
+
+// service 包（补上下文）
+func (s *Service) LoadUser(id string) (*User, error) {
+	u, err := s.repo.GetUser(id)
+	if err != nil {
+		return nil, fmt.Errorf("load user id=%s: %w", id, err)
+	}
+	return u, nil
+}
+
+// handler 包（做决策）
+func (h *Handler) GetUser(w http.ResponseWriter, r *http.Request) {
+	u, err := h.svc.LoadUser("123")
+	if err != nil {
+		if errors.Is(err, repo.ErrNotFound) {
+			http.Error(w, "not found", http.StatusNotFound)
+			return
+		}
+		http.Error(w, "internal error", http.StatusInternalServerError)
+		return
+	}
+	_ = u
+}
+```
+
+要点：**哨兵用于“类别判断”**；需要字段细节（如 code/field）用自定义类型 + `errors.As`（见 [04](./04%20-%20自定义错误类型.md)）。
+
+---
+
 ## 2. 设计习惯
 
 1. **命名**：`Err` 前缀，如 `ErrNotFound`、`ErrPermission`。
