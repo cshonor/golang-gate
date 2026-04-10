@@ -39,7 +39,7 @@ Go 语言入门学习项目。
 2. [接口与反射](./02-interface-and-reflection/README.md) — `io.Reader`/`error` 等惯用法与类型系统。  
 3. [错误处理（Error Handling）](./03-error_handling/README.md) — 日常编码与 API 设计基础。  
 4. [defer 易错点（Defer Traps）](./04-defer_traps/README.md) — 与错误处理、资源关闭强相关，宜紧接其后。  
-5. [泛型（Go Generics）](./05-Go%20Generics/README.md) — 现代标准库与第三方 API 常见写法（目录内从 `1.introduce.md` 起读）。  
+5. [泛型（Go Generics）](./05-Go%20Generics/README.md) — 现代标准库与第三方 API 常见写法（目录内从 `01-Introduce.md` 起按 README 顺序读）。  
 6. [Go 1.21+ 新特性](./06-go_new_features/README.md) — 工具链与语言小特性（**可与 1～5 穿插**，不必死磕顺序）。  
 7. [并发：GMP / Channel](./07-GMP%20and%20channel/README.md) — 调度与 channel 心智模型，**并发主线入口**。  
 8. [锁实现原理](./08-atomic%20and%20lock/README.md) — Mutex、原子、WaitGroup；与 GMP「阻塞与让出」对照读效果更好。  
