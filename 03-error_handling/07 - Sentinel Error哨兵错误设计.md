@@ -1,6 +1,20 @@
 # 07 - Sentinel Error（哨兵错误）设计
 
-**哨兵错误**：包内（或跨包约定）**导出的** `var ErrXxx = errors.New("...")`，用 **`errors.Is(err, ErrXxx)`** 识别，而不是比较 `err.Error()` 字符串。前置：[03](./03%20-%20错误创建-errors.New与fmt.Errorf.md)、[06](./06%20-%20errors.Is与errors.As使用.md)。
+**哨兵错误（Sentinel error）**：提前在包级只创建一次、用于“标记某一类失败”的固定 `error` 值。典型写法是 **`var ErrXxx = errors.New("...")`**，调用方用 **`errors.Is(err, ErrXxx)`** 判断（即使中间被 `%w` 多层包装），而不是用 `err.Error()` 字符串比较。
+
+前置：[03](./03%20-%20错误创建-errors.New与fmt.Errorf.md)、[06](./06%20-%20errors.Is与errors.As使用.md)。
+
+---
+
+## 0. 哨兵是什么（定义）
+
+一句话：**哨兵是“全局唯一的错误标记”，用来做分支判断。**
+
+它的关键特征：
+
+- **包级唯一实例**：只 `errors.New` 一次，后续只复用该变量（否则 `Is` 匹配不到，见 §3.1）。
+- **表达“类别”而非细节**：它告诉调用方“是不是 not found / permission denied 这一类”，而不是携带字段。
+- **可与错误链共存**：上层用 `%w` 继续补上下文，但不破坏 `errors.Is`。
 
 ---
 
@@ -24,6 +38,52 @@ if errors.Is(err, ErrNotFound) {
 	// 404 / 空结果
 }
 ```
+
+---
+
+## 1.1 怎么使用哨兵（最常见套路）
+
+### 步骤 1：定义哨兵（包级只 New 一次）
+
+```go
+var ErrNotFound = errors.New("not found")
+```
+
+### 步骤 2：在产生错误的地方返回哨兵（不要重复 New）
+
+```go
+func find(id string) error {
+	if id == "" {
+		return ErrNotFound
+	}
+	return nil
+}
+```
+
+### 步骤 3：上层加上下文时用 `%w` 保留链
+
+```go
+func handler(id string) error {
+	if err := find(id); err != nil {
+		return fmt.Errorf("handler: id=%s: %w", id, err)
+	}
+	return nil
+}
+```
+
+### 步骤 4：调用方用 `errors.Is` 沿链判断
+
+```go
+err := handler("")
+if errors.Is(err, ErrNotFound) {
+	// 例如：HTTP 404 / 返回空结果 / 不告警
+}
+```
+
+要点：
+
+- **哨兵用于判断分支**（是不是这一类失败）
+- **字段/细节**用自定义错误类型 + `errors.As`（见 [04](./04%20-%20自定义错误类型.md)）
 
 ---
 
