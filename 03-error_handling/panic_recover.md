@@ -64,3 +64,6 @@ func GoSafe(fn func()) {
 - ✅ 返回 `error`  
 - ❌ 不要 `panic`
 
+---
+
+分章展开：[08 - panic 与 recover](./08%20-%20panic与recover捕获异常.md)；`defer` 与返回 `err` 的协同见 [09](./09%20-%20defer与错误处理协同.md)。

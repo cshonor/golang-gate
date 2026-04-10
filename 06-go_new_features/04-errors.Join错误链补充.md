@@ -16,5 +16,5 @@ return errors.Join(errs...)
 
 ## 3. 和 errors.Is/As 的关系
 
-Join 后的 error 仍然可以用 `errors.Is/As` 判断其内部是否包含某个错误（适合和 `03-error_handling/05` 配套）。
+Join 后的 error 仍然可以用 `errors.Is/As` 判断其内部是否包含某个错误（适合和 `03-error_handling` 中 [05 - 错误包装](../03-error_handling/05%20-%20错误包装与错误链.md)、[06 - Is/As](../03-error_handling/06%20-%20errors.Is与errors.As使用.md) 配套）。
 
