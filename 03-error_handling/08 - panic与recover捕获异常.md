@@ -30,6 +30,32 @@ defer func() {
 
 ---
 
+## 4.1 `error` vs `panic` 判断清单（写代码时对照）
+
+### 直接用 `error`（99% 业务代码）
+
+- **外部输入不可信**：参数校验、HTTP 请求、用户输入、配置内容（可提示修正）。
+- **外部依赖可失败**：文件/网络/DB/缓存/调用第三方（超时、NotFound、权限、连接失败）。
+- **可预期分支**：业务规则不满足、幂等冲突、资源不存在、重试/降级可处理。
+- **库代码 / 可复用组件**：优先 `return error`，把“怎么处理”留给调用方。
+
+### 才考虑 `panic`（少数，且通常在边界）
+
+- **不变量被破坏（bug）**：本不可能发生的状态发生了（内部逻辑错误、越界、空指针等）。
+- **启动阶段无法继续**：关键依赖缺失且你决定“宁可启动失败也不要带病运行”（常见在 `main/init` 或启动流程）。
+- **框架/边界兜底**：HTTP/RPC/middleware 最外层用 `defer + recover` 防止单次请求把进程带崩；记录日志/指标后返回 500。
+
+### 反向自检（两句就够）
+
+- **用户/环境能导致它发生吗？** 能 → `error`
+- **这是程序员写错导致的不可能状态吗？** 是 → `panic`（并在边界 recover）
+
+### recover 放哪
+
+- **只放在边界**（HTTP handler/middleware、goroutine worker 起点、main 入口），不要在业务深处吞 panic。
+
+---
+
 ## 5. 可运行示例：`recover` 必须在 `defer` 中
 
 ```go
@@ -81,6 +107,54 @@ func main() {
 ```
 
 注意：这种做法通常只放在**边界**，业务逻辑仍优先 `return error`。
+
+---
+
+## 6.1 可运行示例：panic + defer + recover 的执行顺序（打印版）
+
+下面用打印顺序把「**panic 发生后发生了什么**」跑一遍：
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("main: start")
+	defer fmt.Println("main: defer 1 (runs last)")
+	defer func() {
+		fmt.Println("main: defer 2 (recover start)")
+		if r := recover(); r != nil {
+			fmt.Println("main: recovered:", r)
+		}
+		fmt.Println("main: defer 2 (recover end)")
+	}()
+
+	foo()
+	fmt.Println("main: after foo (only prints if recovered)")
+}
+
+func foo() {
+	fmt.Println("foo: enter")
+	defer fmt.Println("foo: defer 1")
+	defer fmt.Println("foo: defer 2")
+	bar()
+	fmt.Println("foo: after bar (won't reach)")
+}
+
+func bar() {
+	fmt.Println("bar: enter")
+	defer fmt.Println("bar: defer 1")
+	panic("boom")
+	// unreachable
+}
+```
+
+你会观察到：
+
+1. `panic("boom")` 之后，开始退栈；
+2. 先执行 `bar` 的 defer，再执行 `foo` 的 defer（**LIFO**）；
+3. 最后回到 `main` 的 defer，`recover()` 捕获后，程序继续执行到 `main` 的后续打印。
 
 ---
 
