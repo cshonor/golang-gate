@@ -114,7 +114,7 @@ Background（根，自身不携带 cancel）
 
 - **感知**父级传来的取消 / 超时（协作式监听 `Done()`）  
 - **`Deadline()`** 可能体现父链上**更紧**的截止时间（子可再缩短，不能单方面「放松」父已决定的取消）  
-- **`Value(k)`** 沿父链查找（见 [06-WithValue 数据透传.md](./06-WithValue%20数据透传.md)）
+- **`Value(k)`** 沿父链查找（见 [07-WithValue 数据透传.md](./07-WithValue%20数据透传.md)）
 
 ---
 
@@ -136,7 +136,7 @@ Background（根，自身不携带 cancel）
 - 对外暴露的 `Context` 接口是**只读协作模型**：`WithX(parent)` **返回新值**，不把 `parent` 改掉。  
 - 有利于**并发安全**与**可组合**：不同中间件包不同层，互不踩内存。
 
-更多写法见 [07-context在中间件中的实战.md](./07-context在中间件中的实战.md)。
+更多写法见 [08-context在中间件中的实战.md](./08-context在中间件中的实战.md)。
 
 ---
 
@@ -182,9 +182,11 @@ Background（根，自身不携带 cancel）
 |------|------|
 | 总览与接口 | [02-context是什么、作用、核心接口.md](./02-context是什么、作用、核心接口.md) |
 | WithCancel | [04-WithCancel 手动取消.md](./04-WithCancel%20手动取消.md) |
-| WithTimeout / Deadline | [05-WithTimeout 超时控制.md](./05-WithTimeout%20超时控制.md) |
-| WithValue | [06-WithValue 数据透传.md](./06-WithValue%20数据透传.md) |
-| 中间件实战 | [07-context在中间件中的实战.md](./07-context在中间件中的实战.md) |
-| 陷阱与反模式 | [08-context常见陷阱与反模式.md](./08-context常见陷阱与反模式.md) |
+| WithTimeout | [05-WithTimeout 超时控制.md](./05-WithTimeout%20超时控制.md) |
+| WithDeadline | [06-WithDeadline 精确到时间点的取消控制.md](./06-WithDeadline%20精确到时间点的取消控制.md) |
+| WithValue | [07-WithValue 数据透传.md](./07-WithValue%20数据透传.md) |
+| 中间件实战 | [08-context在中间件中的实战.md](./08-context在中间件中的实战.md) |
+| 陷阱与反模式 | [09-context常见陷阱与反模式.md](./09-context常见陷阱与反模式.md) |
+| trace-id 透传 | [10-中间件实战-trace-id透传.md](./10-中间件实战-trace-id透传.md) |
 
-背诵四个创建函数：**Cancel / Timeout / Deadline / Value** 对照 04～06 展开。
+背诵四个创建函数：**Cancel / Timeout / Deadline / Value** 对照 **04～07**（[04](./04-WithCancel%20手动取消.md)、[05](./05-WithTimeout%20超时控制.md)、[06](./06-WithDeadline%20精确到时间点的取消控制.md)、[07](./07-WithValue%20数据透传.md)）展开。

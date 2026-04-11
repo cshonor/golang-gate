@@ -1,4 +1,4 @@
-﻿# 08 - context 常见陷阱与反模式
+# 09 - context 常见陷阱与反模式
 
 本篇补齐 `context` 的工程避坑：`WithValue` 的断言风险、ctx 生命周期边界等。
 
@@ -23,7 +23,7 @@ if !ok {
 
 **建议**：
 
-- key 用自定义类型（见 [06-WithValue 数据透传](./06-WithValue%20数据透传.md)）
+- key 用自定义类型（见 [07-WithValue 数据透传](./07-WithValue%20数据透传.md)）
 - 封装 `GetTraceID(ctx) (string, bool)` 统一取值与断言
 
 ---
@@ -64,5 +64,5 @@ if !ok {
 
 ## 延伸阅读
 
-- [06-WithValue 数据透传](./06-WithValue%20数据透传.md)
-- [07-context在中间件中的实战](./07-context在中间件中的实战.md)
+- [07-WithValue 数据透传](./07-WithValue%20数据透传.md)
+- [08-context在中间件中的实战](./08-context在中间件中的实战.md)

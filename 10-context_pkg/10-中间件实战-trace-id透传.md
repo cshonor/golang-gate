@@ -1,4 +1,4 @@
-﻿# 09 - 中间件实战：用 context 透传 trace-id
+# 10 - 中间件实战：用 context 透传 trace-id
 
 本篇补齐生产常用的“链路标识”：把 `trace-id` 放进 `context`，日志与下游调用统一取。
 
@@ -63,6 +63,6 @@ logger.With("trace_id", id).Info("handle request")
 
 ## 延伸阅读
 
-- [06-WithValue 数据透传](./06-WithValue%20数据透传.md)
-- [08-context常见陷阱与反模式](./08-context常见陷阱与反模式.md)
-- [07-context在中间件中的实战](./07-context在中间件中的实战.md)
+- [07-WithValue 数据透传](./07-WithValue%20数据透传.md)
+- [09-context常见陷阱与反模式](./09-context常见陷阱与反模式.md)
+- [08-context在中间件中的实战](./08-context在中间件中的实战.md)

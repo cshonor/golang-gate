@@ -158,7 +158,7 @@ func main() {
 
 1. **取消（Cascade）**：从某个 context 根上发出取消，**所有派生自它的子 context** 都会进入 `Done`。
 2. **超时 / 截止时间**：`WithTimeout` / `WithDeadline` 到期后自动 `cancel`。
-3. **请求级 Value**：trace id 等（慎用，见 [06-WithValue 数据透传.md](./06-WithValue%20数据透传.md)）。
+3. **请求级 Value**：trace id 等（慎用，见 [07-WithValue 数据透传.md](./07-WithValue%20数据透传.md)）。
 
 ### 1. 取消方向（必须精确）
 

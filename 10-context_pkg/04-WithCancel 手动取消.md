@@ -144,4 +144,4 @@ func main() {
 
 - [02-context是什么、作用、核心接口.md](./02-context是什么、作用、核心接口.md)  
 - [05-WithTimeout 超时控制.md](./05-WithTimeout%20超时控制.md)  
-- [08-context常见陷阱与反模式.md](./08-context常见陷阱与反模式.md)
+- [09-context常见陷阱与反模式.md](./09-context常见陷阱与反模式.md)
