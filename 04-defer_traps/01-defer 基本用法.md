@@ -60,7 +60,11 @@ func increment() {
 import "database/sql"
 
 func transfer(tx *sql.Tx, from, to string, amount float64) error {
-    // 开启事务后立即 defer 回滚（异常时兜底）
+    //    开启事务后立即 defer 回滚（异常时兜底）
+    //    defer func() { ... }()
+    //    defer：Go 语言的关键字，表示将后面的函数推迟到周围函数（当前作用域）即将返回时再执行。
+   //     func() { ... }：定义了一个没有名字、没有参数、也没有返回值的匿名函数。
+   //     最后的 ()：这是函数调用运算符。因为匿名函数定义后紧跟了一对括号，意味着定义完立即执行这个函数。
     defer func() {
         if r := recover(); r != nil {
             tx.Rollback()
