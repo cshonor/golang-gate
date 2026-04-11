@@ -1,50 +1,106 @@
 # 并发：GMP、Channel（与课表对应笔记）
 
-本目录笔记对应 **「后端进阶」** 中与 **协程 / GMP / channel** 相关的条目。根目录下 **14 篇** 笔记文件名带 **`01-`～`14-`** 前缀；**第 15 项**为外链至 **`08-atomic and lock`** 的 `WaitGroup` 专题。
+本目录 **`01-`～`15-`** 为 **GMP + Channel** 主线笔记（已按「认知 → 对象 → 队列/阻塞 → Channel 深度 → 优化」**物理重命名**）；**第 16 项** 为外链 **`WaitGroup`**（`08-atomic and lock`）。
 
-**map / slice** 见 **`../01-datastruct/`**；**WaitGroup** 见 **`../08-atomic and lock/14-WaitGroup特性及原理.md`**；**GC** 见 **`../11-GC and memory/`**。
+**大图导航**：[summary/学习主线与目录映射.md](./summary/学习主线与目录映射.md)（**推荐先读**）。
 
-## 课表 ↔ 文件索引
+**map / slice** 见 **`../01-datastruct/`**；**GC** 见 **`../11-GC and memory/`**。
+
+---
+
+## 推荐学习主线（四阶段）
+
+### 阶段一：认知与「对象长什么样」
+
+| 顺序 | 读什么 |
+|:----:|--------|
+| 1 | [01-协程与线程的本质区别](./01-协程与线程的本质区别.md) |
+| 2 | [02-GMP模型核心概念总览](./02-GMP模型核心概念总览.md) |
+| 3 | [03-Goroutine核心数据结构runtime.g详解](./03-Goroutine核心数据结构runtime.g详解.md) |
+| 4 | [04-Processor核心数据结构runtime.p详解](./04-Processor核心数据结构runtime.p详解.md) |
+| 5 | [05-Machine核心数据结构runtime.m详解](./05-Machine核心数据结构runtime.m详解.md) |
+| 6（回扣） | [09-GMP与sudog四者联动关系](./09-GMP与sudog四者联动关系.md) |
+
+### 阶段二：队列、阻塞、sudog
+
+| 顺序 | 读什么 |
+|:----:|--------|
+| 7 | [06-GMP中的核心队列详解](./06-GMP中的核心队列详解.md) |
+| 8 | [07-Goroutine阻塞后的调度行为](./07-Goroutine阻塞后的调度行为.md) |
+| 9 | [08-sudog核心数据结构与作用详解](./08-sudog核心数据结构与作用详解.md) |
+
+### 阶段三：Channel（结构 → 环形 → 阻塞合并篇 → 关闭 → 总览 → 优化）
+
+| 顺序 | 读什么 |
+|:----:|--------|
+| 10 | [11-Channel核心数据结构hchan详解](./11-Channel核心数据结构hchan详解.md) |
+| 11 | [12-Channel环形队列实现原理](./12-Channel环形队列实现原理.md) |
+| 12 | [10-Channel阻塞协程的原理与现象](./10-Channel阻塞协程的原理与现象.md)（**原 09+10 合并**；提纲版见 [summary/channel阻塞_现象到原理](./summary/channel阻塞_现象到原理.md)） |
+| 13 | [13-closed_channel核心特性与坑](./13-closed_channel核心特性与坑.md) |
+| 14 | [14-学GMP必学Channel总览](./14-学GMP必学Channel总览.md) |
+| 15 | [15-Channel性能优化详解](./15-Channel性能优化详解.md) |
+
+若习惯「先现象再结构」，把 **12** 挪到 **10** 之前即可。
+
+### 阶段四：总结与外延
+
+| 内容 | 链接 |
+|------|------|
+| 合并速记 | [summary/](./summary/) |
+| WaitGroup | [14-WaitGroup特性及原理](../08-atomic%20and%20lock/14-WaitGroup特性及原理.md) |
+
+---
+
+## 课表 ↔ 文件索引（01～16）
 
 | 序号 | 课表标题 | 笔记文件 |
 |:----:|----------|----------|
-| 01 | 协程和线程的关系 | [01-协程和线程的关系.md](./01-协程和线程的关系.md) |
-| 02 | GMP 关系（调度模型鸟瞰） | [02-GMP关系.md](./02-GMP关系.md) |
-| 03 | G、M、P、sudog 四个结构体的关系 | [03-G、M、P、sudog 四个结构体的关系.md](./03-G、M、P、sudog%20四个结构体的关系.md) |
-| 04 | Goroutine 的数据结构（runtime.g） | [04-Goroutine 的数据结构（runtime.g）.md](./04-Goroutine%20的%20数据结构（runtime.g）.md) |
-| 05 | Go GMP 里 P 的核心数据结构（关键属性） | [05-Go GMP 里 P 的核心数据结构 关键属性.md](./05-Go%20GMP%20里%20P%20的核心数据结构%20关键属性.md) |
-| 06 | GMP 里一共就 3 个队列 | [06-GMP 里一共就 3 个队列.md](./06-GMP%20里一共就%203%20个队列.md) |
-| 07 | G 阻塞后队列归属与 M、P 行为 | [07-G 阻塞后队列归属与 M、P 行为.md](./07-G%20阻塞后队列归属与%20M、P%20行为.md) |
-| 08 | sudog 详细介绍 | [08-sudog详细介绍.md](./08-sudog详细介绍.md) |
-| 09 | channel 阻塞协程现象 | [09-channel阻塞协程现象.md](./09-channel阻塞协程现象.md) |
-| 10 | channel 阻塞原理 | [10-channel阻塞原理.md](./10-channel阻塞原理.md) |
-| 11 | closed channel 相关特性 | [11-closed_channel相关特性.md](./11-closed_channel相关特性.md) |
-| 12 | 学 GMP 必学 chan | [12-学 GMP 必学 chan.md](./12-学%20GMP%20必学%20chan.md) |
-| 13 | channel 读取优化 | [13-channel读取优化.md](./13-channel读取优化.md) |
-| 14 | 环形队列 | [14-环形队列.md](./14-环形队列.md) |
-| 15 | 并发 WaitGroup 特性及原理 | [14-WaitGroup特性及原理.md](../08-atomic%20and%20lock/14-WaitGroup特性及原理.md)（`08-atomic and lock` 目录） |
+| 01 | 协程与线程的本质区别 | [01-协程与线程的本质区别.md](./01-协程与线程的本质区别.md) |
+| 02 | GMP 模型核心概念总览 | [02-GMP模型核心概念总览.md](./02-GMP模型核心概念总览.md) |
+| 03 | Goroutine 核心数据结构（`runtime.g`） | [03-Goroutine核心数据结构runtime.g详解.md](./03-Goroutine核心数据结构runtime.g详解.md) |
+| 04 | Processor 核心数据结构（`runtime.p`） | [04-Processor核心数据结构runtime.p详解.md](./04-Processor核心数据结构runtime.p详解.md) |
+| 05 | Machine 核心数据结构（`runtime.m`）导读 | [05-Machine核心数据结构runtime.m详解.md](./05-Machine核心数据结构runtime.m详解.md) |
+| 06 | GMP 中的核心队列 | [06-GMP中的核心队列详解.md](./06-GMP中的核心队列详解.md) |
+| 07 | Goroutine 阻塞后的调度行为 | [07-Goroutine阻塞后的调度行为.md](./07-Goroutine阻塞后的调度行为.md) |
+| 08 | sudog 核心数据结构与作用 | [08-sudog核心数据结构与作用详解.md](./08-sudog核心数据结构与作用详解.md) |
+| 09 | GMP 与 sudog 四者联动 | [09-GMP与sudog四者联动关系.md](./09-GMP与sudog四者联动关系.md) |
+| 10 | Channel 阻塞：原理与现象（合并） | [10-Channel阻塞协程的原理与现象.md](./10-Channel阻塞协程的原理与现象.md) |
+| 11 | Channel 核心数据结构（`hchan`） | [11-Channel核心数据结构hchan详解.md](./11-Channel核心数据结构hchan详解.md) |
+| 12 | Channel 环形队列实现 | [12-Channel环形队列实现原理.md](./12-Channel环形队列实现原理.md) |
+| 13 | closed channel 特性与坑 | [13-closed_channel核心特性与坑.md](./13-closed_channel核心特性与坑.md) |
+| 14 | 学 GMP 必学 Channel 总览 | [14-学GMP必学Channel总览.md](./14-学GMP必学Channel总览.md) |
+| 15 | Channel 性能优化 | [15-Channel性能优化详解.md](./15-Channel性能优化详解.md) |
+| 16 | 并发 WaitGroup 特性及原理 | [14-WaitGroup特性及原理.md](../08-atomic%20and%20lock/14-WaitGroup特性及原理.md)（`08-atomic and lock`） |
+
+---
 
 ## 合并版总结（可选）
 
-更少文件、一条主线快速复习，见 `summary/`（原始分篇已全部保留并带 **01–14** 编号）：
+- [学习主线与目录映射.md](./summary/学习主线与目录映射.md)  
+- [GMP总览_GMP关系与sudog.md](./summary/GMP总览_GMP关系与sudog.md)  
+- [G与P的关键数据结构.md](./summary/G与P的关键数据结构.md)  
+- [GMP队列与阻塞流转.md](./summary/GMP队列与阻塞流转.md)  
+- [channel阻塞_现象到原理.md](./summary/channel阻塞_现象到原理.md)  
 
-- [summary/GMP总览_GMP关系与sudog.md](./summary/GMP总览_GMP关系与sudog.md)
-- [summary/G与P的关键数据结构.md](./summary/G与P的关键数据结构.md)
-- [summary/GMP队列与阻塞流转.md](./summary/GMP队列与阻塞流转.md)
-- [summary/channel阻塞_现象到原理.md](./summary/channel阻塞_现象到原理.md)
+---
 
-## 学习顺序建议（可按课表顺序）
+## 按课表编号 01–16 顺序（与「推荐主线」二选一）
 
-与上表 **序号 01–15** 一致；同一步里多篇可连读。
+- **01** [01-协程与线程的本质区别.md](./01-协程与线程的本质区别.md)  
+- **02** [02-GMP模型核心概念总览.md](./02-GMP模型核心概念总览.md)  
+- **03** [03-Goroutine核心数据结构runtime.g详解.md](./03-Goroutine核心数据结构runtime.g详解.md)  
+- **04** [04-Processor核心数据结构runtime.p详解.md](./04-Processor核心数据结构runtime.p详解.md)  
+- **05** [05-Machine核心数据结构runtime.m详解.md](./05-Machine核心数据结构runtime.m详解.md)  
+- **06** [06-GMP中的核心队列详解.md](./06-GMP中的核心队列详解.md)  
+- **07** [07-Goroutine阻塞后的调度行为.md](./07-Goroutine阻塞后的调度行为.md)  
+- **08** [08-sudog核心数据结构与作用详解.md](./08-sudog核心数据结构与作用详解.md)  
+- **09** [09-GMP与sudog四者联动关系.md](./09-GMP与sudog四者联动关系.md)  
+- **10** [10-Channel阻塞协程的原理与现象.md](./10-Channel阻塞协程的原理与现象.md)  
+- **11** [11-Channel核心数据结构hchan详解.md](./11-Channel核心数据结构hchan详解.md)  
+- **12** [12-Channel环形队列实现原理.md](./12-Channel环形队列实现原理.md)  
+- **13** [13-closed_channel核心特性与坑.md](./13-closed_channel核心特性与坑.md)  
+- **14** [14-学GMP必学Channel总览.md](./14-学GMP必学Channel总览.md)  
+- **15** [15-Channel性能优化详解.md](./15-Channel性能优化详解.md)  
+- **16** [14-WaitGroup特性及原理.md](../08-atomic%20and%20lock/14-WaitGroup特性及原理.md)  
 
-- **01** [01-协程和线程的关系.md](./01-协程和线程的关系.md)（心智模型）  
-- **02–03** [02-GMP关系.md](./02-GMP关系.md) → [03-G、M、P、sudog 四个结构体的关系.md](./03-G、M、P、sudog%20四个结构体的关系.md)  
-- **04–05** [04-Goroutine 的数据结构（runtime.g）.md](./04-Goroutine%20的%20数据结构（runtime.g）.md) → [05-Go GMP 里 P 的核心数据结构 关键属性.md](./05-Go%20GMP%20里%20P%20的核心数据结构%20关键属性.md)  
-- **06–08** [06-GMP 里一共就 3 个队列.md](./06-GMP%20里一共就%203%20个队列.md) → [07-G 阻塞后队列归属与 M、P 行为.md](./07-G%20阻塞后队列归属与%20M、P%20行为.md) → [08-sudog详细介绍.md](./08-sudog详细介绍.md)  
-- **09–11** [09-channel阻塞协程现象.md](./09-channel阻塞协程现象.md) → [10-channel阻塞原理.md](./10-channel阻塞原理.md) → [11-closed_channel相关特性.md](./11-closed_channel相关特性.md)  
-- **12** [12-学 GMP 必学 chan.md](./12-学%20GMP%20必学%20chan.md)（把调度模型映射到 channel 路径）  
-- **13** [13-channel读取优化.md](./13-channel读取优化.md)（实现/性能视角）  
-- **14** [14-环形队列.md](./14-环形队列.md)（与有缓冲 channel / FIFO 对照）  
-- **15** [14-WaitGroup特性及原理.md](../08-atomic%20and%20lock/14-WaitGroup特性及原理.md)（同步收尾）
-
-视频里手写 **「目标：数据结构 / FIFO」**：FIFO 是有缓冲 channel 环形队列的常见实现特征，可与 [10-channel阻塞原理.md](./10-channel阻塞原理.md) 对照。
+FIFO、`hchan`、阻塞合并篇对照：[10-Channel阻塞协程的原理与现象.md](./10-Channel阻塞协程的原理与现象.md)、[11-Channel核心数据结构hchan详解.md](./11-Channel核心数据结构hchan详解.md)。

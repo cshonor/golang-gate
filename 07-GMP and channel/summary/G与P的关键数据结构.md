@@ -1,6 +1,6 @@
 # G 与 P 的关键数据结构（runtime.g / runtime.p）
 
-> 由 `04-Goroutine 的数据结构（runtime.g）.md` 与 `05-Go GMP 里 P 的核心数据结构 关键属性.md`（上级目录）合并整理。
+> 由 `03-Goroutine核心数据结构runtime.g详解.md` 与 `04-Processor核心数据结构runtime.p详解.md`（上级目录）合并整理。
 
 ## 1. G（runtime.g）：协程的“身份证 + 运行档案”
 

@@ -161,5 +161,6 @@ func (r *RingBuffer[T]) IsFull() bool {
 
 ## 延伸阅读
 
-- channel 与 `hchan`：[10-channel阻塞原理.md](./10-channel阻塞原理.md)
-- GMP 与 channel 为何一起学：[12-学 GMP 必学 chan.md](./12-学%20GMP%20必学%20chan.md)
+- channel 与 `hchan`：[10-Channel阻塞协程的原理与现象.md](./10-Channel阻塞协程的原理与现象.md)
+- **`hchan` 全结构体字段**：[11-Channel核心数据结构hchan详解.md](./11-Channel核心数据结构hchan详解.md)
+- GMP 与 channel 为何一起学：[14-学GMP必学Channel总览.md](./14-学GMP必学Channel总览.md)

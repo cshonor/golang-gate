@@ -90,9 +90,9 @@ sudog {
 |------|--------|
 | 谁能跑 G | M，且必须先绑 P |
 | sudog 干啥 | 阻塞 G 的队列节点，连 channel |
-| 和队列关系 | P 有本地 runq；全局 sched、窃取等见 [06-GMP 里一共就 3 个队列.md](./06-GMP%20里一共就%203%20个队列.md) |
+| 和队列关系 | P 有本地 runq；全局 sched、窃取等见 [06-GMP中的核心队列详解.md](./06-GMP中的核心队列详解.md) |
 
 ## 延伸阅读
 
-- G 字段细节：[04-Goroutine 的数据结构（runtime.g）.md](./04-Goroutine%20的数据结构（runtime.g）.md)
-- P 字段细节：[05-Go GMP 里 P 的核心数据结构 关键属性.md](./05-Go%20GMP%20里%20P%20的核心数据结构%20关键属性.md)
+- G 字段细节：[03-Goroutine核心数据结构runtime.g详解.md](./03-Goroutine核心数据结构runtime.g详解.md)
+- P 字段细节：[04-Processor核心数据结构runtime.p详解.md](./04-Processor核心数据结构runtime.p详解.md)

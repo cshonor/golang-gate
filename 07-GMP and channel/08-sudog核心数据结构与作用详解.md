@@ -98,5 +98,5 @@ type sudog struct {
 
 ## 延伸阅读
 
-- channel 阻塞与 `hchan`：[10-channel阻塞原理.md](./10-channel阻塞原理.md)
-- G 与 sudog 总览：[03-G、M、P、sudog 四个结构体的关系.md](./03-G、M、P、sudog%20四个结构体的关系.md)
+- channel 阻塞与 `hchan`：[10-Channel阻塞协程的原理与现象.md](./10-Channel阻塞协程的原理与现象.md)
+- G 与 sudog 总览：[09-GMP与sudog四者联动关系.md](./09-GMP与sudog四者联动关系.md)

@@ -91,5 +91,5 @@ recvx uint
 
 ## 延伸阅读
 
-- P 与 `runq` 字段：[05-Go GMP 里 P 的核心数据结构 关键属性.md](./05-Go%20GMP%20里%20P%20的核心数据结构%20关键属性.md)
-- GMP 总览：[02-GMP关系.md](./02-GMP关系.md)
+- P 与 `runq` 字段：[04-Processor核心数据结构runtime.p详解.md](./04-Processor核心数据结构runtime.p详解.md)
+- GMP 总览：[02-GMP模型核心概念总览.md](./02-GMP模型核心概念总览.md)
