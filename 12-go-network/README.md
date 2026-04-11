@@ -77,6 +77,8 @@ python 12-go-network/tools/apply_outlines.py
 
 ## 03-linux-networking
 
+**建议顺序**：`01`～`03`（socket/fd/创建）→ `04`～`05`（握手/挥手内核）→ `06`～`07`（状态机与队列）→ `08`（缓冲）；与 **02-io-models**、**04-tcp** 交叉对照。
+
 - [01-socket是什么](./03-linux-networking/01-socket是什么.md)
 - [02-file-descriptor-fd](./03-linux-networking/02-file-descriptor-fd.md)
 - [03-socket创建流程](./03-linux-networking/03-socket创建流程.md)
@@ -87,6 +89,8 @@ python 12-go-network/tools/apply_outlines.py
 - [08-socket缓冲区SO_RCVBUF与SO_SNDBUF](./03-linux-networking/08-socket缓冲区SO_RCVBUF与SO_SNDBUF.md)
 
 ## 04-tcp
+
+**建议顺序**：`01`～`05`（特点、首部、握手/挥手、流控拥塞）→ `06`～`07`（Go 服务端/客户端）→ `08`～`09`（保活与长短连接）；协议与 **03-linux-networking** 内核篇对读。
 
 - [01-TCP特点](./04-tcp/01-TCP特点.md)
 - [02-TCP报文结构](./04-tcp/02-TCP报文结构.md)
@@ -196,4 +200,4 @@ python 12-go-network/tools/apply_outlines.py
 
 ## 建议阅读顺序
 
-按 **01 → 13** 文件夹顺序；**01-io-fundamentals** 之后接 **02-io-models**，再进 **03-linux-networking / 04-tcp**；**06-go-net-internals** 与 **07-go-netpoll** 以 **06 之 `07-pollDesc…` + 07 之 `08`～`10`** 为枢纽交叉读源码；**10-server-architecture** 与 **11-nio-reactor** 合并理解 Reactor 与 Go 的关系。
+按 **01 → 13** 文件夹顺序；**01-io-fundamentals** 之后接 **02-io-models**，再进 **03-linux-networking**（fd/队列/缓冲）与 **04-tcp**（协议 + Go 编程）形成闭环；**06-go-net-internals** 与 **07-go-netpoll** 以 **06 之 `07-pollDesc…` + 07 之 `08`～`10`** 为枢纽交叉读源码；**10-server-architecture** 与 **11-nio-reactor** 合并理解 Reactor 与 Go 的关系。
