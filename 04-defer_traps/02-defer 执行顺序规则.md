@@ -146,6 +146,15 @@ func f() (result int) { // 具名返回值
 
 // 结果：2
 ```
+
+
+```go
+func namedReturn() (result int) {
+	defer func() { result++ }() // defer 修改返回值
+	return 1                    // 先赋值 result=1，再执行 defer → result=2
+}
+// 调用 namedReturn() → 返回 2
+```
 2. 匿名返回值（unnamed return）：defer 改不了 ❌
 ```go
 运行
@@ -162,13 +171,6 @@ func f() int { // 匿名返回值
 // 结果：1
 ```
 
-```go
-func namedReturn() (result int) {
-	defer func() { result++ }() // defer 修改返回值
-	return 1                    // 先赋值 result=1，再执行 defer → result=2
-}
-// 调用 namedReturn() → 返回 2
-```
 
 ### （3）实践建议
 
