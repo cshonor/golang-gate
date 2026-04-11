@@ -111,6 +111,12 @@ python 12-go-network/tools/apply_outlines.py
 - [04-UDPConn结构](./06-go-net-internals/04-UDPConn结构.md)
 - [05-net.Dial底层流程](./06-go-net-internals/05-net.Dial底层流程.md)
 - [06-net.Listen底层流程](./06-go-net-internals/06-net.Listen底层流程.md)
+- [07-pollDesc核心结构与原理](./06-go-net-internals/07-pollDesc核心结构与原理.md)（**net ↔ internal/poll ↔ netpoll 桥梁**）
+- [08-网络超时与Deadline底层实现](./06-go-net-internals/08-网络超时与Deadline底层实现.md)
+- [09-网络错误分类与处理](./06-go-net-internals/09-网络错误分类与处理.md)
+- [10-连接关闭与资源泄漏排查](./06-go-net-internals/10-连接关闭与资源泄漏排查.md)
+
+**建议顺序**：`01`～`06` 与 **`07`** 穿插读（`07` 为枢纽），再 **`08`～`10`** 补工程闭环。
 
 ## 07-go-netpoll
 
@@ -121,6 +127,11 @@ python 12-go-network/tools/apply_outlines.py
 - [05-Go的Read与Write为什么看起来阻塞](./07-go-netpoll/05-Go的Read与Write为什么看起来阻塞.md)
 - [06-Goroutine与netpoll调度](./07-go-netpoll/06-Goroutine与netpoll调度.md)
 - [07-netpoll源码核心流程](./07-go-netpoll/07-netpoll源码核心流程.md)
+- [08-netpoll与GMP调度深度联动](./07-go-netpoll/08-netpoll与GMP调度深度联动.md)
+- [09-pollDesc等待队列与唤醒原理](./07-go-netpoll/09-pollDesc等待队列与唤醒原理.md)（承接 **06/07**）
+- [10-netpoll常见坑与优化](./07-go-netpoll/10-netpoll常见坑与优化.md)
+
+**建议顺序**：`02`→`03`→`06`→`07` 建立骨架，再读 **`08`～`10`** 与 **06 之 `07`** 形成闭环。
 
 ## 08-framing-protocols
 
@@ -181,4 +192,4 @@ python 12-go-network/tools/apply_outlines.py
 
 ## 建议阅读顺序
 
-按 **01 → 13** 文件夹顺序；**07-go-netpoll** 可与 **06-go-net-internals** 交叉读源码；**10-server-architecture** 与 **11-nio-reactor** 合并理解 Reactor 与 Go 的关系。
+按 **01 → 13** 文件夹顺序；**06-go-net-internals** 与 **07-go-netpoll** 以 **06 之 `07-pollDesc…` + 07 之 `08`～`10`** 为枢纽交叉读源码；**10-server-architecture** 与 **11-nio-reactor** 合并理解 Reactor 与 Go 的关系。

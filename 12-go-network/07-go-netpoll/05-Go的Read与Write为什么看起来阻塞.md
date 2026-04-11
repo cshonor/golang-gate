@@ -10,6 +10,10 @@
 - 阻塞的用户感知与线程状态
 - 实验：strace 或 dlv 小 demo 观察（可选）
 
+## 扩写指引（poll 路径）
+
+`EAGAIN` → **`runtime_pollWait`** → **`gopark`** 的细化与 **GMP** 关系见 **[08-netpoll与GMP调度深度联动](./08-netpoll与GMP调度深度联动.md)**、**[09-pollDesc等待队列与唤醒原理](./09-pollDesc等待队列与唤醒原理.md)**；**06** 桥梁篇：[07-pollDesc核心结构与原理](../06-go-net-internals/07-pollDesc核心结构与原理.md)。
+
 ## 正文
 
 （待补充）

@@ -10,6 +10,10 @@
 - 与 `syscall`：recvfrom/sendto 路径
 - Multicast 相关方法在结构上的挂点
 
+## 与 netpoll 的桥梁（扩写）
+
+UDP 同样走 **`netFD` + `internal/poll`**；无数据时的 `ReadFrom` 与 TCP `Read` 一样会落入 **poll 等待** 路径。见 **[07-pollDesc核心结构与原理](./07-pollDesc核心结构与原理.md)**。
+
 ## 正文
 
 （待补充）
