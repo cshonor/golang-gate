@@ -1,50 +1,65 @@
 # 网络超时与 Deadline 底层实现
 
 > **06-go-net-internals · Go net 包源码级理解**  
-> 前置：[07-pollDesc核心结构与原理](./07-pollDesc核心结构与原理.md)。**Deadline 的本质**：为一次或一类 IO 等待设置**上限**，到期必须让阻塞在 `pollWait` 上的 **G** 醒来并带着 **`timeout` 类错误**返回用户代码。
+> 前置：[07-pollDesc核心结构与原理](./07-pollDesc核心结构与原理.md)。**Deadline** = **绝对时间点**：到达后，**正在等 I/O 的 G** 必须被叫醒，**`Read`/`Write` 返回错误**（常见 **`i/o timeout`** / **`os.ErrDeadlineExceeded`**）。
 
 ---
 
-## 1. 用户能调什么 API
+## 一、用户 API
 
-- **`SetDeadline(t)`**：读+写共用一个绝对时刻。  
-- **`SetReadDeadline` / `SetWriteDeadline`**：分别约束读、写。
+- **`SetDeadline(t)`**：同时约束后续 **读+写**（并影响已在等待的调用）。  
+- **`SetReadDeadline` / `SetWriteDeadline`**：分别约束。  
+- **零值 `time.Time{}`**：在 `net` 中通常表示 **清除** 对应 deadline（以当前版本文档为准）。
 
-语义要点：
-
-- **零值 `time.Time{}`** 在 `net` 里常表示 **清除** 对应 deadline（以当前实现文档为准）。  
-- **已过期的时刻** 会导致后续 IO **很快失败**（不必等到「下一次真的去等」才发现）。
+`go doc net.Conn`：**deadline 过期后**，可用 **`errors.Is(err, os.ErrDeadlineExceeded)`**；同时 **`net.Error.Timeout()` 也可能为 true**（文档提醒：**并非所有 Timeout 都来自 deadline**）。
 
 ---
 
-## 2. 与 `internal/poll` 的关系（直觉）
+## 二、实现直觉（不要等同于「内核 SO_RCVTIMEO 包办一切」）
 
-1. 调用进入 `netFD` → `poll.FD` 的路径，把 **绝对时间** 记录到 **poll 状态**（常与 **timer** 或 **runtime 定时机制** 协作）。  
-2. 当 `Read`/`Write` 因 **`EAGAIN`** 进入 **`runtime_pollWait`** 时，等待不仅是「等 fd 就绪」，还包括 **「等 deadline 到期」** 这条分支。  
-3. **到期**：等待被解除，`Read`/`Write` 返回 **`net.Error` 且 `Timeout() == true`**（常见包装为 `i/o timeout`）。
+1. **`SetReadDeadline` 进入 `netFD` → `poll.FD`**，把 **绝对时间** 存进 **poll 状态**（具体字段名随版本变）。  
+2. 当 `Read` 因 **`EAGAIN`** 走 **`runtime_pollWait`** 时，等待条件不仅是 **「fd 可读」**，还包括 **「deadline 到期」**（由 **runtime 定时器子系统** 与 netpoll 协同）。  
+3. **到期**：等待结束，`Read` 返回 **`timeout` 语义错误**；若已用 **`context` 取消**，那是另一条链，需 **`errors.Is`** 区分。
 
-实现细节随 Go 版本演进，阅读时以 **`SetReadDeadline` 调用链** 向下跟到 `internal/poll` 为准。
+> **纠偏**：Go **确实会用内核/运行时定时能力**；更准确的说法是——**应用层通常不直接靠 `SO_RCVTIMEO` 一条路径完成所有语义**，而是 **`poll` + timer + 返回错误包装** 组合实现 **`SetXxxDeadline`** 的可移植行为。
 
 ---
 
-## 3. 常见工程用法
+## 三、伪代码心智（非真实源码）
+
+```text
+SetReadDeadline(t):
+  pd.storeDeadline(READ, t)
+  pd.updatePollerOrTimer()   // 注册/更新下一次唤醒时间
+
+Read():
+  for {
+    n, err = syscall.Read(fd, buf)
+    if err != EAGAIN { return }
+    runtime_pollWait(pd, 'r') // 内部合并：可读 OR 到期 OR closed
+    if deadlinePassed { return 0, timeoutErr }
+  }
+```
+
+---
+
+## 四、工程用法（速查）
 
 | 场景 | 建议 |
 |------|------|
-| 每个请求有 SLA | 对 **`conn`** 或 **`Response.Body`** 设 **读 deadline** |
-| 防止写阻塞拖死 | 设 **写 deadline**；大 body 分块写 |
-| 长连接心跳 | **短 read deadline** + 业务层超时重置，或与 `TCPKeepAlive` 组合 |
-
-与 **Context** 取消配合时，注意：**取消 context 不会自动关 fd**；通常要自己 `Close` 或上层封装一并处理。
+| HTTP 服务端读 body | **`ReadHeaderTimeout`/`ReadTimeout`** 或 conn 级 **读 deadline** |
+| 慢客户端防护 | **每连接周期性 `SetReadDeadline(now.Add(...))`** |
+| 与 `Context` | **`ctx` 取消不会自动关 conn**；要 **`Close` 或上层封装** |
 
 ---
 
-## 4. 与 07 章衔接
+## 五、与 07 章衔接
 
-- netpoll 在 **定时器到期** 时同样要把 **G** 唤醒，路径与 **「对端发来数据」** 类事件共享「出等待 → 可运行」框架，见 [08-netpoll与GMP调度深度联动](../07-go-netpoll/08-netpoll与GMP调度深度联动.md)。
+- **定时器到期** 与 **对端数据到达** 都要走 **「唤醒 G → 重试/返回」** 框架，见 [08-netpoll与GMP调度深度联动](../07-go-netpoll/08-netpoll与GMP调度深度联动.md)。
 
 ---
 
-## 下一篇
+## 导航
 
-[09-网络错误分类与处理.md](./09-网络错误分类与处理.md)
+- 上一篇：[07-pollDesc核心结构与原理](./07-pollDesc核心结构与原理.md)  
+- 下一篇：[09-网络错误分类与处理](./09-网络错误分类与处理.md)
