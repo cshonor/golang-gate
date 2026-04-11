@@ -108,8 +108,19 @@ func createAndClean() {
 
 ### （1）执行时机
 
-- 所有 defer 统一在 **函数 return 之后、RET 指令返回调用方之前** 执行。
-- 函数正常返回、`panic`、`runtime` 退出，均会触发 defer 执行。
+-所有 defer 统一在：函数 return 之后、RET 指令返回调用方之前 执行。
+
+-函数正常返回、panic、runtime 退出，均会触发 defer 执行。
+
+RET 指令：底层汇编的 “函数返回” 指令，真正把结果还给调用者。
+
+3 种触发场景：
+
+1.正常 return
+2.发生 panic（崩溃）
+3.runtime.Goexit() 主动退出
+
+执行顺序：LIFO（后进先出）—— 最后 defer 的最先执行。
 
 ### （2）与 return、返回值的关系
 
