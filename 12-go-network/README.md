@@ -51,6 +51,8 @@ python 12-go-network/tools/apply_outlines.py
 
 ## 01-io-fundamentals
 
+**建议顺序**：`01` 定义与分类 → `02`/`03` 阻塞与非阻塞、同步与异步（正交）→ `04` 特权级与 syscall → `05` 缓冲/页缓存/零拷贝 → `06` 文件与网络对比收束，再进入 **02-io-models**。
+
 - [01-什么是IO](./01-io-fundamentals/01-什么是IO.md)
 - [02-阻塞与非阻塞](./01-io-fundamentals/02-阻塞与非阻塞.md)
 - [03-同步与异步](./01-io-fundamentals/03-同步与异步.md)
@@ -59,6 +61,8 @@ python 12-go-network/tools/apply_outlines.py
 - [06-文件IO vs 网络IO](./01-io-fundamentals/06-文件IO%20vs%20网络IO.md)
 
 ## 02-io-models
+
+**建议顺序**：`01` 总览 → `02`～`03`（BIO/NIO）→ `04`～`07`（多路复用与 epoll）→ `08`～`09` → `10` 收束；与 **01-io-fundamentals** 的阻塞/非阻塞、同步/异步两篇对照读。
 
 - [01-五大IO模型总览](./02-io-models/01-五大IO模型总览.md)
 - [02-阻塞IO BIO](./02-io-models/02-阻塞IO%20BIO.md)
@@ -192,4 +196,4 @@ python 12-go-network/tools/apply_outlines.py
 
 ## 建议阅读顺序
 
-按 **01 → 13** 文件夹顺序；**06-go-net-internals** 与 **07-go-netpoll** 以 **06 之 `07-pollDesc…` + 07 之 `08`～`10`** 为枢纽交叉读源码；**10-server-architecture** 与 **11-nio-reactor** 合并理解 Reactor 与 Go 的关系。
+按 **01 → 13** 文件夹顺序；**01-io-fundamentals** 之后接 **02-io-models**，再进 **03-linux-networking / 04-tcp**；**06-go-net-internals** 与 **07-go-netpoll** 以 **06 之 `07-pollDesc…` + 07 之 `08`～`10`** 为枢纽交叉读源码；**10-server-architecture** 与 **11-nio-reactor** 合并理解 Reactor 与 Go 的关系。
