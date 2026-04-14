@@ -1,5 +1,7 @@
 # 数据结构（Go：`array` / `slice` / `map`）
 
+前置：建议先过一遍 [Go 基础数据类型](../00-basic-types/README.md)（类型、零值、转换、字符串与指针），再进本目录会顺很多。
+
 本目录按 **专题子文件夹** 组织：**`00-array/`**、**`01-slice/`**、**`02-map/`**、**`03-common-optimization/`**。  
 **Channel / GMP** 见 **`../07-GMP and channel/`**；**WaitGroup** 见 **`../08-atomic and lock/14-WaitGroup特性及原理.md`**。
 
