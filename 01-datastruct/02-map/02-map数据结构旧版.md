@@ -179,6 +179,59 @@ Go 的 map 实现**持续演进**，下面是与「经典 8 槽 + overflow」教
 
 ---
 
+## 八、Map Key 规则（只讲 Go：可变性与可比较）
+
+一句话先记：**能做 `==` 比较的类型，才有资格做 map key。**
+
+### 8.1 Go 里“不可变/可比较”这一侧（常可做 key）
+
+- 基础类型：`bool`、`int/uint`、`float`、`complex`、`string`
+- 指针：`*T`（比较的是地址值）
+- 通道：`chan T`（可比较，虽少见但可做 key）
+- 数组：`[N]T`（长度固定，且元素可比较）
+- 结构体：`struct`（所有字段都可比较时，struct 才可比较）
+- 接口：`interface{}`（动态值必须可比较，否则运行时会 panic）
+
+工程上最稳妥 key：**`string` / `int` / `uint64` / `bool`**。
+
+### 8.2 Go 里“不可比较”这一侧（不能做 key）
+
+下面类型不可比较，编译期直接拒绝：
+
+- `[]T`（slice）
+- `map[K]V`（map）
+- `func(...)`（函数）
+- 含 `slice/map/func` 字段的结构体
+
+### 8.3 最容易混淆：指针与结构体
+
+1. **指针 `*T`**  
+   - 指针值（地址）可比较，所以可做 key  
+   - 指针指向内容可变，不影响“地址可比较”这件事
+
+2. **结构体 `struct`**  
+   - 结构体本身是值语义  
+   - 但只要字段里出现不可比较类型（如 slice/map/func），整个 struct 就不能做 key
+
+### 8.4 与 map 使用直接相关的两条硬规则
+
+1. **Go 无隐式类型转换**：`int` 与 `float64` 是不同 key 类型，不能混用。  
+2. **nil map 先初始化再写**：
+
+```go
+var m map[string]int
+// m["a"] = 1 // panic: assignment to entry in nil map
+m = make(map[string]int)
+m["a"] = 1
+```
+
+### 8.5 口诀
+
+- 能做 `==` 的，通常能做 key  
+- 不能做 `==` 的（slice/map/func），一律不能做 key
+
+---
+
 ## 延伸阅读
 
 - [01-map-hmap与bmap-直觉对照.md](./01-map-hmap与bmap-直觉对照.md)：`hmap`/`bmap` 与经典哈希表模型速查  
