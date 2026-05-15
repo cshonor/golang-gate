@@ -93,6 +93,8 @@
 
 **关键总结**：**JSON + Protobuf** 优先熟练；**Gob** 服务内；**ASN.1** 了解即可；按场景选型。
 
+结构化笔记：[`02-general-network-stage/chapter04-data-serialization/note.md`](./02-general-network-stage/chapter04-data-serialization/note.md)。
+
 ### 第 6 章 管理字符集与编码（Managing Character Sets and Encodings）
 
 **核心知识点**
