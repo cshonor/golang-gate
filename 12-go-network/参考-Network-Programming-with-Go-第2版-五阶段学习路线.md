@@ -209,6 +209,9 @@
 
 **关键总结**：能解析页面/报文即可，不必实现解析器。
 
+结构化笔记（第 11 章）：[`04-advanced-protocol-stage/chapter11-html-parse/note.md`](./04-advanced-protocol-stage/chapter11-html-parse/note.md)。  
+结构化笔记（第 12 章）：[`04-advanced-protocol-stage/chapter12-xml-parse/note.md`](./04-advanced-protocol-stage/chapter12-xml-parse/note.md)。
+
 ---
 
 ## 第五阶段：工程化与新特性

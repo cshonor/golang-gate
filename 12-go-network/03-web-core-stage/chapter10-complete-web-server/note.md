@@ -219,6 +219,6 @@ go build -o flashcard_server .
 
 **背诵版**：**路由表清晰；模板预编译；POST 限流与校验；共享状态加锁；静态资源用绝对路径。**  
 
-**下一阶**：原书后续 HTML/XML 解析、REST 等；本仓库 [`13-projects-optional`](../../legacy-topic-index/13-projects-optional/) 可作扩展项目池。
+**下一阶**：[`chapter11` HTML 解析与生成](../../04-advanced-protocol-stage/chapter11-html-parse/note.md)、REST/XML 等；本仓库 [`13-projects-optional`](../../legacy-topic-index/13-projects-optional/) 可作扩展项目池。
 
-**前后章节**：[`chapter09` 模板](../chapter09-templates/note.md) · [`chapter08` HTTP](../chapter08-http/note.md) · [`chapter06` 编码](../../02-general-network-stage/chapter06-charset-encoding/note.md)
+**前后章节**：[`chapter09` 模板](../chapter09-templates/note.md) · [`chapter08` HTTP](../chapter08-http/note.md) · [`chapter06` 编码](../../02-general-network-stage/chapter06-charset-encoding/note.md) · [`chapter11` HTML](../../04-advanced-protocol-stage/chapter11-html-parse/note.md)

@@ -161,4 +161,4 @@ _ = tmpl.Execute(os.Stdout, "<script>alert('XSS')</script>")
 
 **背诵版**：**预编译模板；Web 用 html/template；FuncMap 前置；块内用 $. 找回根；慎用 template.HTML。**
 
-**前后章节**：[`chapter08` HTTP](../chapter08-http/note.md) · [`chapter10` 完整 Web 服务器](../chapter10-complete-web-server/note.md) · [`chapter02` Go 概览](../../01-foundation-stage/chapter02-go-language-overview/note.md)
+**前后章节**：[`chapter08` HTTP](../chapter08-http/note.md) · [`chapter10` 完整 Web 服务器](../chapter10-complete-web-server/note.md) · [`chapter11` HTML](../../04-advanced-protocol-stage/chapter11-html-parse/note.md) · [`chapter02` Go 概览](../../01-foundation-stage/chapter02-go-language-overview/note.md)
