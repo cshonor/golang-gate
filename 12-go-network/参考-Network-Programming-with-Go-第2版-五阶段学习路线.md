@@ -61,6 +61,8 @@
 
 **关键总结**：必须手写最小 **TCP 客户端/服务端** 与 **UDP 收发**；理解 TCP/UDP 差异与超时/KeepAlive，再学 HTTP/WebSocket 才有锚点。
 
+结构化笔记：[`01-foundation-stage/chapter03-socket-programming/note.md`](./01-foundation-stage/chapter03-socket-programming/note.md)。
+
 ### 第 5 章 应用层协议（Application-Level Protocols）
 
 **定位**：**思想层 / 设计层**——版本、报文形态、状态如何建模；**几乎没有独立「语法 API」**，但决定你后面读 HTTP、RPC、REST、WebSocket 时「为什么长这样」。

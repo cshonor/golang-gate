@@ -1,6 +1,9 @@
 # Chapter 03 — Socket-Level Programming（Socket 级编程）
 
-原书第 3 章：TCP/UDP、地址、DNS、超时与 KeepAlive、Raw socket 等。  
+原书第 3 章：TCP/UDP、地址、DNS、超时与 KeepAlive、Raw socket 等。
+
+- [note.md](./note.md) — 本章精读笔记（TCP/IP 栈、`net.IP`/掩码/DNS、`TCPAddr`、TCP/UDP、接口抽象、连接控制；示例已用 `io.ReadAll` 替代弃用的 `ioutil`）
+
 本仓库中 **绝大部分「硬核」笔记**落在 **`legacy-topic-index/`** 下列目录，请按组阅读。
 
 ## Linux / fd / 握手挥手
