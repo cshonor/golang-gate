@@ -2,6 +2,8 @@
 
 原书第 2 章：类型、并发、模块、`error` 等（面向网络编程的 Go 子集）。
 
+- [note.md](./note.md) — 本章精读笔记（类型、切片/map、指针、错误、Goroutine、模块与标准库衔接）
+
 ## 与本仓库其它模块的衔接
 
 - 基础类型与字符串：[../../../00-basic-types/README.md](../../../00-basic-types/README.md)

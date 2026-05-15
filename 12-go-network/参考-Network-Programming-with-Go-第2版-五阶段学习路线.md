@@ -43,6 +43,8 @@
 
 **关键总结**：抓 **Goroutine + 切片/map + error**，够支撑后续高并发与健壮 I/O。
 
+结构化笔记：[`01-foundation-stage/chapter02-go-language-overview/note.md`](./01-foundation-stage/chapter02-go-language-overview/note.md)。
+
 ### 第 3 章 Socket 级编程（Socket-Level Programming）
 
 **核心知识点**
