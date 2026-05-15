@@ -103,9 +103,11 @@
 
 - 字符 / 字符集 / 字符编码 / **传输编码**（如 Base64）区分清楚。
 - **ASCII 与 UTF-8**：Go 源码与 `string` 默认 UTF-8；`len` 为**字节数**；中文常见多字节；截取与乱码排查与 `[]byte`/`[]rune` 的配合（可与仓库 `00-basic-types/04-字符串与rune.md` 对照）。
-- **UTF-16**：大小端；`encoding/unicode`；Windows/部分协议场景。
+- **UTF-16**：大小端；`unicode/utf16` 与 `golang.org/x/text/encoding/unicode`；Windows/部分协议场景。
 
 **关键总结**：日常以 **UTF-8** 为主；UTF-16 掌握字节序与何时出场即可。
+
+结构化笔记：[`02-general-network-stage/chapter06-charset-encoding/note.md`](./02-general-network-stage/chapter06-charset-encoding/note.md)。
 
 ### 第 7 章 安全（Security）
 
@@ -116,6 +118,8 @@
 - **X.509 + TLS**：自签名（联调）vs CA（生产）；`crypto/tls`、**HTTPS / WSS** 配置。
 
 **关键总结**：能配 **TLS/HTTPS**；分清对称/非对称适用场景；证书链与主机名校验要有基本概念。
+
+结构化笔记：[`02-general-network-stage/chapter07-security/note.md`](./02-general-network-stage/chapter07-security/note.md)。
 
 ---
 
@@ -133,6 +137,8 @@
 - **HTTPS**：结合 TLS 配置证书与密钥。
 
 **关键总结**：动手做最小 HTTP/HTTPS 服务 + 自定义 Handler + Client；**HTTP/1.1 与 HTTP/2** 特性面试常问。
+
+结构化笔记：[`03-web-core-stage/chapter08-http/note.md`](./03-web-core-stage/chapter08-http/note.md)。
 
 ### 第 16 章 Gorilla 工具包
 
