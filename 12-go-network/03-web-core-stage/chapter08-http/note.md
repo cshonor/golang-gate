@@ -225,4 +225,4 @@ log.Fatal(http.ListenAndServeTLS(":8443", "server.crt", "server.key", loggingMid
 
 **背诵版**：**URL 规范化 → Request + Context → 专用 Client/Transport → 读透 Body → TLS 信任锚正确。**  
 
-**前后章节**：[`chapter07` TLS](../../02-general-network-stage/chapter07-security/note.md) · [`chapter05` 应用层协议](../../01-foundation-stage/chapter05-application-protocols/note.md) · [`09-http-internals`](../../legacy-topic-index/09-http-internals/) · [`chapter09` 模板](../chapter09-templates/note.md) · [`chapter10` 整站](../chapter10-complete-web-server/note.md)
+**前后章节**：[`chapter07` TLS](../../02-general-network-stage/chapter07-security/note.md) · [`chapter05` 应用层协议](../../01-foundation-stage/chapter05-application-protocols/note.md) · [`09-http-internals`](../../legacy-topic-index/09-http-internals/) · [`chapter09` 模板](../chapter09-templates/note.md) · [`chapter10` 整站](../chapter10-complete-web-server/note.md) · [`chapter16` Gorilla](../chapter16-gorilla-toolkit/note.md) · [`chapter17` 测试](../../05-engineering-stage/chapter17-testing/note.md)

@@ -151,6 +151,8 @@
 
 **关键总结**：企业里 **`mux` + 中间件** 很常见；`schema` / `securecookie` 按需深入。
 
+结构化笔记：[`03-web-core-stage/chapter16-gorilla-toolkit/note.md`](./03-web-core-stage/chapter16-gorilla-toolkit/note.md)。
+
 ### 第 9 章 模板（Templates）与第 10 章 完整 Web 服务器
 
 **核心知识点**
@@ -191,6 +193,8 @@
 
 **关键总结**：能设计可读 URI + 正确使用动词/状态码；能做一次从「页面思维」到「资源思维」的重构。
 
+结构化笔记：[`04-advanced-protocol-stage/chapter14-rest/note.md`](./04-advanced-protocol-stage/chapter14-rest/note.md)。
+
 ### 第 15 章 WebSockets
 
 **核心知识点**
@@ -201,6 +205,8 @@
 - **`gorilla/websocket`**：消息类型、ping/pong、缓冲区与关闭语义。
 
 **关键总结**：掌握握手、心跳、断线重连直觉；生产用 **WSS**。
+
+结构化笔记：[`04-advanced-protocol-stage/chapter15-websocket/note.md`](./04-advanced-protocol-stage/chapter15-websocket/note.md)。
 
 ### 第 11 章 HTML 与第 12 章 XML
 
@@ -230,6 +236,8 @@
 - 阅读标准库 **`net` / `net/http`** 测试作为范本。
 
 **关键总结**：**httptest** 必会；能写 Handler 级单测与客户端假后端。
+
+结构化笔记：[`05-engineering-stage/chapter17-testing/note.md`](./05-engineering-stage/chapter17-testing/note.md)。
 
 ### 附录 A 模糊测试（Fuzzing）与附录 B 泛型（Generics）
 

@@ -172,4 +172,4 @@ defer client.Close()
 
 **进阶**：工业界大规模系统多选 **gRPC + Protobuf + HTTP/2**（流、元数据、跨语言、生态工具链）。标准库 **`net/rpc`** 更适合 **教材级最小示例** 与历史代码维护。
 
-**前后章节**：[`chapter12` XML](../chapter12-xml-parse/note.md) · [`chapter08` HTTP](../../03-web-core-stage/chapter08-http/note.md) · 第 14 章 REST（[`chapter14-rest`](../chapter14-rest/README.md)）
+**前后章节**：[`chapter12` XML](../chapter12-xml-parse/note.md) · [`chapter08` HTTP](../../03-web-core-stage/chapter08-http/note.md) · [`chapter14` REST](../chapter14-rest/note.md)
