@@ -161,6 +161,8 @@
 
 **关键总结**：模板以 **安全默认** 为先；第 10 章建议完整敲一遍，形成项目级肌肉记忆。
 
+结构化笔记：[`03-web-core-stage/chapter09-templates/note.md`](./03-web-core-stage/chapter09-templates/note.md) · [`03-web-core-stage/chapter10-complete-web-server/note.md`](./03-web-core-stage/chapter10-complete-web-server/note.md)。
+
 ---
 
 ## 第四阶段：进阶协议与架构
