@@ -179,6 +179,8 @@
 
 **关键总结**：理解「远程像本地」的边界（网络错误、版本、幂等）；能搭最小 RPC 服务端/客户端。
 
+结构化笔记：[`04-advanced-protocol-stage/chapter13-rpc/note.md`](./04-advanced-protocol-stage/chapter13-rpc/note.md)。
+
 ### 第 14 章 REST
 
 **核心知识点**

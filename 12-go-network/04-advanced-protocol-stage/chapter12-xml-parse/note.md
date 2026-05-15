@@ -140,4 +140,4 @@ func parseNodes(src string) error {
 
 **背诵版**：**小用 Unmarshal/Marshal；大用 Decoder.Token；HTML 用 x/net/html；不可信 XML 当安全面做。**
 
-**前后章节**：[`chapter11` HTML](../chapter11-html-parse/note.md) · [`chapter04` 序列化](../../03-web-core-stage/chapter04-data-serialization/note.md) · 第 13 章 RPC（[`chapter13-rpc`](../chapter13-rpc/README.md)）
+**前后章节**：[`chapter11` HTML](../chapter11-html-parse/note.md) · [`chapter04` 序列化](../../03-web-core-stage/chapter04-data-serialization/note.md) · [`chapter13` RPC](../chapter13-rpc/note.md)
