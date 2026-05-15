@@ -1,7 +1,7 @@
 # netpoll 与 GMP 调度深度联动
 
 > **07-go-netpoll · Go netpoll 高并发核心**  
-> 前置：[06-go-net-internals/07-pollDesc](../06-go-net-internals/07-pollDesc核心结构与原理.md)、本目录 [06-Goroutine与netpoll调度](./06-Goroutine与netpoll调度.md)。GMP 系统化：[07-GMP and channel](../../07-GMP%20and%20channel/README.md)。
+> 前置：[06-go-net-internals/07-pollDesc](../06-go-net-internals/07-pollDesc核心结构与原理.md)、本目录 [06-Goroutine与netpoll调度](./06-Goroutine与netpoll调度.md)。GMP 系统化：[07-GMP and channel](../../../07-GMP%20and%20channel/README.md)。
 
 ---
 

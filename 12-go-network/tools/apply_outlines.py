@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
-"""Fill 12-go-network/*.md with 内容大纲. Run from repo root: python 12-go-network/tools/apply_outlines.py"""
+"""Fill 12-go-network/legacy-topic-index/*.md with 内容大纲. Run from repo root: python 12-go-network/tools/apply_outlines.py"""
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+# 大纲骨架仍写在「按技术主题」的 legacy 目录下（与 outlines/*.json 中 rel 路径一致）
+ROOT = Path(__file__).resolve().parents[1] / "legacy-topic-index"
 
 
 def write_md(rel: str, title: str, folder_zh: str, bullets: list[str]) -> None:

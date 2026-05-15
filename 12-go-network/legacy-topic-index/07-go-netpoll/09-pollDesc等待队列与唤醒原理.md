@@ -2,7 +2,7 @@
 
 > **07-go-netpoll · Go netpoll 高并发核心**  
 > 上篇：[08-netpoll与GMP调度深度联动](./08-netpoll与GMP调度深度联动.md)。  
-> 与 channel 的 **`sudog` + `waitq`** 心智类似：都是 **「把等某件事的 G 挂起来，再由 runtime 在某个时刻叫醒」**（见 [07-GMP/08-sudog](../../07-GMP%20and%20channel/08-sudog核心数据结构与作用详解.md)）。
+> 与 channel 的 **`sudog` + `waitq`** 心智类似：都是 **「把等某件事的 G 挂起来，再由 runtime 在某个时刻叫醒」**（见 [07-GMP/08-sudog](../../../07-GMP%20and%20channel/08-sudog核心数据结构与作用详解.md)）。
 
 ---
 

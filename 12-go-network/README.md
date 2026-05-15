@@ -1,18 +1,42 @@
-# Go 网络编程 + IO 模型（深度笔记）
+# Go 网络编程（按书本五阶段 + Legacy 深度笔记）
 
-从 **IO 理论 → Linux 网络 → TCP/UDP → Go net / netpoll → 协议与 HTTP → 架构与调优 → 实战**，按章节填充正文即可。
+本模块 **Jan Newmarch / Ronald Petty《Network Programming with Go Language, 2nd Ed.》** 为纲：**顶层按原书重组为 5 个阶段目录**，每阶段下按 **chapterXX-英文slug** 对齐章节；原先按 **IO / TCP / netpoll / HTTP** 等技术线撰写的 **中文逐篇笔记** 整体迁入 [`legacy-topic-index/`](./legacy-topic-index/)，**文件名与正文不变**，由各章 `README` 与 [`legacy-topic-index/FILES.md`](./legacy-topic-index/FILES.md) 做入口。
 
-**顶层目录名为 `12-go-network`**（与仓库根目录 `README` 中进阶顺序 **12** 一致）；**笔记 `.md` 文件名仍为你原来的中文主题**（便于检索）。
+---
+
+## 五阶段（主入口 · 与书本一致）
+
+| 阶段 | 目录 | 原书范围（章号） |
+|------|------|------------------|
+| 第一阶段 打底 | [01-foundation-stage](./01-foundation-stage/README.md) | Ch.1、2、3、5（建议读序 **1→2→3→5**） |
+| 第二阶段 通用网络 | [02-general-network-stage](./02-general-network-stage/README.md) | Ch.4、6、7 |
+| 第三阶段 Web 核心 | [03-web-core-stage](./03-web-core-stage/README.md) | Ch.8、9、10、16 |
+| 第四阶段 进阶协议 | [04-advanced-protocol-stage](./04-advanced-protocol-stage/README.md) | Ch.11～15 |
+| 第五阶段 工程化 | [05-engineering-stage](./05-engineering-stage/README.md) | Ch.17、附录 A、B |
+
+**精读提纲**（阶段目标 + 分章要点）：[参考-Network-Programming-with-Go-第2版-五阶段学习路线.md](./参考-Network-Programming-with-Go-第2版-五阶段学习路线.md)  
+**全书章节目录**：[参考-Network-Programming-with-Go-第2版-章节目录.md](./参考-Network-Programming-with-Go-第2版-章节目录.md)
+
+---
+
+## 深度笔记（Legacy 技术线）
+
+- **索引说明**：[legacy-topic-index/README.md](./legacy-topic-index/README.md)
+- **逐篇完整链接**：[legacy-topic-index/FILES.md](./legacy-topic-index/FILES.md)
+
+`tools/apply_outlines.py` 写入路径已指向 **`legacy-topic-index/`**（与 `tools/outlines/*.json` 中 `rel` 一致）。
+
+---
 
 ## 维护工具
 
-每篇正文前已有 **「内容大纲」** 占位。若批量重生成正文骨架，可在仓库根目录执行：
+在仓库根目录执行：
 
 ```bash
 python 12-go-network/tools/apply_outlines.py
 ```
 
-大纲数据在 `12-go-network/tools/outlines/*.json`，可按篇编辑后重新运行脚本。
+大纲数据在 `12-go-network/tools/outlines/*.json`。
 
 ---
 
@@ -29,175 +53,8 @@ python 12-go-network/tools/apply_outlines.py
 
 ---
 
-## 英文目录一览
+## 建议怎么读
 
-| 文件夹 | 主题（中文） |
-|--------|----------------|
-| `01-io-fundamentals` | IO 核心理论 |
-| `02-io-models` | IO 模型全解 |
-| `03-linux-networking` | Linux 网络底层 |
-| `04-tcp` | TCP 协议与编程 |
-| `05-udp-multicast` | UDP 与组播 |
-| `06-go-net-internals` | Go net 包源码级理解 |
-| `07-go-netpoll` | Go netpoll 高并发核心 |
-| `08-framing-protocols` | 粘包拆包与协议设计 |
-| `09-http-internals` | HTTP 标准库底层 |
-| `10-server-architecture` | 高并发服务器架构 |
-| `11-nio-reactor` | 非阻塞 IO 与 Reactor |
-| `12-tuning-and-issues` | 性能调优与线上问题 |
-| `13-projects-optional` | 实战项目（可选） |
-
----
-
-## 01-io-fundamentals
-
-**建议顺序**：`01` 定义与分类 → `02`/`03` 阻塞与非阻塞、同步与异步（正交）→ `04` 特权级与 syscall → `05` 缓冲/页缓存/零拷贝 → `06` 文件与网络对比收束，再进入 **02-io-models**。
-
-- [01-什么是IO](./01-io-fundamentals/01-什么是IO.md)
-- [02-阻塞与非阻塞](./01-io-fundamentals/02-阻塞与非阻塞.md)
-- [03-同步与异步](./01-io-fundamentals/03-同步与异步.md)
-- [04-用户态与内核态](./01-io-fundamentals/04-用户态与内核态.md)
-- [05-缓冲区、页缓存、零拷贝](./01-io-fundamentals/05-缓冲区、页缓存、零拷贝.md)
-- [06-文件IO vs 网络IO](./01-io-fundamentals/06-文件IO%20vs%20网络IO.md)
-
-## 02-io-models
-
-**建议顺序**：`01` 总览 → `02`～`03`（BIO/NIO）→ `04`～`07`（多路复用与 epoll）→ `08`～`09` → `10` 收束；与 **01-io-fundamentals** 的阻塞/非阻塞、同步/异步两篇对照读。
-
-- [01-五大IO模型总览](./02-io-models/01-五大IO模型总览.md)
-- [02-阻塞IO BIO](./02-io-models/02-阻塞IO%20BIO.md)
-- [03-非阻塞IO NIO](./02-io-models/03-非阻塞IO%20NIO.md)
-- [04-IO多路复用-select](./02-io-models/04-IO多路复用-select.md)
-- [05-IO多路复用-poll](./02-io-models/05-IO多路复用-poll.md)
-- [06-IO多路复用-epoll原理](./02-io-models/06-IO多路复用-epoll原理.md)
-- [07-epoll-LT与ET模式](./02-io-models/07-epoll-LT与ET模式.md)
-- [08-信号驱动IO](./02-io-models/08-信号驱动IO.md)
-- [09-异步IO AIO](./02-io-models/09-异步IO%20AIO.md)
-- [10-五大IO模型对比总结](./02-io-models/10-五大IO模型对比总结.md)
-
-## 03-linux-networking
-
-**建议顺序**：`01`～`03`（socket/fd/创建）→ `04`～`05`（握手/挥手内核）→ `06`～`07`（状态机与队列）→ `08`（缓冲）；与 **02-io-models**、**04-tcp** 交叉对照。
-
-- [01-socket是什么](./03-linux-networking/01-socket是什么.md)
-- [02-file-descriptor-fd](./03-linux-networking/02-file-descriptor-fd.md)
-- [03-socket创建流程](./03-linux-networking/03-socket创建流程.md)
-- [04-三次握手内核做了什么](./03-linux-networking/04-三次握手内核做了什么.md)
-- [05-四次挥手内核做了什么](./03-linux-networking/05-四次挥手内核做了什么.md)
-- [06-TCP连接状态](./03-linux-networking/06-TCP连接状态.md)
-- [07-半连接队列与全连接队列](./03-linux-networking/07-半连接队列与全连接队列.md)
-- [08-socket缓冲区SO_RCVBUF与SO_SNDBUF](./03-linux-networking/08-socket缓冲区SO_RCVBUF与SO_SNDBUF.md)
-
-## 04-tcp
-
-**建议顺序**：`01`～`05`（特点、首部、握手/挥手、流控拥塞）→ `06`～`07`（Go 服务端/客户端）→ `08`～`09`（保活与长短连接）；协议与 **03-linux-networking** 内核篇对读。
-
-- [01-TCP特点](./04-tcp/01-TCP特点.md)
-- [02-TCP报文结构](./04-tcp/02-TCP报文结构.md)
-- [03-三次握手](./04-tcp/03-三次握手.md)
-- [04-四次挥手](./04-tcp/04-四次挥手.md)
-- [05-TCP重传、滑动窗口、拥塞控制](./04-tcp/05-TCP重传、滑动窗口、拥塞控制.md)
-- [06-Go-TCP服务端](./04-tcp/06-Go-TCP服务端.md)
-- [07-Go-TCP客户端](./04-tcp/07-Go-TCP客户端.md)
-- [08-TCP心跳保活](./04-tcp/08-TCP心跳保活.md)
-- [09-TCP长连接与短连接](./04-tcp/09-TCP长连接与短连接.md)
-
-## 05-udp-multicast
-
-- [01-UDP特点](./05-udp-multicast/01-UDP特点.md)
-- [02-UDP报文结构](./05-udp-multicast/02-UDP报文结构.md)
-- [03-Go-UDP服务端](./05-udp-multicast/03-Go-UDP服务端.md)
-- [04-Go-UDP客户端](./05-udp-multicast/04-Go-UDP客户端.md)
-- [05-组播与广播](./05-udp-multicast/05-组播与广播.md)
-- [06-UDP可靠传输设计](./05-udp-multicast/06-UDP可靠传输设计.md)
-
-## 06-go-net-internals
-
-- [01-net.Conn接口](./06-go-net-internals/01-net.Conn接口.md)
-- [02-Listener接口](./06-go-net-internals/02-Listener接口.md)
-- [03-TCPConn结构](./06-go-net-internals/03-TCPConn结构.md)
-- [04-UDPConn结构](./06-go-net-internals/04-UDPConn结构.md)
-- [05-net.Dial底层流程](./06-go-net-internals/05-net.Dial底层流程.md)
-- [06-net.Listen底层流程](./06-go-net-internals/06-net.Listen底层流程.md)
-- [07-pollDesc核心结构与原理](./06-go-net-internals/07-pollDesc核心结构与原理.md)（**net ↔ internal/poll ↔ netpoll 桥梁**）
-- [08-网络超时与Deadline底层实现](./06-go-net-internals/08-网络超时与Deadline底层实现.md)
-- [09-网络错误分类与处理](./06-go-net-internals/09-网络错误分类与处理.md)
-- [10-连接关闭与资源泄漏排查](./06-go-net-internals/10-连接关闭与资源泄漏排查.md)
-
-**建议顺序**：`01`～`06` 与 **`07`** 穿插读（`07` 为枢纽），再 **`08`～`10`** 补工程闭环。
-
-## 07-go-netpoll
-
-- [01-Go为什么高并发](./07-go-netpoll/01-Go为什么高并发.md)
-- [02-netpoll是什么](./07-go-netpoll/02-netpoll是什么.md)
-- [03-epoll-kqueue-IOCP支持](./07-go-netpoll/03-epoll-kqueue-IOCP支持.md)
-- [04-Go的IO模型到底是什么](./07-go-netpoll/04-Go的IO模型到底是什么.md)
-- [05-Go的Read与Write为什么看起来阻塞](./07-go-netpoll/05-Go的Read与Write为什么看起来阻塞.md)
-- [06-Goroutine与netpoll调度](./07-go-netpoll/06-Goroutine与netpoll调度.md)
-- [07-netpoll源码核心流程](./07-go-netpoll/07-netpoll源码核心流程.md)
-- [08-netpoll与GMP调度深度联动](./07-go-netpoll/08-netpoll与GMP调度深度联动.md)
-- [09-pollDesc等待队列与唤醒原理](./07-go-netpoll/09-pollDesc等待队列与唤醒原理.md)（承接 **06/07**）
-- [10-netpoll常见坑与优化](./07-go-netpoll/10-netpoll常见坑与优化.md)
-
-**建议顺序**：`01` 动机 → `02`→`03`→`04`→`05` 建立语义 → `06`→`07` 建立调度/源码骨架 → **`08`～`10`** 与 **06 之 `07-pollDesc`** 交叉闭环。
-
-## 08-framing-protocols
-
-- [01-什么是粘包拆包](./08-framing-protocols/01-什么是粘包拆包.md)
-- [02-为什么TCP会粘包](./08-framing-protocols/02-为什么TCP会粘包.md)
-- [03-固定长度协议](./08-framing-protocols/03-固定长度协议.md)
-- [04-分隔符协议](./08-framing-protocols/04-分隔符协议.md)
-- [05-长度+报文协议（最常用）](./08-framing-protocols/05-长度+报文协议（最常用）.md)
-- [06-Protobuf协议](./08-framing-protocols/06-Protobuf协议.md)
-- [07-自定义私有协议](./08-framing-protocols/07-自定义私有协议.md)
-
-## 09-http-internals
-
-- [01-HTTP1.1](./09-http-internals/01-HTTP1.1.md)
-- [02-HTTP2](./09-http-internals/02-HTTP2.md)
-- [03-HTTP3](./09-http-internals/03-HTTP3.md)
-- [04-Go-net-http底层](./09-http-internals/04-Go-net-http底层.md)
-- [05-路由、ServeMux](./09-http-internals/05-路由、ServeMux.md)
-- [06-http.Server结构体](./09-http-internals/06-http.Server结构体.md)
-- [07-长连接、流水线](./09-http-internals/07-长连接、流水线.md)
-
-## 10-server-architecture
-
-- [01-acceptor-worker模型](./10-server-architecture/01-acceptor-worker模型.md)
-- [02-reactor模型](./10-server-architecture/02-reactor模型.md)
-- [03-多reactor](./10-server-architecture/03-多reactor.md)
-- [04-goroutine-per-conn](./10-server-architecture/04-goroutine-per-conn.md)
-- [05-协程池](./10-server-architecture/05-协程池.md)
-- [06-连接池](./10-server-architecture/06-连接池.md)
-- [07-高并发最佳实践](./10-server-architecture/07-高并发最佳实践.md)
-
-## 11-nio-reactor
-
-- [01-非阻塞socket](./11-nio-reactor/01-非阻塞socket.md)
-- [02-Reactor模式](./11-nio-reactor/02-Reactor模式.md)
-- [03-主从Reactor](./11-nio-reactor/03-主从Reactor.md)
-- [04-Go如何实现Reactor](./11-nio-reactor/04-Go如何实现Reactor.md)
-
-## 12-tuning-and-issues
-
-- [01-TCP参数调优](./12-tuning-and-issues/01-TCP参数调优.md)
-- [02-端口范围、backlog](./12-tuning-and-issues/02-端口范围、backlog.md)
-- [03-大量TIME_WAIT问题](./12-tuning-and-issues/03-大量TIME_WAIT问题.md)
-- [04-CLOSE_WAIT问题](./12-tuning-and-issues/04-CLOSE_WAIT问题.md)
-- [05-大量连接占内存问题](./12-tuning-and-issues/05-大量连接占内存问题.md)
-- [06-pprof网络调优](./12-tuning-and-issues/06-pprof网络调优.md)
-- [07-高并发压测指标](./12-tuning-and-issues/07-高并发压测指标.md)
-
-## 13-projects-optional
-
-- [01-Echo服务器](./13-projects-optional/01-Echo服务器.md)
-- [02-聊天室](./13-projects-optional/02-聊天室.md)
-- [03-文件传输](./13-projects-optional/03-文件传输.md)
-- [04-代理服务器](./13-projects-optional/04-代理服务器.md)
-- [05-高性能网关](./13-projects-optional/05-高性能网关.md)
-
----
-
-## 建议阅读顺序
-
-按 **01 → 13** 文件夹顺序；**01-io-fundamentals** 之后接 **02-io-models**，再进 **03-linux-networking**（fd/队列/缓冲）与 **04-tcp**（协议 + Go 编程）形成闭环；**06-go-net-internals** 与 **07-go-netpoll** 以 **06 之 `07-pollDesc…` + 07 之 `08`～`10`** 为枢纽交叉读源码；**10-server-architecture** 与 **11-nio-reactor** 合并理解 Reactor 与 Go 的关系。
+1. **跟书**：从 **01-foundation-stage** 起，打开每章 **`README.md`**，按其中链接跳转到 `legacy-topic-index` 或仓库其它模块。  
+2. **跟技术线深挖**：直接打开 [`legacy-topic-index/FILES.md`](./legacy-topic-index/FILES.md)，按 **01→13** 子目录顺序读（与重构前一致）。  
+3. **第 3 章 + netpoll**：以 **chapter03-socket-programming** 的链接表为主干，穿插 **06-go-net-internals** 与 **07-go-netpoll**。
