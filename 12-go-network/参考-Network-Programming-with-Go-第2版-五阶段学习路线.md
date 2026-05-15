@@ -30,6 +30,8 @@
 
 **关键总结**：建立**分层思维** + 记住八大谬误；后续 Socket、HTTP、RPC 都建立在这套认知上。
 
+结构化笔记：[`01-foundation-stage/chapter01-architectural-layers/note.md`](./01-foundation-stage/chapter01-architectural-layers/note.md)。
+
 ### 第 2 章 Go 语言概述（Overview of the Go Language）
 
 **核心知识点（面向网络编程）**

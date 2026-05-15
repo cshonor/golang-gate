@@ -1,6 +1,8 @@
 # Chapter 01 — Architectural Layers（架构分层）
 
-原书第 1 章：TCP/IP 与 OSI、连接模型、分布式八大谬误等。
+原书第 1 章：TCP/IP 与 OSI、封装、连接/通信模型、组件分布、八大谬误等。
+
+- [note.md](./note.md) — 本章精读笔记（协议栈、RPC/消息、Gartner 分布模型、八大谬误与后续章节衔接）
 
 ## 与本仓库深度笔记的衔接（Legacy）
 
